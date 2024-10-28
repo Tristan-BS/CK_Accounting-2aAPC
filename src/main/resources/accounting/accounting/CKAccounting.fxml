@@ -11,8 +11,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="681.0" maxWidth="900.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="accounting.accounting.Controller">
+<AnchorPane maxHeight="681.0" maxWidth="907.0" prefHeight="600.0" prefWidth="907.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="accounting.accounting.Controller">
    <children>
+      <AnchorPane fx:id="AP_SBText" layoutX="41.0" layoutY="46.0" prefHeight="554.0" prefWidth="80.0" style="-fx-background-color: White;">
+         <children>
+            <VBox prefHeight="554.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Region prefHeight="10.0" prefWidth="50.0" />
+                  <Button fx:id="B_Home" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Home_Pressed" style="-fx-background-color: transparent;" text="Home">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Region prefHeight="15.0" prefWidth="50.0" />
+                  <Button fx:id="B_Invoices" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Invoices_Pressed" style="-fx-background-color: transparent;" text="Invoices" />
+                  <Region prefHeight="18.0" prefWidth="50.0" />
+                  <Button fx:id="B_Documents" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Documents_Pressed" style="-fx-background-color: transparent;" text="Documents" />
+                  <Region prefHeight="17.0" prefWidth="50.0" />
+                  <Button fx:id="B_Evaluations" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Evaluation_Pressed" style="-fx-background-color: transparent;" text="Evaluations" />
+                  <Region prefHeight="15.0" prefWidth="50.0" />
+                  <Button fx:id="B_Account" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Account_Pressed" style="-fx-background-color: transparent;" text="Account" />
+                  <Region prefHeight="312.0" prefWidth="50.0" />
+                  <Button fx:id="B_Exit" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Exit_Pressed" style="-fx-background-color: transparent;" text="Exit" />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
       <AnchorPane prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #520166;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -34,7 +58,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutY="46.4" prefHeight="554.0" prefWidth="44.0" style="-fx-background-color: White;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="46.0">
+      <AnchorPane fx:id="AP_IconMenu" layoutY="46.4" prefHeight="554.0" prefWidth="44.0" style="-fx-background-color: White;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="46.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="44.0" spacing="10.0" AnchorPane.topAnchor="5.0">
                <children>
@@ -91,29 +115,6 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="AP_SBText" layoutX="41.0" layoutY="46.0" prefHeight="554.0" prefWidth="80.0" style="-fx-background-color: White;">
-         <children>
-            <VBox prefHeight="554.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Region prefHeight="10.0" prefWidth="50.0" />
-                  <Button fx:id="B_Home" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Home_Pressed" style="-fx-background-color: transparent;" text="Home">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
-                  <Region prefHeight="15.0" prefWidth="50.0" />
-                  <Button fx:id="B_Invoices" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Invoices_Pressed" style="-fx-background-color: transparent;" text="Invoices" />
-                  <Region prefHeight="18.0" prefWidth="50.0" />
-                  <Button fx:id="B_Documents" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Documents_Pressed" style="-fx-background-color: transparent;" text="Documents" />
-                  <Region prefHeight="17.0" prefWidth="50.0" />
-                  <Button fx:id="B_Evaluations" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Evaluation_Pressed" style="-fx-background-color: transparent;" text="Evaluations" />
-                  <Region prefHeight="15.0" prefWidth="50.0" />
-                  <Button fx:id="B_Account" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Account_Pressed" style="-fx-background-color: transparent;" text="Account" />
-                  <Region prefHeight="312.0" prefWidth="50.0" />
-                  <Button fx:id="B_Exit" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Exit_Pressed" style="-fx-background-color: transparent;" text="Exit" />
-               </children>
-            </VBox>
-         </children>
-      </AnchorPane>
+      <AnchorPane fx:id="AP_Page" layoutX="120.0" layoutY="46.0" prefHeight="554.0" prefWidth="788.0" style="-fx-background-color: BLACK;" />
    </children>
 </AnchorPane>
