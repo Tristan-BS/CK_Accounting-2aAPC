@@ -50,8 +50,21 @@ public class Controller {
     @FXML
     private AnchorPane AP_Page;
 
+    // Tab from TabPane Pages
+    @FXML
+    private TabPane TP_Pages;
+    @FXML
+    private Tab TPP_Home;
+    @FXML
+    private Tab TPP_Invoices;
+    @FXML
+    private Tab TPP_Documents;
+    @FXML
+    private Tab TPP_Evaluations;
+    @FXML
+    private Tab TPP_Account;
+
     private boolean isMenuOpen = false;
-    private int MenuWidth = 75;
 
     // Methods for Button Pressed
 
@@ -67,19 +80,20 @@ public class Controller {
         Timeline timeline = new Timeline();
         KeyFrame keyFrame;
 
+        int menuWidth = 75;
         if (isMenuOpen) {
             keyFrame = new KeyFrame(
                     Duration.millis(200),
-                    new KeyValue(AP_Page.prefWidthProperty(), AP_Page.getPrefWidth() - MenuWidth), // Set width to original width
-                    new KeyValue(AP_Page.layoutXProperty(), AP_Page.getLayoutX() + MenuWidth) // Set x position the original x position
+                    new KeyValue(AP_Page.prefWidthProperty(), AP_Page.getPrefWidth() - menuWidth), // Set width to original width
+                    new KeyValue(AP_Page.layoutXProperty(), AP_Page.getLayoutX() + menuWidth) // Set x position the original x position
             );
             transition.setByX(125);
             isMenuOpen = false;
         } else {
             keyFrame = new KeyFrame(
                     Duration.millis(200),
-                    new KeyValue(AP_Page.prefWidthProperty(), AP_Page.getPrefWidth() + MenuWidth), // Set width to original width + MenuWidth
-                    new KeyValue(AP_Page.layoutXProperty(), AP_Page.getLayoutX() - MenuWidth) // Set x position to original x position - MenuWidth
+                    new KeyValue(AP_Page.prefWidthProperty(), AP_Page.getPrefWidth() + menuWidth), // Set width to original width + MenuWidth
+                    new KeyValue(AP_Page.layoutXProperty(), AP_Page.getLayoutX() - menuWidth) // Set x position to original x position - MenuWidth
             );
             transition.setByX(-125);
             isMenuOpen = true;
@@ -93,23 +107,23 @@ public class Controller {
 
     @FXML
     private void On_B_Home_Pressed() {
-        System.out.println("Home Button Pressed");
+        TP_Pages.getSelectionModel().select(TPP_Home);
     }
     @FXML
     private void On_B_Invoices_Pressed() {
-        System.out.println("Invoices Button Pressed");
+        TP_Pages.getSelectionModel().select(TPP_Invoices);
     }
     @FXML
     private void On_B_Documents_Pressed() {
-        System.out.println("Documents Button Pressed");
+        TP_Pages.getSelectionModel().select(TPP_Documents);
     }
     @FXML
     private void On_B_Evaluation_Pressed() {
-        System.out.println("Evaluation Button Pressed");
+        TP_Pages.getSelectionModel().select(TPP_Evaluations);
     }
     @FXML
     private void On_B_Account_Pressed() {
-        System.out.println("Account Button Pressed");
+        TP_Pages.getSelectionModel().select(TPP_Account);
     }
     @FXML
     private void On_B_Exit_Pressed() {
