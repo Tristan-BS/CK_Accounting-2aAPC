@@ -1,9 +1,11 @@
 package accounting.accounting;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 
 public class Controller {
 
@@ -43,10 +45,26 @@ public class Controller {
     @FXML
     private AnchorPane AP_SBText;
 
+    private boolean isMenuOpen = false;
+
     // Methods for Button Pressed
     @FXML
     private void On_B_Menu_Pressed() {
         System.out.println("Home Button Pressed");
+
+        TranslateTransition transition = new TranslateTransition();
+        transition.setDuration(Duration.millis(250)); // Duration of the animation
+        transition.setNode(AP_SBText); // Node to be animated
+
+        if (isMenuOpen) {
+            transition.setByX(125); // Change in X position (positive value to move right)
+            transition.play();
+            isMenuOpen = false;
+        } else {
+            transition.setByX(-125); // Change in X position (negative value to move left)
+            transition.play();
+            isMenuOpen = true;
+        }
     }
     @FXML
     private void On_B_Home_Pressed() {
@@ -72,4 +90,6 @@ public class Controller {
     private void On_B_Exit_Pressed() {
         System.exit(0);
     }
+
+
 }
