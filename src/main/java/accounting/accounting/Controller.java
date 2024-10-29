@@ -3,10 +3,14 @@ package accounting.accounting;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -52,6 +56,10 @@ public class Controller {
     @FXML
     private Label L_DSGVO;
 
+    // Checkbox
+    @FXML
+    private CheckBox CB_DSGVO;
+
     // Other
 
     private boolean isMenuOpen = false;
@@ -59,6 +67,11 @@ public class Controller {
 
     public Controller() {
         DB.ConnectToDatabase();
+    }
+
+    @FXML
+    public void initialize() {
+
     }
 
     // Methods for Button Pressed
@@ -176,6 +189,20 @@ public class Controller {
 
         // Change to New Customer Page
         TP_Pages.getSelectionModel().select(TPP_NewCustomer);
+    }
+
+    @FXML
+    private void On_CB_DSGVO_Pressed() throws IOException {
+        if (CB_DSGVO.isSelected()) {
+            File pdfFile = new File("C:\\APC\\KNAPP\\Berufsschule\\2LJ Berufsschule\\ITL 1-2 JRZ\\Aufgabe 9 - Buchhaltung\\Accounting\\documentation\\GDPR\\DSGVO.pdf");
+            if (pdfFile.exists()) {
+                Desktop.getDesktop().browse(pdfFile.toURI());
+            } else {
+                System.out.println("DSGVO.pdf not found");
+            }
+        } else {
+            System.out.println("DSGVO Declined");
+        }
     }
 
     // Edit a existing Customer

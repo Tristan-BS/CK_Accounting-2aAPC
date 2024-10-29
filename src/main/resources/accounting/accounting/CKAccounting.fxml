@@ -23,419 +23,439 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="844.0" maxWidth="1509.0" prefHeight="822.0" prefWidth="1553.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="accounting.accounting.Controller">
+<AnchorPane maxHeight="844.0" maxWidth="1509.0" prefHeight="841.0" prefWidth="1083.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="accounting.accounting.Controller">
    <children>
-      <AnchorPane fx:id="AP_SBText" layoutX="41.0" layoutY="46.4" prefHeight="795.0" prefWidth="80.0" style="-fx-background-color: White;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="1388.0" AnchorPane.topAnchor="46.0">
+      <GridPane prefHeight="841.0" prefWidth="1510.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.5999755859375" minWidth="10.0" prefWidth="518.4000244140625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="619.5999755859375" minWidth="10.0" prefWidth="619.5999755859375" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <VBox prefHeight="592.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="AP_SBText" maxWidth="80.0" minWidth="80.0" prefHeight="795.0" prefWidth="80.0" style="-fx-background-color: White;" GridPane.rowIndex="1" GridPane.rowSpan="2">
                <children>
-                  <Region prefHeight="10.0" prefWidth="50.0" />
-                  <Button fx:id="B_Home" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Home_Pressed" style="-fx-background-color: transparent;" text="Home">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
-                  <Region prefHeight="15.0" prefWidth="50.0" />
-                  <Button fx:id="B_Invoices" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Invoices_Pressed" style="-fx-background-color: transparent;" text="Invoices" />
-                  <Region prefHeight="15.0" prefWidth="50.0" />
-                  <Button fx:id="B_Customer" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="61.0" mnemonicParsing="false" onAction="#On_B_Customer_Pressed" style="-fx-background-color: transparent;" text="Customers" />
-                  <Region layoutX="10.0" layoutY="87.0" prefHeight="20.0" prefWidth="50.0" />
-                  <Button fx:id="B_Documents" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Documents_Pressed" style="-fx-background-color: transparent;" text="Documents" />
-                  <Region prefHeight="18.0" prefWidth="50.0" />
-                  <Button fx:id="B_Evaluations" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Evaluation_Pressed" style="-fx-background-color: transparent;" text="Evaluations" />
-                  <Region prefHeight="13.0" prefWidth="50.0" />
-                  <Button fx:id="B_Account" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Account_Pressed" style="-fx-background-color: transparent;" text="Account" />
-                  <Region prefHeight="510.0" prefWidth="500.0" />
-                  <Button fx:id="B_Exit" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Exit_Pressed" style="-fx-background-color: transparent;" text="Exit" />
+                  <VBox minWidth="80.0" prefHeight="592.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Region prefHeight="10.0" prefWidth="50.0" />
+                        <Button fx:id="B_Home" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Home_Pressed" style="-fx-background-color: transparent;" text="Home">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Region prefHeight="15.0" prefWidth="50.0" />
+                        <Button fx:id="B_Invoices" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Invoices_Pressed" style="-fx-background-color: transparent;" text="Invoices" />
+                        <Region prefHeight="15.0" prefWidth="50.0" />
+                        <Button fx:id="B_Customer" alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="61.0" mnemonicParsing="false" onAction="#On_B_Customer_Pressed" style="-fx-background-color: transparent;" text="Customers" />
+                        <Region layoutX="10.0" layoutY="87.0" prefHeight="20.0" prefWidth="50.0" />
+                        <Button fx:id="B_Documents" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Documents_Pressed" style="-fx-background-color: transparent;" text="Documents" />
+                        <Region prefHeight="18.0" prefWidth="50.0" />
+                        <Button fx:id="B_Evaluations" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Evaluation_Pressed" style="-fx-background-color: transparent;" text="Evaluations" />
+                        <Region prefHeight="13.0" prefWidth="50.0" />
+                        <Button fx:id="B_Account" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Account_Pressed" style="-fx-background-color: transparent;" text="Account" />
+                        <Region minHeight="465.0" prefHeight="235.0" />
+                        <Button fx:id="B_Exit" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Exit_Pressed" style="-fx-background-color: transparent;" text="Exit" />
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="AP_IconMenu" layoutY="46.4" prefHeight="822.0" prefWidth="44.0" style="-fx-background-color: White;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="46.0">
-         <children>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="44.0" spacing="10.0" AnchorPane.topAnchor="5.0">
+               <GridPane.margin>
+                  <Insets left="44.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane fx:id="AP_IconMenu" maxWidth="44.0" prefHeight="746.0" prefWidth="219.0" style="-fx-background-color: White;" GridPane.rowIndex="1" GridPane.rowSpan="2">
                <children>
-                  <ImageView fx:id="IV_Home" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Home_Pressed" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Images/Icons/Home_Normal.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="IV_Invoices" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Invoices_Pressed" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Images/Icons/Invoice_Normal.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="IV_Customer" fitHeight="32.0" fitWidth="32.0" layoutX="16.0" layoutY="52.0" onMouseClicked="#On_B_Customer_Pressed" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Images/Icons/Customers_Normal.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="IV_Documents" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Documents_Pressed" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Images/Icons/Documents_Normal.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="IV_Evaluation" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Evaluation_Pressed" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Images/Icons/Evaluation_Normal.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="IV_Account" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Account_Pressed" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Images/Icons/Account_Normal.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </ImageView>
-                  <Region minHeight="485.0" prefHeight="200.0" prefWidth="485.0" />
-                  <ImageView fx:id="IV_Exit" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Exit_Pressed" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Images/Icons/logout-box-r-line.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" />
-                     </VBox.margin>
-                  </ImageView>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="44.0" spacing="10.0" AnchorPane.topAnchor="5.0">
+                     <children>
+                        <ImageView fx:id="IV_Home" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Home_Pressed" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/Icons/Home_Normal.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="IV_Invoices" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Invoices_Pressed" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/Icons/Invoice_Normal.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="IV_Customer" fitHeight="32.0" fitWidth="32.0" layoutX="16.0" layoutY="52.0" onMouseClicked="#On_B_Customer_Pressed" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/Icons/Customers_Normal.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="IV_Documents" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Documents_Pressed" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/Icons/Documents_Normal.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="IV_Evaluation" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Evaluation_Pressed" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/Icons/Evaluation_Normal.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ImageView>
+                        <ImageView fx:id="IV_Account" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Account_Pressed" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/Icons/Account_Normal.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ImageView>
+                        <Region minHeight="440.0" prefHeight="235.0" prefWidth="235.0" />
+                        <ImageView fx:id="IV_Exit" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Exit_Pressed" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/Icons/logout-box-r-line.png" />
+                           </image>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </ImageView>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
-         </children>
-      </AnchorPane>
-      <AnchorPane prefHeight="46.0" prefWidth="1553.0" style="-fx-background-color: #520166;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            </AnchorPane>
+            <AnchorPane fx:id="AP_Headbar" prefHeight="46.0" prefWidth="1553.0" style="-fx-background-color: #520166;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnSpan="3">
                <children>
-                  <ImageView fx:id="IV_Menu" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Menu_Pressed" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Images/Icons/Menu.png" />
-                     </image>
-                  </ImageView>
-                  <Label maxHeight="44.0" text="CK Accounting" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="6.0" />
-                     </HBox.margin>
-                  </Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fx:id="IV_Menu" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Menu_Pressed" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Images/Icons/Menu.png" />
+                           </image>
+                        </ImageView>
+                        <Label maxHeight="44.0" text="CK Accounting" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="6.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
                </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="AP_Page" layoutX="120.0" layoutY="46.0" prefHeight="795.0" prefWidth="1388.0">
-         <children>
-            <TabPane fx:id="TP_Pages" prefHeight="592.0" prefWidth="788.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="0.0" tabMaxWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <tabs>
-                <Tab fx:id="TPP_Home" text="Home">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <GridPane prefHeight="587.0" prefWidth="954.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab fx:id="TPP_Invoices" text="Invoices">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <GridPane prefHeight="545.0" prefWidth="788.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
+            </AnchorPane>
+            <AnchorPane fx:id="AP_Page" prefHeight="795.0" prefWidth="1388.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
+               <children>
+                  <TabPane fx:id="TP_Pages" layoutX="-28.8" prefHeight="807.0" prefWidth="1384.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="0.0" tabMaxWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-29.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <tabs>
+                        <Tab fx:id="TPP_Home" text="Home">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Label alignment="CENTER" text="Invoices" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-                                       <font>
-                                          <Font name="System Bold" size="28.0" />
-                                       </font>
-                                    </Label>
-                                    <TableView fx:id="TV_ShowInvoices" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                                      <columns>
-                                        <TableColumn prefWidth="131.1999740600586" text="C1" />
-                                        <TableColumn prefWidth="90.39996337890625" text="C2" />
-                                          <TableColumn minWidth="4.800048828125" prefWidth="110.4000244140625" text="C3" />
-                                          <TableColumn prefWidth="84.00003051757812" text="C4" />
-                                          <TableColumn prefWidth="81.5999755859375" text="C5" />
-                                          <TableColumn prefWidth="85.5999755859375" text="C6" />
-                                          <TableColumn prefWidth="88.800048828125" text="C7" />
-                                          <TableColumn prefWidth="112.7999267578125" text="C8" />
-                                      </columns>
-                                    </TableView>
-                                    <GridPane GridPane.columnIndex="2">
-                                      <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.8000244140625" minWidth="10.0" prefWidth="154.199951171875" />
-                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.199951171875" minWidth="10.0" prefWidth="107.800048828125" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <Button fx:id="B_NewInvoice" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_NewInvoice_Pressed" text="New Invoice" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-                                             <GridPane.margin>
-                                                <Insets bottom="15.0" right="15.0" />
-                                             </GridPane.margin>
-                                          </Button>
-                                          <Button fx:id="B_DeleteInvoice" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_DeleteInvoice_Pressed" text="Delete Invoice" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-                                             <GridPane.margin>
-                                                <Insets bottom="15.0" right="15.0" />
-                                             </GridPane.margin>
-                                          </Button>
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </GridPane>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                  <Tab fx:id="TPP_Customer" text="Customers">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="589.0" prefWidth="788.0">
-                           <children>
-                              <GridPane layoutX="2.4" prefHeight="587.0" prefWidth="954.0" AnchorPane.leftAnchor="2.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Label fx:id="L_Customer_Heading" alignment="CENTER" text="Customers" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-                                       <font>
-                                          <Font name="System Bold" size="28.0" />
-                                       </font>
-                                    </Label>
-                                    <TableView fx:id="TV_ShowCustomer" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                                       <columns>
-                                          <TableColumn prefWidth="131.1999740600586" text="C1" />
-                                          <TableColumn prefWidth="90.39996337890625" text="C2" />
-                                          <TableColumn minWidth="4.800048828125" prefWidth="110.4000244140625" text="C3" />
-                                          <TableColumn prefWidth="84.00003051757812" text="C4" />
-                                          <TableColumn prefWidth="81.5999755859375" text="C5" />
-                                          <TableColumn prefWidth="85.5999755859375" text="C6" />
-                                          <TableColumn prefWidth="88.800048828125" text="C7" />
-                                          <TableColumn prefWidth="112.7999267578125" text="C8" />
-                                       </columns>
-                                    </TableView>
-                                    <GridPane GridPane.columnIndex="2">
+                                    <GridPane prefHeight="587.0" prefWidth="954.0">
                                        <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.8000244140625" minWidth="10.0" prefWidth="140.0000732421875" />
-                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.000032043457" minWidth="10.0" prefWidth="122.39992675781247" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                        </columnConstraints>
                                        <rowConstraints>
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="TPP_Invoices" text="Invoices">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane prefHeight="545.0" prefWidth="788.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Button fx:id="B_DeleteCustomer" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_DeleteCustomer_Pressed" text="Delete Customer" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
-                                             <GridPane.margin>
-                                                <Insets bottom="15.0" />
-                                             </GridPane.margin>
-                                          </Button>
-                                          <Button fx:id="B_EditCustomer" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="119.0" mnemonicParsing="false" onAction="#On_B_EditCustomer_Pressed" text="Edit Customer" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                          <Label alignment="CENTER" text="Invoices" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                             <font>
+                                                <Font name="System Bold" size="28.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="TV_ShowInvoices" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <columns>
+                                                <TableColumn prefWidth="131.1999740600586" text="C1" />
+                                                <TableColumn prefWidth="90.39996337890625" text="C2" />
+                                                <TableColumn minWidth="4.800048828125" prefWidth="110.4000244140625" text="C3" />
+                                                <TableColumn prefWidth="84.00003051757812" text="C4" />
+                                                <TableColumn prefWidth="81.5999755859375" text="C5" />
+                                                <TableColumn prefWidth="85.5999755859375" text="C6" />
+                                                <TableColumn prefWidth="88.800048828125" text="C7" />
+                                                <TableColumn prefWidth="112.7999267578125" text="C8" />
+                                             </columns>
+                                          </TableView>
+                                          <GridPane GridPane.columnIndex="2">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.8000244140625" minWidth="10.0" prefWidth="154.199951171875" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="126.199951171875" minWidth="10.0" prefWidth="107.800048828125" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Button fx:id="B_NewInvoice" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_NewInvoice_Pressed" text="New Invoice" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="15.0" right="15.0" />
+                                                   </GridPane.margin>
+                                                </Button>
+                                                <Button fx:id="B_DeleteInvoice" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_DeleteInvoice_Pressed" text="Delete Invoice" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="15.0" right="15.0" />
+                                                   </GridPane.margin>
+                                                </Button>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="TPP_Customer" text="Customers">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="589.0" prefWidth="788.0">
+                                 <children>
+                                    <GridPane layoutX="2.4" prefHeight="800.0" prefWidth="1386.0" AnchorPane.leftAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label fx:id="L_Customer_Heading" alignment="CENTER" text="Customers" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                             <font>
+                                                <Font name="System Bold" size="28.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="TV_ShowCustomer" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                             <columns>
+                                                <TableColumn prefWidth="131.1999740600586" text="C1" />
+                                                <TableColumn prefWidth="90.39996337890625" text="C2" />
+                                                <TableColumn minWidth="4.800048828125" prefWidth="110.4000244140625" text="C3" />
+                                                <TableColumn prefWidth="84.00003051757812" text="C4" />
+                                                <TableColumn prefWidth="81.5999755859375" text="C5" />
+                                                <TableColumn prefWidth="85.5999755859375" text="C6" />
+                                                <TableColumn prefWidth="88.800048828125" text="C7" />
+                                                <TableColumn prefWidth="112.7999267578125" text="C8" />
+                                             </columns>
+                                          </TableView>
+                                          <GridPane GridPane.columnIndex="2">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.8000244140625" minWidth="10.0" prefWidth="140.0000732421875" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="140.000032043457" minWidth="10.0" prefWidth="122.39992675781247" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Button fx:id="B_DeleteCustomer" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_DeleteCustomer_Pressed" text="Delete Customer" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="15.0" />
+                                                   </GridPane.margin>
+                                                </Button>
+                                                <Button fx:id="B_EditCustomer" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="119.0" mnemonicParsing="false" onAction="#On_B_EditCustomer_Pressed" text="Edit Customer" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="15.0" />
+                                                   </GridPane.margin>
+                                                </Button>
+                                             </children>
+                                          </GridPane>
+                                          <Button fx:id="B_NewCustomer" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_NewCustomer_Pressed" text="New Customer" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                                              <GridPane.margin>
                                                 <Insets bottom="15.0" />
                                              </GridPane.margin>
                                           </Button>
                                        </children>
                                     </GridPane>
-                                    <Button fx:id="B_NewCustomer" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_NewCustomer_Pressed" text="New Customer" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
-                                       <GridPane.margin>
-                                          <Insets bottom="15.0" />
-                                       </GridPane.margin>
-                                    </Button>
                                  </children>
-                              </GridPane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="TPP_Documents" text="Documents">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Page Documents" />
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </Tab>
-                  <Tab fx:id="TPP_Evaluations" text="Evaluations">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Page Evaluations" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="TPP_Account" text="Account">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Button mnemonicParsing="false" text="Page Account" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="TPP_NewInvoice" text="New Invoice">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <GridPane prefHeight="545.0" prefWidth="788.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="TPP_Documents" text="Documents">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Label alignment="CENTER" text="New Invoice" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                    <Button mnemonicParsing="false" text="Page Documents" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="TPP_Evaluations" text="Evaluations">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Page Evaluations" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="TPP_Account" text="Account">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Page Account" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="TPP_NewInvoice" text="New Invoice">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane prefHeight="545.0" prefWidth="788.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label alignment="CENTER" text="New Invoice" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                             <font>
+                                                <Font name="System Bold" size="28.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="TPP_NewCustomer" text="New Customer">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="L_VORLAGE5" layoutX="58.0" layoutY="62.0" text="Company Informations">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="L_HeadingNewCustomer" alignment="CENTER" layoutX="-4.0" prefHeight="33.0" prefWidth="1392.0" text="New Customer">
                                        <font>
                                           <Font name="System Bold" size="28.0" />
                                        </font>
                                     </Label>
-                                 </children>
-                              </GridPane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="TPP_NewCustomer" text="New Customer">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Label fx:id="L_VORLAGE5" layoutX="58.0" layoutY="62.0" text="Company Informations">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="L_HeadingNewCustomer" alignment="CENTER" layoutX="-4.0" prefHeight="33.0" prefWidth="1392.0" text="New Customer">
-                                 <font>
-                                    <Font name="System Bold" size="28.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="L_VORLAGE51" layoutX="490.0" layoutY="62.0" text="Contact Person">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Separator layoutX="418.0" layoutY="62.0" orientation="VERTICAL" prefHeight="547.0" prefWidth="32.0" />
-                              <Label layoutX="58.0" layoutY="151.0" prefWidth="100.0" text="Company Name" />
-                              <TextField fx:id="TF_Company" layoutX="58.0" layoutY="169.0" prefWidth="150.0" />
-                              <Label fx:id="L_VORLAGE" layoutX="58.0" layoutY="256.0" prefWidth="100.0" text="Street" />
-                              <TextField fx:id="TF_Street" layoutX="58.0" layoutY="273.0" prefWidth="150.0" />
-                              <Label fx:id="L_VORLAGE3" layoutX="58.0" layoutY="356.0" prefWidth="100.0" text="Location" />
-                              <TextField fx:id="TF_Location" layoutX="58.0" layoutY="374.0" prefWidth="150.0" />
-                              <Label fx:id="L_VORLAGE4" layoutX="58.0" layoutY="465.0" prefHeight="18.0" prefWidth="100.0" text="Country" />
-                              <ComboBox fx:id="CB_Country" layoutX="58.0" layoutY="485.0" prefHeight="26.0" prefWidth="150.0" />
-                              <Label fx:id="L_VORLAGE1" layoutX="244.0" layoutY="256.0" prefWidth="100.0" text="House number" />
-                              <TextField fx:id="TF_HouseNumber" layoutX="244.0" layoutY="272.0" prefWidth="150.0" />
-                              <Label fx:id="L_VORLAGE2" layoutX="244.0" layoutY="356.0" prefWidth="100.0" text="Postal Code" />
-                              <TextField fx:id="TF_PostalCode" layoutX="244.0" layoutY="374.0" prefWidth="150.0" />
-                              <Label fx:id="L_Gender" layoutX="493.0" layoutY="151.0" prefWidth="100.0" text="Geschlecht" />
-                              <ComboBox fx:id="CB_Gender" layoutX="491.0" layoutY="169.0" prefWidth="150.0" />
-                              <Label fx:id="L_Gender2" layoutX="953.0" layoutY="151.0" prefWidth="100.0" text="Geschlecht" />
-                              <ComboBox fx:id="CB_Gender2" layoutX="950.0" layoutY="169.0" prefWidth="150.0" />
-                              <Label fx:id="L_Others" layoutX="482.0" layoutY="495.0" text="Sonstiges" />
-                              <TextArea fx:id="TA_Others" layoutX="549.0" layoutY="455.0" maxHeight="198.0" prefHeight="99.0" prefWidth="772.0" text="&#10;" />
-                              <Label fx:id="L_Title" layoutX="732.0" layoutY="151.0" prefWidth="100.0" text="Titel" />
-                              <ComboBox fx:id="CB_Title" layoutX="732.0" layoutY="169.0" prefWidth="150.0" />
-                              <ComboBox fx:id="CB_Title2" layoutX="1173.0" layoutY="169.0" prefWidth="150.0" />
-                              <Label fx:id="L_Title2" layoutX="1173.0" layoutY="151.0" prefWidth="100.0" text="Titel" />
-                              <Label fx:id="L_Firstname" layoutX="490.0" layoutY="243.0" prefWidth="100.0" text="Vorname" />
-                              <TextField fx:id="TF_Firstname" layoutX="488.0" layoutY="261.0" />
-                              <Label fx:id="L_Firstname2" layoutX="953.0" layoutY="243.0" prefWidth="100.0" text="Vorname" />
-                              <TextField fx:id="TF_Firstname2" layoutX="950.0" layoutY="259.0" />
-                              <Label fx:id="L_Lastname" layoutX="729.0" layoutY="243.0" prefWidth="100.0" text="Nachname" />
-                              <TextField fx:id="TF_Lastname" layoutX="729.0" layoutY="261.0" />
-                              <Label fx:id="L_Lastname2" layoutX="1173.0" layoutY="243.0" prefWidth="100.0" text="Nachname" />
-                              <TextField fx:id="TF_Lastname2" layoutX="1173.0" layoutY="259.0" />
-                              <Label fx:id="L_TelNr" layoutX="490.0" layoutY="344.0" prefWidth="100.0" text="Tel Nr" />
-                              <TextField fx:id="TF_TelNr" layoutX="488.0" layoutY="360.0" />
-                              <Label fx:id="L_TelNr2" layoutX="953.0" layoutY="344.0" prefWidth="100.0" text="Tel Nr" />
-                              <TextField fx:id="TF_TelNr2" layoutX="950.0" layoutY="360.0" />
-                              <Label fx:id="L_Email" layoutX="729.0" layoutY="344.0" prefWidth="100.0" text="EMail" />
-                              <TextField fx:id="TF_Email" layoutX="729.0" layoutY="360.0" />
-                              <Label fx:id="L_Email2" layoutX="1173.0" layoutY="344.0" prefWidth="100.0" text="Email" />
-                              <TextField fx:id="TF_Email2" layoutX="1173.0" layoutY="361.0" />
-                              <Label fx:id="L_VORLAGE511" layoutX="950.0" layoutY="62.0" text="Deputy Contact Person">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="L_DSGVO" layoutX="58.0" layoutY="643.0" minHeight="80.0" minWidth="364.0" prefHeight="80.0" prefWidth="364.0" text="DSGVO" wrapText="true" />
-                              <CheckBox layoutX="58.0" layoutY="609.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Accept DSGVO" />
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="TPP_NewInvoice11" text="New Invoice">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <GridPane prefHeight="545.0" prefWidth="788.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Label alignment="CENTER" text="New Invoice" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                    <Label fx:id="L_VORLAGE51" layoutX="490.0" layoutY="62.0" text="Contact Person">
                                        <font>
-                                          <Font name="System Bold" size="28.0" />
+                                          <Font size="20.0" />
                                        </font>
                                     </Label>
+                                    <Separator layoutX="418.0" layoutY="62.0" orientation="VERTICAL" prefHeight="547.0" prefWidth="32.0" />
+                                    <Label layoutX="58.0" layoutY="151.0" prefWidth="100.0" text="Company Name" />
+                                    <TextField fx:id="TF_Company" layoutX="58.0" layoutY="169.0" prefWidth="150.0" />
+                                    <Label fx:id="L_VORLAGE" layoutX="58.0" layoutY="256.0" prefWidth="100.0" text="Street" />
+                                    <TextField fx:id="TF_Street" layoutX="58.0" layoutY="273.0" prefWidth="150.0" />
+                                    <Label fx:id="L_VORLAGE3" layoutX="58.0" layoutY="356.0" prefWidth="100.0" text="Location" />
+                                    <TextField fx:id="TF_Location" layoutX="58.0" layoutY="374.0" prefWidth="150.0" />
+                                    <Label fx:id="L_VORLAGE4" layoutX="58.0" layoutY="465.0" prefHeight="18.0" prefWidth="100.0" text="Country" />
+                                    <ComboBox fx:id="CB_Country" layoutX="58.0" layoutY="485.0" prefHeight="26.0" prefWidth="150.0" />
+                                    <Label fx:id="L_VORLAGE1" layoutX="244.0" layoutY="256.0" prefWidth="100.0" text="House number" />
+                                    <TextField fx:id="TF_HouseNumber" layoutX="244.0" layoutY="272.0" prefWidth="150.0" />
+                                    <Label fx:id="L_VORLAGE2" layoutX="244.0" layoutY="356.0" prefWidth="100.0" text="Postal Code" />
+                                    <TextField fx:id="TF_PostalCode" layoutX="244.0" layoutY="374.0" prefWidth="150.0" />
+                                    <Label fx:id="L_Gender" layoutX="493.0" layoutY="151.0" prefWidth="100.0" text="Geschlecht" />
+                                    <ComboBox fx:id="CB_Gender" layoutX="491.0" layoutY="169.0" prefWidth="150.0" />
+                                    <Label fx:id="L_Gender2" layoutX="953.0" layoutY="151.0" prefWidth="100.0" text="Geschlecht" />
+                                    <ComboBox fx:id="CB_Gender2" layoutX="950.0" layoutY="169.0" prefWidth="150.0" />
+                                    <Label fx:id="L_Others" layoutX="482.0" layoutY="495.0" text="Sonstiges" />
+                                    <TextArea fx:id="TA_Others" layoutX="549.0" layoutY="455.0" maxHeight="198.0" prefHeight="99.0" prefWidth="772.0" text="&#10;" />
+                                    <Label fx:id="L_Title" layoutX="732.0" layoutY="151.0" prefWidth="100.0" text="Titel" />
+                                    <ComboBox fx:id="CB_Title" layoutX="732.0" layoutY="169.0" prefWidth="150.0" />
+                                    <ComboBox fx:id="CB_Title2" layoutX="1173.0" layoutY="169.0" prefWidth="150.0" />
+                                    <Label fx:id="L_Title2" layoutX="1173.0" layoutY="151.0" prefWidth="100.0" text="Titel" />
+                                    <Label fx:id="L_Firstname" layoutX="490.0" layoutY="243.0" prefWidth="100.0" text="Vorname" />
+                                    <TextField fx:id="TF_Firstname" layoutX="488.0" layoutY="261.0" />
+                                    <Label fx:id="L_Firstname2" layoutX="953.0" layoutY="243.0" prefWidth="100.0" text="Vorname" />
+                                    <TextField fx:id="TF_Firstname2" layoutX="950.0" layoutY="259.0" />
+                                    <Label fx:id="L_Lastname" layoutX="729.0" layoutY="243.0" prefWidth="100.0" text="Nachname" />
+                                    <TextField fx:id="TF_Lastname" layoutX="729.0" layoutY="261.0" />
+                                    <Label fx:id="L_Lastname2" layoutX="1173.0" layoutY="243.0" prefWidth="100.0" text="Nachname" />
+                                    <TextField fx:id="TF_Lastname2" layoutX="1173.0" layoutY="259.0" />
+                                    <Label fx:id="L_TelNr" layoutX="490.0" layoutY="344.0" prefWidth="100.0" text="Tel Nr" />
+                                    <TextField fx:id="TF_TelNr" layoutX="488.0" layoutY="360.0" />
+                                    <Label fx:id="L_TelNr2" layoutX="953.0" layoutY="344.0" prefWidth="100.0" text="Tel Nr" />
+                                    <TextField fx:id="TF_TelNr2" layoutX="950.0" layoutY="360.0" />
+                                    <Label fx:id="L_Email" layoutX="729.0" layoutY="344.0" prefWidth="100.0" text="EMail" />
+                                    <TextField fx:id="TF_Email" layoutX="729.0" layoutY="360.0" />
+                                    <Label fx:id="L_Email2" layoutX="1173.0" layoutY="344.0" prefWidth="100.0" text="Email" />
+                                    <TextField fx:id="TF_Email2" layoutX="1173.0" layoutY="361.0" />
+                                    <Label fx:id="L_VORLAGE511" layoutX="950.0" layoutY="62.0" text="Deputy Contact Person">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="L_DSGVO" layoutX="58.0" layoutY="643.0" minHeight="80.0" minWidth="364.0" prefHeight="80.0" prefWidth="364.0" text="DSGVO" wrapText="true" />
+                                    <CheckBox layoutX="58.0" layoutY="609.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Accept DSGVO" />
                                  </children>
-                              </GridPane>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-              </tabs>
-            </TabPane>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab fx:id="TPP_NewInvoice11" text="New Invoice">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane prefHeight="545.0" prefWidth="788.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label alignment="CENTER" text="New Invoice" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                             <font>
+                                                <Font name="System Bold" size="28.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+               </children>
+               <GridPane.margin>
+                  <Insets left="155.0" />
+               </GridPane.margin>
+            </AnchorPane>
          </children>
-      </AnchorPane>
+      </GridPane>
    </children>
 </AnchorPane>

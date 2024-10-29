@@ -13,9 +13,14 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("CKAccounting.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1074, 638);
         scene.getStylesheets().add(getClass().getResource("/Style/CKAccounting_Style.css").toExternalForm());
+
+        stage.setWidth(1074);
+        stage.setHeight(638);
+
         stage.setMinHeight(638);
         stage.setMinWidth(1074);
         stage.setMaximized(true);
+
         stage.setTitle("CK Accounting System");
 
         stage.setScene(scene);
