@@ -8,6 +8,7 @@ module accounting.accounting {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires java.sql;
 
     opens accounting.accounting to javafx.fxml;
     exports accounting.accounting;

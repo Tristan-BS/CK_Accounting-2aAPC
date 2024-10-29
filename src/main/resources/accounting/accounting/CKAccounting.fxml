@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -23,9 +23,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="681.0" maxWidth="1074.0" prefHeight="638.0" prefWidth="1074.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="accounting.accounting.Controller">
+<AnchorPane maxHeight="844.0" maxWidth="1509.0" prefHeight="822.0" prefWidth="1553.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="accounting.accounting.Controller">
    <children>
-      <AnchorPane fx:id="AP_SBText" layoutX="41.0" layoutY="46.0" prefHeight="592.0" prefWidth="80.0" style="-fx-background-color: White;">
+      <AnchorPane fx:id="AP_SBText" layoutX="41.0" layoutY="46.4" prefHeight="795.0" prefWidth="80.0" style="-fx-background-color: White;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="1388.0" AnchorPane.topAnchor="46.0">
          <children>
             <VBox prefHeight="592.0" prefWidth="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -45,13 +45,13 @@
                   <Button fx:id="B_Evaluations" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Evaluation_Pressed" style="-fx-background-color: transparent;" text="Evaluations" />
                   <Region prefHeight="13.0" prefWidth="50.0" />
                   <Button fx:id="B_Account" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Account_Pressed" style="-fx-background-color: transparent;" text="Account" />
-                  <Region prefHeight="312.0" prefWidth="80.0" />
+                  <Region prefHeight="510.0" prefWidth="500.0" />
                   <Button fx:id="B_Exit" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Exit_Pressed" style="-fx-background-color: transparent;" text="Exit" />
                </children>
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="AP_IconMenu" layoutY="46.4" prefHeight="554.0" prefWidth="44.0" style="-fx-background-color: White;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="46.0">
+      <AnchorPane fx:id="AP_IconMenu" layoutY="46.4" prefHeight="822.0" prefWidth="44.0" style="-fx-background-color: White;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="46.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="44.0" spacing="10.0" AnchorPane.topAnchor="5.0">
                <children>
@@ -100,7 +100,7 @@
                         <Insets />
                      </VBox.margin>
                   </ImageView>
-                  <Region minHeight="285.0" prefHeight="200.0" prefWidth="200.0" />
+                  <Region minHeight="485.0" prefHeight="200.0" prefWidth="485.0" />
                   <ImageView fx:id="IV_Exit" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Exit_Pressed" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../Images/Icons/logout-box-r-line.png" />
@@ -113,7 +113,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="46.0" prefWidth="200.0" style="-fx-background-color: #520166;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane prefHeight="46.0" prefWidth="1553.0" style="-fx-background-color: #520166;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -134,7 +134,7 @@
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="AP_Page" layoutX="120.0" layoutY="46.0" prefHeight="592.0" prefWidth="954.0">
+      <AnchorPane fx:id="AP_Page" layoutX="120.0" layoutY="46.0" prefHeight="795.0" prefWidth="1388.0">
          <children>
             <TabPane fx:id="TP_Pages" prefHeight="592.0" prefWidth="788.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="0.0" tabMaxWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
@@ -341,213 +341,67 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <GridPane layoutX="3.2" prefHeight="587.0" prefWidth="954.0" AnchorPane.leftAnchor="3.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.4000244140625" minWidth="10.0" prefWidth="109.4000244140625" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="82.199951171875" minWidth="6.399987792968744" prefWidth="6.399987792968744" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.00001220703126" minWidth="10.0" prefWidth="81.59998779296876" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.00001220703126" minWidth="10.0" prefWidth="84.80000000000001" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="202.2" minWidth="10.0" prefWidth="145.60001220703128" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.79998779296875" minWidth="10.0" prefWidth="124.00001220703132" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.5999877929687" minWidth="10.0" prefWidth="112.80007324218752" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.59992675781245" minWidth="10.0" prefWidth="145.59992675781245" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                    <RowConstraints />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <Label alignment="CENTER" text="New Customer" GridPane.columnSpan="9" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="TOP">
-                                       <font>
-                                          <Font name="System Bold" size="28.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Firmenname" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <TextField GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets left="10.0" right="5.0" />
-                                       </GridPane.margin></TextField>
-                                    <Label fx:id="L_VORLAGE" layoutX="33.0" layoutY="165.0" text="Straße" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <TextField layoutX="10.0" layoutY="204.0" GridPane.rowIndex="11" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets left="10.0" />
-                                       </GridPane.margin></TextField>
-                                    <Label fx:id="L_VORLAGE1" text="Hausnummer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <Label fx:id="L_VORLAGE2" text="PLZ" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <Label fx:id="L_VORLAGE3" text="Ort" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <Label fx:id="L_VORLAGE4" text="Land" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="11" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets left="10.0" right="5.0" />
-                                       </GridPane.margin></TextField>
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="12" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets left="10.0" right="5.0" />
-                                       </GridPane.margin></TextField>
-                                    <TextField GridPane.rowIndex="12" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets left="10.0" />
-                                       </GridPane.margin></TextField>
-                                    <Label fx:id="L_VORLAGE5" text="Geschlecht" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <Label fx:id="L_VORLAGE6" text="Titel" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets right="10.0" top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <Label fx:id="L_VORLAGE7" text="Vorname" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <Label fx:id="L_VORLAGE8" text="Nachname" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <Label fx:id="L_VORLAGE9" text="Tel Nr" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <Label fx:id="L_VORLAGE10" text="Email" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin></Label>
-                                    <TextField GridPane.columnIndex="5" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets right="12.0" />
-                                       </GridPane.margin></TextField>
-                                    <TextField GridPane.columnIndex="6" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets right="12.0" />
-                                       </GridPane.margin></TextField>
-                                    <TextField GridPane.columnIndex="7" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets right="12.0" />
-                                       </GridPane.margin></TextField>
-                                    <TextField GridPane.columnIndex="8" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets left="-2.0" right="20.0" />
-                                       </GridPane.margin></TextField>
-                                    <ComboBox prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin></ComboBox>
-                                    <ComboBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="10" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin></ComboBox>
-                                    <Label fx:id="L_VORLAGE51" text="Geschlecht" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <ComboBox prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="11" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin>
-                                    </ComboBox>
-                                    <Label fx:id="L_VORLAGE61" text="Titel" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets right="10.0" top="15.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <ComboBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="11" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin>
-                                    </ComboBox>
-                                    <Label fx:id="L_VORLAGE71" text="Vorname" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <TextField GridPane.columnIndex="5" GridPane.rowIndex="11" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets right="12.0" />
-                                       </GridPane.margin>
-                                    </TextField>
-                                    <Label fx:id="L_VORLAGE81" text="Nachname" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <TextField GridPane.columnIndex="6" GridPane.rowIndex="11" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets right="12.0" />
-                                       </GridPane.margin>
-                                    </TextField>
-                                    <Label fx:id="L_VORLAGE91" text="Tel Nr" GridPane.columnIndex="7" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <TextField GridPane.columnIndex="7" GridPane.rowIndex="11" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets right="12.0" />
-                                       </GridPane.margin>
-                                    </TextField>
-                                    <Label fx:id="L_VORLAGE101" text="Email" GridPane.columnIndex="8" GridPane.halignment="CENTER" GridPane.rowIndex="11" GridPane.valignment="TOP">
-                                       <GridPane.margin>
-                                          <Insets top="15.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <TextField GridPane.columnIndex="8" GridPane.rowIndex="11" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets left="-2.0" right="20.0" />
-                                       </GridPane.margin>
-                                    </TextField>
-                                    <Label fx:id="L_VORLAGE11" text="Sonstiges" GridPane.columnIndex="3" GridPane.rowIndex="12" GridPane.valignment="CENTER" />
-                                    <TextArea maxHeight="25.0" prefHeight="25.0" prefWidth="87.0" text="&#10;" GridPane.columnIndex="4" GridPane.columnSpan="5" GridPane.rowIndex="12" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets right="20.0" />
-                                       </GridPane.margin>
-                                    </TextArea>
-                                    <ComboBox prefHeight="26.0" prefWidth="195.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="CENTER">
-                                       <GridPane.margin>
-                                          <Insets left="10.0" />
-                                       </GridPane.margin>
-                                    </ComboBox>
-                                    <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="10" GridPane.rowSpan="4" GridPane.valignment="CENTER" />
-                                    <ButtonBar buttonMinWidth="75.0" layoutX="5.0" layoutY="5.0" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="CENTER">
-                                      <buttons>
-                                          <Button mnemonicParsing="false" text="Submit" />
-                                          <Button mnemonicParsing="false" text="Clear all" />
-                                        <Button mnemonicParsing="false" text="Cancel" />
-                                      </buttons>
-                                    </ButtonBar>
-                                 </children>
-                              </GridPane>
+                              <Label fx:id="L_VORLAGE5" layoutX="58.0" layoutY="62.0" text="Company Informations">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="L_HeadingNewCustomer" alignment="CENTER" layoutX="-4.0" prefHeight="33.0" prefWidth="1392.0" text="New Customer">
+                                 <font>
+                                    <Font name="System Bold" size="28.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="L_VORLAGE51" layoutX="490.0" layoutY="62.0" text="Contact Person">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Separator layoutX="418.0" layoutY="62.0" orientation="VERTICAL" prefHeight="547.0" prefWidth="32.0" />
+                              <Label layoutX="58.0" layoutY="151.0" prefWidth="100.0" text="Company Name" />
+                              <TextField fx:id="TF_Company" layoutX="58.0" layoutY="169.0" prefWidth="150.0" />
+                              <Label fx:id="L_VORLAGE" layoutX="58.0" layoutY="256.0" prefWidth="100.0" text="Street" />
+                              <TextField fx:id="TF_Street" layoutX="58.0" layoutY="273.0" prefWidth="150.0" />
+                              <Label fx:id="L_VORLAGE3" layoutX="58.0" layoutY="356.0" prefWidth="100.0" text="Location" />
+                              <TextField fx:id="TF_Location" layoutX="58.0" layoutY="374.0" prefWidth="150.0" />
+                              <Label fx:id="L_VORLAGE4" layoutX="58.0" layoutY="465.0" prefHeight="18.0" prefWidth="100.0" text="Country" />
+                              <ComboBox fx:id="CB_Country" layoutX="58.0" layoutY="485.0" prefHeight="26.0" prefWidth="150.0" />
+                              <Label fx:id="L_VORLAGE1" layoutX="244.0" layoutY="256.0" prefWidth="100.0" text="House number" />
+                              <TextField fx:id="TF_HouseNumber" layoutX="244.0" layoutY="272.0" prefWidth="150.0" />
+                              <Label fx:id="L_VORLAGE2" layoutX="244.0" layoutY="356.0" prefWidth="100.0" text="Postal Code" />
+                              <TextField fx:id="TF_PostalCode" layoutX="244.0" layoutY="374.0" prefWidth="150.0" />
+                              <Label fx:id="L_Gender" layoutX="493.0" layoutY="151.0" prefWidth="100.0" text="Geschlecht" />
+                              <ComboBox fx:id="CB_Gender" layoutX="491.0" layoutY="169.0" prefWidth="150.0" />
+                              <Label fx:id="L_Gender2" layoutX="953.0" layoutY="151.0" prefWidth="100.0" text="Geschlecht" />
+                              <ComboBox fx:id="CB_Gender2" layoutX="950.0" layoutY="169.0" prefWidth="150.0" />
+                              <Label fx:id="L_Others" layoutX="482.0" layoutY="495.0" text="Sonstiges" />
+                              <TextArea fx:id="TA_Others" layoutX="549.0" layoutY="455.0" maxHeight="198.0" prefHeight="99.0" prefWidth="772.0" text="&#10;" />
+                              <Label fx:id="L_Title" layoutX="732.0" layoutY="151.0" prefWidth="100.0" text="Titel" />
+                              <ComboBox fx:id="CB_Title" layoutX="732.0" layoutY="169.0" prefWidth="150.0" />
+                              <ComboBox fx:id="CB_Title2" layoutX="1173.0" layoutY="169.0" prefWidth="150.0" />
+                              <Label fx:id="L_Title2" layoutX="1173.0" layoutY="151.0" prefWidth="100.0" text="Titel" />
+                              <Label fx:id="L_Firstname" layoutX="490.0" layoutY="243.0" prefWidth="100.0" text="Vorname" />
+                              <TextField fx:id="TF_Firstname" layoutX="488.0" layoutY="261.0" />
+                              <Label fx:id="L_Firstname2" layoutX="953.0" layoutY="243.0" prefWidth="100.0" text="Vorname" />
+                              <TextField fx:id="TF_Firstname2" layoutX="950.0" layoutY="259.0" />
+                              <Label fx:id="L_Lastname" layoutX="729.0" layoutY="243.0" prefWidth="100.0" text="Nachname" />
+                              <TextField fx:id="TF_Lastname" layoutX="729.0" layoutY="261.0" />
+                              <Label fx:id="L_Lastname2" layoutX="1173.0" layoutY="243.0" prefWidth="100.0" text="Nachname" />
+                              <TextField fx:id="TF_Lastname2" layoutX="1173.0" layoutY="259.0" />
+                              <Label fx:id="L_TelNr" layoutX="490.0" layoutY="344.0" prefWidth="100.0" text="Tel Nr" />
+                              <TextField fx:id="TF_TelNr" layoutX="488.0" layoutY="360.0" />
+                              <Label fx:id="L_TelNr2" layoutX="953.0" layoutY="344.0" prefWidth="100.0" text="Tel Nr" />
+                              <TextField fx:id="TF_TelNr2" layoutX="950.0" layoutY="360.0" />
+                              <Label fx:id="L_Email" layoutX="729.0" layoutY="344.0" prefWidth="100.0" text="EMail" />
+                              <TextField fx:id="TF_Email" layoutX="729.0" layoutY="360.0" />
+                              <Label fx:id="L_Email2" layoutX="1173.0" layoutY="344.0" prefWidth="100.0" text="Email" />
+                              <TextField fx:id="TF_Email2" layoutX="1173.0" layoutY="361.0" />
+                              <Label fx:id="L_VORLAGE511" layoutX="950.0" layoutY="62.0" text="Deputy Contact Person">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="L_DSGVO" layoutX="58.0" layoutY="643.0" minHeight="80.0" minWidth="364.0" prefHeight="80.0" prefWidth="364.0" text="DSGVO" wrapText="true" />
+                              <CheckBox layoutX="58.0" layoutY="609.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Accept DSGVO" />
                            </children>
                         </AnchorPane>
                      </content>

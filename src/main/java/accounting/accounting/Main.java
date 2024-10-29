@@ -15,9 +15,26 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("/Style/CKAccounting_Style.css").toExternalForm());
         stage.setMinHeight(638);
         stage.setMinWidth(1074);
+        stage.setMaximized(true);
         stage.setTitle("CK Accounting System");
+
         stage.setScene(scene);
         stage.show();
+
+        boolean ActivateDebugMode = false;
+
+        if (ActivateDebugMode) {
+            stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+                System.out.println("Width: " + newVal);
+            });
+
+            stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+                System.out.println("Height: " + newVal);
+            });
+
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     public static void main(String[] args) {
