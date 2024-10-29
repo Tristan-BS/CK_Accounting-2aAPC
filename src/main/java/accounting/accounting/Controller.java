@@ -11,39 +11,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Controller {
-
-    // ImageViews
-    @FXML
-    private ImageView IV_Menu;
-    @FXML
-    private ImageView IV_Home;
-    @FXML
-    private ImageView IV_Invoices;
-    @FXML
-    private ImageView IV_Documents;
-    @FXML
-    private ImageView IV_Evaluation;
-    @FXML
-    private ImageView IV_Account;
-    @FXML
-    private ImageView IV_Exit;
-
-    // Button for the ImageViews
-    @FXML
-    private Button B_Menu;
-    @FXML
-    private Button B_Home;
-    @FXML
-    private Button B_Invoices;
-    @FXML
-    private Button B_Documents;
-    @FXML
-    private Button B_Evaluation;
-    @FXML
-    private Button B_Account;
-    @FXML
-    private Button B_Exit;
-
     // AnchorPane
     @FXML
     private AnchorPane AP_SBText;
@@ -58,11 +25,15 @@ public class Controller {
     @FXML
     private Tab TPP_Invoices;
     @FXML
+    private Tab TPP_Customer;
+    @FXML
     private Tab TPP_Documents;
     @FXML
     private Tab TPP_Evaluations;
     @FXML
     private Tab TPP_Account;
+    @FXML
+    private Tab TPP_NewInvoice;
 
     private boolean isMenuOpen = false;
 
@@ -104,7 +75,6 @@ public class Controller {
         transition.play();
     }
 
-
     @FXML
     private void On_B_Home_Pressed() {
         TP_Pages.getSelectionModel().select(TPP_Home);
@@ -112,6 +82,10 @@ public class Controller {
     @FXML
     private void On_B_Invoices_Pressed() {
         TP_Pages.getSelectionModel().select(TPP_Invoices);
+    }
+    @FXML
+    private void On_B_Customer_Pressed() {
+        TP_Pages.getSelectionModel().select(TPP_Customer);
     }
     @FXML
     private void On_B_Documents_Pressed() {
@@ -128,6 +102,21 @@ public class Controller {
     @FXML
     private void On_B_Exit_Pressed() {
         System.exit(0);
+    }
+
+
+    // HOMEPAGE CODE
+
+
+
+    // INVOICES CODE
+    @FXML
+    private void On_B_NewInvoice_Pressed() {
+        TP_Pages.getSelectionModel().select(TPP_NewInvoice);
+    }
+    @FXML
+    private void On_B_DeleteInvoice_Pressed() {
+        System.out.println("Delete Invoice Pressed");
     }
 
 
