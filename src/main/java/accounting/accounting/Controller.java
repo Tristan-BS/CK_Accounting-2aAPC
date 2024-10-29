@@ -34,6 +34,8 @@ public class Controller {
     private Tab TPP_Account;
     @FXML
     private Tab TPP_NewInvoice;
+    @FXML
+    private Tab TPP_NewCustomer;
 
     private boolean isMenuOpen = false;
 
@@ -117,6 +119,27 @@ public class Controller {
     @FXML
     private void On_B_DeleteInvoice_Pressed() {
         System.out.println("Delete Invoice Pressed");
+    }
+
+
+    // CUSTOMER CODE
+
+    // Add a new Customer
+    @FXML
+    private void On_B_NewCustomer_Pressed() {
+        TP_Pages.getSelectionModel().select(TPP_NewCustomer);
+    }
+
+    // Edit a existing Customer
+    @FXML
+    private void On_B_EditCustomer_Pressed() {
+        System.out.println("Edit Customer Pressed");
+    }
+
+    // Delete a existing Customer
+    @FXML
+    private void On_B_DeleteCustomer_Pressed() {
+        System.out.println("Delete Customer Pressed");
     }
 
 
