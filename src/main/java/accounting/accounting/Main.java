@@ -26,7 +26,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        boolean ActivateDebugMode = false;
+        boolean ActivateDebugMode = true;
 
         if (ActivateDebugMode) {
             stage.widthProperty().addListener((obs, oldVal, newVal) -> {
