@@ -1,20 +1,22 @@
 package accounting.accounting;
 
 import javafx.animation.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.image.*;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import java.awt.*;
-import java.awt.TextField;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class Controller {
     // AnchorPane
@@ -85,7 +87,7 @@ public class Controller {
     @FXML
     private TextField TF_Email;
     @FXML
-    private TextField TA_Others;
+    private TextArea TA_Others;
     @FXML
     private TextField TF_Firstname2;
     @FXML
@@ -94,6 +96,28 @@ public class Controller {
     private TextField TF_TelNr2;
     @FXML
     private TextField TF_Email2;
+
+    // TableView
+    @FXML
+    private TableView<String> TV_ShowCustomer;
+
+    // Table View -> Table Columns
+    @FXML
+    private TableColumn<String, String> TC_Title;
+    @FXML
+    private TableColumn<String, String> TC_Firstname;
+    @FXML
+    private TableColumn<String, String> TC_Lastname;
+    @FXML
+    private TableColumn<String, String> TC_EMail;
+    @FXML
+    private TableColumn<String, String> TC_PhoneNr;
+    @FXML
+    private TableColumn<String, String> TC_Gender;
+    @FXML
+    private TableColumn<String, String> TC_CompanyName;
+    @FXML
+    private TableColumn<String, String> TC_Other;
 
     // Other
 
@@ -140,6 +164,8 @@ public class Controller {
         CB_Country.getSelectionModel().selectFirst();
         CB_Country.getItems().addAll(DB.GetCountries());
 
+        // Insert all Customers into TableView "TV_ShowCustomer"
+        InsertTV_ShowCustomer();
     }
 
     // Methods for Button Pressed
@@ -259,7 +285,13 @@ public class Controller {
     // NEW CUSTOMER CODE
     @FXML
     private void On_B_SaveNewCustomer_Pressed() {
-        System.out.println("Save New Customer Pressed");
+        DB.InsertNewCompany(TF_Company.getText(), TF_Street.getText(), Integer.parseInt(TF_HouseNumber.getText()), TF_Location.getText(), Integer.parseInt(TF_PostalCode.getText()), CB_Country.getValue(), TA_Others.getText());
+        DB.InsertNewContactPerson(1, CB_Title.getValue(), CB_Gender.getValue(), TF_Firstname.getText(), TF_Lastname.getText(), TF_Email.getText(), TF_TelNr.getText(), TF_Company.getText());
+        if (!TF_Firstname2.getText().isEmpty() && !TF_Lastname2.getText().isEmpty()) {
+            DB.InsertNewContactPerson(2, CB_Title2.getValue(), CB_Gender2.getValue(), TF_Firstname2.getText(), TF_Lastname2.getText(), TF_Email2.getText(), TF_TelNr2.getText(), TF_Company.getText());
+        }
+        // Refresh TableView TV_ShowCustomer
+        InsertTV_ShowCustomer();
     }
     @FXML
     private void On_B_CancelNewCustomer_Pressed() {
@@ -268,6 +300,56 @@ public class Controller {
     @FXML
     private void On_B_ClearAllNewCustomer_Pressed() {
         System.out.println("Save New Customer Pressed");
+    }
+
+
+
+    // INITIALIZATION CODE
+    private void InsertTV_ShowCustomer() {
+        // Clear existing data
+        TV_ShowCustomer.getItems().clear();
+
+        // Set cell value factories for each column
+        TC_Title.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 1 ? parts[1] : "");
+        });
+        TC_Firstname.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 2 ? parts[2] : "");
+        });
+        TC_Lastname.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 3 ? parts[3] : "");
+        });
+        TC_EMail.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 4 ? parts[4] : "");
+        });
+        TC_PhoneNr.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 5 ? parts[5] : "");
+        });
+        TC_Gender.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 6 ? parts[6] : "");
+        });
+        TC_CompanyName.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 7 ? parts[7] : "");
+        });
+
+        TC_Other.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 8 ? parts[8] : "");
+        });
+
+        // Fetch customer data from the database
+        ArrayList<String> customers = DB.GetAllCustomers();
+        System.out.println(customers);
+
+        // Add data to the TableView
+        TV_ShowCustomer.setItems(FXCollections.observableArrayList(customers));
     }
 
 
