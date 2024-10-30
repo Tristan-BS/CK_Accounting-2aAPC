@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="844.0" maxWidth="1509.0" prefHeight="841.0" prefWidth="1083.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="accounting.accounting.Controller">
+<AnchorPane maxHeight="844.0" maxWidth="1509.0" prefHeight="841.0" prefWidth="1509.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="accounting.accounting.Controller">
    <children>
       <GridPane prefHeight="841.0" prefWidth="1510.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-0.5" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -32,8 +32,8 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="44.20000305175781" minHeight="10.0" prefHeight="42.60000457763672" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="535.5999969482422" minHeight="10.0" prefHeight="533.1999954223633" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -128,7 +128,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="AP_Headbar" prefHeight="46.0" style="-fx-background-color: #520166;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnSpan="3">
+            <AnchorPane fx:id="AP_Headbar" prefHeight="46.0" prefWidth="1083.0" style="-fx-background-color: #520166;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnSpan="3">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="6.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -358,7 +358,7 @@
                                                 <Font size="20.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="L_HeadingNewCustomer" alignment="CENTER" layoutX="-4.0" prefHeight="33.0" prefWidth="1392.0" text="New Customer">
+                                          <Label fx:id="L_HeadingNewCustomer" alignment="CENTER" layoutX="-4.0" prefHeight="40.0" prefWidth="970.0" text="New Customer" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <font>
                                                 <Font name="System Bold" size="28.0" />
                                              </font>
@@ -385,8 +385,8 @@
                                           <ComboBox fx:id="CB_Gender" layoutX="491.0" layoutY="169.0" prefWidth="150.0" />
                                           <Label fx:id="L_Gender2" layoutX="953.0" layoutY="151.0" prefWidth="100.0" text="Geschlecht" />
                                           <ComboBox fx:id="CB_Gender2" layoutX="950.0" layoutY="169.0" prefWidth="150.0" />
-                                          <Label fx:id="L_Others" layoutX="482.0" layoutY="495.0" text="Sonstiges" />
-                                          <TextArea fx:id="TA_Others" layoutX="549.0" layoutY="455.0" maxHeight="198.0" prefHeight="99.0" prefWidth="772.0" text="&#10;" />
+                                          <Label fx:id="L_Others" layoutX="488.0" layoutY="434.0" text="Sonstiges" />
+                                          <TextArea fx:id="TA_Others" layoutX="488.0" layoutY="455.0" maxHeight="198.0" prefHeight="99.0" prefWidth="833.0" text="&#10;" />
                                           <Label fx:id="L_Title" layoutX="732.0" layoutY="151.0" prefWidth="100.0" text="Titel" />
                                           <ComboBox fx:id="CB_Title" layoutX="732.0" layoutY="169.0" prefWidth="150.0" />
                                           <ComboBox fx:id="CB_Title2" layoutX="1173.0" layoutY="169.0" prefWidth="150.0" />
@@ -413,7 +413,12 @@
                                              </font>
                                           </Label>
                                           <Label fx:id="L_DSGVO" layoutX="58.0" layoutY="643.0" minHeight="80.0" minWidth="364.0" prefHeight="80.0" prefWidth="364.0" text="DSGVO" wrapText="true" />
-                                          <CheckBox layoutX="58.0" layoutY="609.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Accept DSGVO" />
+                                          <CheckBox fx:id="CB_DSGVO" layoutX="55.0" layoutY="609.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="25.0" />
+                                          <Label fx:id="L_AcceptDSGVO" layoutX="81.0" layoutY="618.0" onMouseClicked="#On_L_AcceptDSGVO_Pressed" text="Accept DSGVO" />
+                                          <Separator layoutX="903.0" layoutY="60.0" orientation="VERTICAL" prefHeight="383.0" prefWidth="32.0" />
+                                          <Button layoutX="1075.0" layoutY="630.0" mnemonicParsing="false" text="Save Customer" />
+                                          <Button layoutX="1190.0" layoutY="630.0" mnemonicParsing="false" text="Clear All" />
+                                          <Button layoutX="1270.0" layoutY="630.0" mnemonicParsing="false" text="Cancel" />
                                        </children>
                                     </AnchorPane>
                                  </content>

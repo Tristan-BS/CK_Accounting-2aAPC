@@ -51,10 +51,14 @@ public class Controller {
     private ComboBox<String> CB_Title;
     @FXML
     private ComboBox<String> CB_Title2;
+    @FXML
+    private ComboBox<String> CB_Country;
 
     // Labels
     @FXML
     private Label L_DSGVO;
+    @FXML
+    private Label L_AcceptDSGVO;
 
     // Checkbox
     @FXML
@@ -71,6 +75,38 @@ public class Controller {
 
     @FXML
     public void initialize() {
+        // Tooltips
+        L_AcceptDSGVO.setTooltip(new Tooltip("Open as PDF"));
+
+        // Labels
+        L_DSGVO.setText("GDPR Compliance Statement \n" +
+                "By accepting this GDPR compliance statement, you agree to the following terms regarding the handling of your data");
+
+        // Comboboxes
+
+        // Insert all genderTypes into Combobox "CB_Gender" and "CB_Gender2"
+        CB_Gender.getItems().add("Choose");
+        CB_Gender.getSelectionModel().selectFirst();
+        CB_Gender.getItems().addAll(DB.GetGenderTypes());
+
+        CB_Gender2.getItems().add("Choose");
+        CB_Gender2.getSelectionModel().selectFirst();
+        CB_Gender2.getItems().addAll(DB.GetGenderTypes());
+
+        // Insert all Titles into Combobox "CB_Title" and "CB_Title2"
+
+        CB_Title.getItems().add("Choose");
+        CB_Title.getSelectionModel().selectFirst();
+        CB_Title.getItems().addAll(DB.GetTitles());
+
+        CB_Title2.getItems().add("Choose");
+        CB_Title2.getSelectionModel().selectFirst();
+        CB_Title2.getItems().addAll(DB.GetTitles());
+
+        // CB_Country
+        CB_Country.getItems().add("Choose");
+        CB_Country.getSelectionModel().selectFirst();
+        CB_Country.getItems().addAll(DB.GetCountries());
 
     }
 
@@ -162,46 +198,17 @@ public class Controller {
     // Add a new Customer
     @FXML
     private void On_B_NewCustomer_Pressed() {
-        ArrayList<String> genderTypes;
-        genderTypes = DB.GetGenderTypes();
-
-        L_DSGVO.setText("GDPR Compliance Statement \n" +
-                        "By accepting this GDPR compliance statement, you agree to the following terms regarding the handling of your data");
-
-        // Insert all genderTypes into Combobox "CB_Gender" and "CB_Gender2"
-        CB_Gender.getItems().add("Choose");
-        CB_Gender.getSelectionModel().selectFirst();
-        CB_Gender.getItems().addAll(genderTypes);
-
-        CB_Gender2.getItems().add("Choose");
-        CB_Gender2.getSelectionModel().selectFirst();
-        CB_Gender2.getItems().addAll(genderTypes);
-
-        // Insert all Titles into Combobox "CB_Title" and "CB_Title2"
-
-        CB_Title.getItems().add("Choose");
-        CB_Title.getSelectionModel().selectFirst();
-        CB_Title.getItems().addAll(DB.GetTitles());
-
-        CB_Title2.getItems().add("Choose");
-        CB_Title2.getSelectionModel().selectFirst();
-        CB_Title2.getItems().addAll(DB.GetTitles());
-
         // Change to New Customer Page
         TP_Pages.getSelectionModel().select(TPP_NewCustomer);
     }
 
     @FXML
-    private void On_CB_DSGVO_Pressed() throws IOException {
-        if (CB_DSGVO.isSelected()) {
-            File pdfFile = new File("C:\\APC\\KNAPP\\Berufsschule\\2LJ Berufsschule\\ITL 1-2 JRZ\\Aufgabe 9 - Buchhaltung\\Accounting\\documentation\\GDPR\\DSGVO.pdf");
-            if (pdfFile.exists()) {
-                Desktop.getDesktop().browse(pdfFile.toURI());
-            } else {
-                System.out.println("DSGVO.pdf not found");
-            }
+    private void On_L_AcceptDSGVO_Pressed() throws IOException {
+        File pdfFile = new File("C:\\APC\\KNAPP\\Berufsschule\\2LJ Berufsschule\\ITL 1-2 JRZ\\Aufgabe 9 - Buchhaltung\\Accounting\\documentation\\GDPR\\DSGVO.pdf");
+        if (pdfFile.exists()) {
+            Desktop.getDesktop().browse(pdfFile.toURI());
         } else {
-            System.out.println("DSGVO Declined");
+            System.out.println("DSGVO.pdf not found");
         }
     }
 

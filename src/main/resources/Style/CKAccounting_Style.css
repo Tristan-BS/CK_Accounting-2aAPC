@@ -3,3 +3,11 @@
     -fx-tab-min-height: 0;
     -fx-tab-max-height: 0;
 }
+
+#L_AcceptDSGVO {
+    -fx-underline: false;
+}
+
+#L_AcceptDSGVO:hover {
+    -fx-underline: true;
+}

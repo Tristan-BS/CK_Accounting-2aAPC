@@ -75,4 +75,23 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
+
+    protected ArrayList<String> GetCountries() {
+        ArrayList<String> CountryList = new ArrayList<>();
+        try {
+            Connection connection = ConnectToDatabase();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM ck_countries");
+
+            // Add all types to ArrayList
+            while (resultSet.next()) {
+                CountryList.add(resultSet.getString("Country"));
+            }
+
+            return CountryList;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
