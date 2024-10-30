@@ -416,9 +416,9 @@
                                           <CheckBox fx:id="CB_DSGVO" layoutX="55.0" layoutY="609.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="25.0" />
                                           <Label fx:id="L_AcceptDSGVO" layoutX="81.0" layoutY="618.0" onMouseClicked="#On_L_AcceptDSGVO_Pressed" text="Accept DSGVO" />
                                           <Separator layoutX="903.0" layoutY="60.0" orientation="VERTICAL" prefHeight="383.0" prefWidth="32.0" />
-                                          <Button layoutX="1075.0" layoutY="630.0" mnemonicParsing="false" text="Save Customer" />
-                                          <Button layoutX="1190.0" layoutY="630.0" mnemonicParsing="false" text="Clear All" />
-                                          <Button layoutX="1270.0" layoutY="630.0" mnemonicParsing="false" text="Cancel" />
+                                          <Button fx:id="B_SaveNewCustomer" layoutX="1075.0" layoutY="630.0" mnemonicParsing="false" onAction="#On_B_SaveNewCustomer_Pressed" text="Save Customer" />
+                                          <Button fx:id="B_ClearAllNewCustomer" layoutX="1190.0" layoutY="630.0" mnemonicParsing="false" onAction="#On_B_ClearAllNewCustomer_Pressed" text="Clear All" />
+                                          <Button fx:id="B_CancelNewCustomer" layoutX="1270.0" layoutY="630.0" mnemonicParsing="false" onAction="#On_B_CancelNewCustomer_Pressed" text="Cancel" />
                                        </children>
                                     </AnchorPane>
                                  </content>

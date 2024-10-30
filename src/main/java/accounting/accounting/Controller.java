@@ -9,6 +9,7 @@ import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import java.awt.*;
+import java.awt.TextField;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -64,10 +65,41 @@ public class Controller {
     @FXML
     private CheckBox CB_DSGVO;
 
+    // TextFields
+    @FXML
+    private TextField TF_Company;
+    @FXML
+    private TextField TF_Street;
+    @FXML
+    private TextField TF_HouseNumber;
+    @FXML
+    private TextField TF_Location;
+    @FXML
+    private TextField TF_PostalCode;
+    @FXML
+    private TextField TF_Firstname;
+    @FXML
+    private TextField TF_Lastname;
+    @FXML
+    private TextField TF_TelNr;
+    @FXML
+    private TextField TF_Email;
+    @FXML
+    private TextField TA_Others;
+    @FXML
+    private TextField TF_Firstname2;
+    @FXML
+    private TextField TF_Lastname2;
+    @FXML
+    private TextField TF_TelNr2;
+    @FXML
+    private TextField TF_Email2;
+
     // Other
 
     private boolean isMenuOpen = false;
     Database DB = new Database();
+    Functions FC = new Functions();
 
     public Controller() {
         DB.ConnectToDatabase();
@@ -222,6 +254,20 @@ public class Controller {
     @FXML
     private void On_B_DeleteCustomer_Pressed() {
         System.out.println("Delete Customer Pressed");
+    }
+
+    // NEW CUSTOMER CODE
+    @FXML
+    private void On_B_SaveNewCustomer_Pressed() {
+        System.out.println("Save New Customer Pressed");
+    }
+    @FXML
+    private void On_B_CancelNewCustomer_Pressed() {
+        TP_Pages.getSelectionModel().select(TPP_Customer);
+    }
+    @FXML
+    private void On_B_ClearAllNewCustomer_Pressed() {
+        System.out.println("Save New Customer Pressed");
     }
 
 
