@@ -321,4 +321,27 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
+
+    protected ArrayList<String> GetAllInvoices() {
+        ArrayList<String> InvoiceList = new ArrayList<>();
+        try(Connection connection = ConnectToDatabase()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM ck_invoices");
+            ResultSet resSet = statement.executeQuery("SELECT ");
+
+            while (resultSet.next()) {
+                InvoiceList.add(resultSet.getString("Category_ID") + " - " +
+                        resultSet.getString("Name") + " - " +
+                        resultSet.getString("Description") + " - " +
+                        resultSet.getString("Amount") + " - " +
+                        resultSet.getString("Date") + " - " +
+                        resultSet.getString("Timestamp"));
+            }
+
+            return InvoiceList;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

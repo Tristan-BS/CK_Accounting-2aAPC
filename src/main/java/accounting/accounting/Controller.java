@@ -135,6 +135,10 @@ public class Controller {
     @FXML
     private TableView<String> TV_ShowCustomer;
 
+    // Invoices
+    @FXML
+    private TableView<String> TV_ShowInvoices;
+
     // Table View -> Table Columns
     @FXML
     private TableColumn<String, String> TC_Title;
@@ -152,6 +156,20 @@ public class Controller {
     private TableColumn<String, String> TC_CompanyName;
     @FXML
     private TableColumn<String, String> TC_Other;
+
+    // Invoices
+    @FXML
+    private TableColumn<String, String> TC_Category;
+    @FXML
+    private TableColumn<String, String> TC_Name;
+    @FXML
+    private TableColumn<String, String> TC_Description;
+    @FXML
+    private TableColumn<String, String> TC_Amount;
+    @FXML
+    private TableColumn<String, String> TC_Date;
+    @FXML
+    private TableColumn<String, String> TC_Timestamp;
 
     // Other
 
@@ -425,6 +443,45 @@ public class Controller {
 
         // Add data to the TableView
         TV_ShowCustomer.setItems(FXCollections.observableArrayList(customers));
+    }
+
+    private void InsertTV_ShowInvoices() {
+        TV_ShowInvoices.getItems().clear();
+
+        TC_Category.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 1 ? parts[1] : "");
+        });
+
+        TC_Name.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 2 ? parts[2] : "");
+        });
+
+        TC_Description.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 3 ? parts[3] : "");
+        });
+
+        TC_Amount.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 4 ? parts[4] : "");
+        });
+
+        TC_Date.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 5 ? parts[5] : "");
+        });
+
+        TC_Timestamp.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 6 ? parts[6] : "");
+        });
+
+        ArrayList<String> invoices = DB.GetAllInvoices();
+        System.out.println(invoices);
+
+        TV_ShowInvoices.setItems(FXCollections.observableArrayList(invoices));
     }
 
 
