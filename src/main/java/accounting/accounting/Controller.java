@@ -16,6 +16,7 @@ import javafx.util.Duration;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Controller {
@@ -44,6 +45,8 @@ public class Controller {
     private Tab TPP_NewInvoice;
     @FXML
     private Tab TPP_NewCustomer;
+    @FXML
+    private Tab TPP_NewCategory;
 
     // Comboboxes
     @FXML
@@ -56,6 +59,16 @@ public class Controller {
     private ComboBox<String> CB_Title2;
     @FXML
     private ComboBox<String> CB_Country;
+
+    // New Category Combobox
+    @FXML
+    private ComboBox<String> CB_CategoryType;
+
+    // New Invoice Combobox
+    @FXML
+    private ComboBox<String> CB_NewInvoiceType;
+    @FXML
+    private ComboBox<String> CB_NewInvoiceCustomer;
 
     // Labels
     @FXML
@@ -96,6 +109,27 @@ public class Controller {
     private TextField TF_TelNr2;
     @FXML
     private TextField TF_Email2;
+
+    // New Category
+    @FXML
+    private TextField TF_CategoryName;
+
+    // New Invoice
+    @FXML
+    private TextField TF_NewInvoiceDescription;
+    @FXML
+    private TextField TF_NewInvoiceAmount;
+    @FXML
+    private TextField TF_NewInvoiceName;
+
+    // Date Picker
+    // New Invoice
+    @FXML
+    private DatePicker DP_NewInvoiceDate;
+
+    // New Category Text Area
+    @FXML
+    private TextArea TA_NewCG_Other;
 
     // TableView
     @FXML
@@ -166,6 +200,21 @@ public class Controller {
 
         // Insert all Customers into TableView "TV_ShowCustomer"
         InsertTV_ShowCustomer();
+
+        // Fill New Category Type Combobox with Income and Expenses
+        CB_CategoryType.getItems().add("Choose");
+        CB_CategoryType.getSelectionModel().selectFirst();
+        CB_CategoryType.getItems().addAll("Income", "Expenses");
+
+        // Get All Company Names from ck_companydetails and fill CB_NewInvoiceCustomer with them
+        CB_NewInvoiceCustomer.getItems().add("Choose");
+        CB_NewInvoiceCustomer.getSelectionModel().selectFirst();
+        CB_NewInvoiceCustomer.getItems().addAll(DB.GetAllCompanyNames());
+
+        // Get All Categories from ck_categories and fill CB_NewInvoiceType with them
+        CB_NewInvoiceType.getItems().add("Choose");
+        CB_NewInvoiceType.getSelectionModel().selectFirst();
+        CB_NewInvoiceType.getItems().addAll(DB.GetAllCategories());
     }
 
     // Methods for Button Pressed
@@ -248,6 +297,32 @@ public class Controller {
     @FXML
     private void On_B_DeleteInvoice_Pressed() {
         System.out.println("Delete Invoice Pressed");
+    }
+
+    @FXML
+    private void On_B_NewCategory_Pressed() {
+        TP_Pages.getSelectionModel().select(TPP_NewCategory);
+    }
+
+    // NEW INVOICE CODE
+    @FXML
+    private void On_B_SaveNewInvoice_Pressed() {
+        DB.InsertNewInvoice(CB_NewInvoiceType.getValue(), TF_NewInvoiceName.getText(), TF_NewInvoiceDescription.getText(), TF_NewInvoiceAmount.getText(), Date.valueOf(DP_NewInvoiceDate.getValue()));
+    }
+
+    @FXML
+    private void On_B_CancelNewInvoice_Pressed() {
+        TP_Pages.getSelectionModel().select(TPP_Invoices);
+    }
+
+    // Category Code
+    @FXML
+    private void On_B_SaveCategory_Pressed() {
+        DB.InsertNewCategory(TF_CategoryName.getText(), CB_CategoryType.getValue(), TA_NewCG_Other.getText());
+    }
+    @FXML
+    private void On_B_CancelNewCategory_Pressed() {
+        TP_Pages.getSelectionModel().select(TPP_Invoices);
     }
 
 
