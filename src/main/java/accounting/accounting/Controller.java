@@ -36,7 +36,7 @@ public class Controller {
     @FXML
     private Tab TPP_Customer;
     @FXML
-    private Tab TPP_Documents;
+    private Tab TPP_Categories;
     @FXML
     private Tab TPP_Evaluations;
     @FXML
@@ -175,7 +175,6 @@ public class Controller {
 
     private boolean isMenuOpen = false;
     Database DB = new Database();
-    Functions FC = new Functions();
 
     public Controller() {
         DB.ConnectToDatabase();
@@ -189,6 +188,10 @@ public class Controller {
         // Labels
         L_DSGVO.setText("GDPR Compliance Statement \n" +
                 "By accepting this GDPR compliance statement, you agree to the following terms regarding the handling of your data");
+
+        // Insert into TableViews
+        InsertTV_ShowCustomer();
+        InsertTV_ShowInvoices();
 
         // Comboboxes
 
@@ -215,9 +218,6 @@ public class Controller {
         CB_Country.getItems().add("Choose");
         CB_Country.getSelectionModel().selectFirst();
         CB_Country.getItems().addAll(DB.GetCountries());
-
-        // Insert all Customers into TableView "TV_ShowCustomer"
-        InsertTV_ShowCustomer();
 
         // Fill New Category Type Combobox with Income and Expenses
         CB_CategoryType.getItems().add("Choose");
@@ -286,8 +286,8 @@ public class Controller {
         TP_Pages.getSelectionModel().select(TPP_Customer);
     }
     @FXML
-    private void On_B_Documents_Pressed() {
-        TP_Pages.getSelectionModel().select(TPP_Documents);
+    private void On_B_Categories_Pressed() {
+        TP_Pages.getSelectionModel().select(TPP_Categories);
     }
     @FXML
     private void On_B_Evaluation_Pressed() {
@@ -314,18 +314,45 @@ public class Controller {
     }
     @FXML
     private void On_B_DeleteInvoice_Pressed() {
-        System.out.println("Delete Invoice Pressed");
+
+        // Check if the invoice is the same date as today
+        String selectedInvoice = TV_ShowInvoices.getSelectionModel().getSelectedItem();
+        String[] parts = selectedInvoice.split(" - ");
+        String invoiceDate = parts[4];
+
+        // Check if the invoice is from today
+        if (!invoiceDate.equals(String.valueOf(java.time.LocalDate.now()))) {
+            Functions.ShowPopup("E", "Delete Invoice", "You can't delete an invoice that is not from today");
+            return;
+        }
+
+        // Show a Popup to confirm the deletion
+        boolean PopupResponse = Functions.ShowPopup("W","Delete Invoice", "Are you sure you want to delete this invoice?");
+
+
+        if (!PopupResponse) {
+            return;
+        }
+
+        // Get The Category_ID, Name and Amount
+        String invoiceID = parts[0];
+        String invoiceName = parts[1];
+        String invoiceAmount = parts[3];
+
+        // Parse invoiceAmount to double
+        double amount = Double.parseDouble(invoiceAmount);
+
+        // Delete the invoice from the database
+        DB.DeleteInvoice(invoiceID, invoiceName, amount);
+
+        InsertTV_ShowInvoices();
     }
 
-    @FXML
-    private void On_B_NewCategory_Pressed() {
-        TP_Pages.getSelectionModel().select(TPP_NewCategory);
-    }
-
-    // NEW INVOICE CODE
+    // SAVE NEW INVOICE
     @FXML
     private void On_B_SaveNewInvoice_Pressed() {
         DB.InsertNewInvoice(CB_NewInvoiceType.getValue(), TF_NewInvoiceName.getText(), TF_NewInvoiceDescription.getText(), TF_NewInvoiceAmount.getText(), Date.valueOf(DP_NewInvoiceDate.getValue()));
+        InsertTV_ShowInvoices();
     }
 
     @FXML
@@ -333,7 +360,7 @@ public class Controller {
         TP_Pages.getSelectionModel().select(TPP_Invoices);
     }
 
-    // Category Code
+    // NEW CATEGORY CODE
     @FXML
     private void On_B_SaveCategory_Pressed() {
         DB.InsertNewCategory(TF_CategoryName.getText(), CB_CategoryType.getValue(), TA_NewCG_Other.getText());
@@ -342,7 +369,6 @@ public class Controller {
     private void On_B_CancelNewCategory_Pressed() {
         TP_Pages.getSelectionModel().select(TPP_Invoices);
     }
-
 
     // CUSTOMER CODE
 
@@ -395,6 +421,21 @@ public class Controller {
         System.out.println("Save New Customer Pressed");
     }
 
+    // CATEGORY CODE
+    @FXML
+    private void On_B_NewCategory_Pressed() {
+        TP_Pages.getSelectionModel().select(TPP_NewCategory);
+    }
+    @FXML
+    private void On_B_DeleteCategory_Pressed() {
+        System.out.println("Delete Category Pressed");
+    }
+
+    @FXML
+    private void On_B_EditCategory_Pressed() {
+        System.out.println("Edit Category Pressed");
+    }
+
 
 
     // INITIALIZATION CODE
@@ -445,42 +486,41 @@ public class Controller {
         TV_ShowCustomer.setItems(FXCollections.observableArrayList(customers));
     }
 
+    // Controller.java
     private void InsertTV_ShowInvoices() {
         TV_ShowInvoices.getItems().clear();
 
         TC_Category.setCellValueFactory(data -> {
             String[] parts = data.getValue().split(" - ");
-            return new SimpleStringProperty(parts.length > 1 ? parts[1] : "");
+            return new SimpleStringProperty(parts.length > 0 ? parts[0] : "");
         });
 
         TC_Name.setCellValueFactory(data -> {
             String[] parts = data.getValue().split(" - ");
-            return new SimpleStringProperty(parts.length > 2 ? parts[2] : "");
+            return new SimpleStringProperty(parts.length > 1 ? parts[1] : "");
         });
 
         TC_Description.setCellValueFactory(data -> {
             String[] parts = data.getValue().split(" - ");
-            return new SimpleStringProperty(parts.length > 3 ? parts[3] : "");
+            return new SimpleStringProperty(parts.length > 2 ? parts[2] : "");
         });
 
         TC_Amount.setCellValueFactory(data -> {
             String[] parts = data.getValue().split(" - ");
-            return new SimpleStringProperty(parts.length > 4 ? parts[4] : "");
+            return new SimpleStringProperty(parts.length > 3 ? parts[3] : "");
         });
 
         TC_Date.setCellValueFactory(data -> {
             String[] parts = data.getValue().split(" - ");
-            return new SimpleStringProperty(parts.length > 5 ? parts[5] : "");
+            return new SimpleStringProperty(parts.length > 4 ? parts[4] : "");
         });
 
         TC_Timestamp.setCellValueFactory(data -> {
             String[] parts = data.getValue().split(" - ");
-            return new SimpleStringProperty(parts.length > 6 ? parts[6] : "");
+            return new SimpleStringProperty(parts.length > 5 ? parts[5] : "");
         });
 
         ArrayList<String> invoices = DB.GetAllInvoices();
-        System.out.println(invoices);
-
         TV_ShowInvoices.setItems(FXCollections.observableArrayList(invoices));
     }
 

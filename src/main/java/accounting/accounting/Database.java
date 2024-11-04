@@ -327,18 +327,88 @@ public class Database {
         try(Connection connection = ConnectToDatabase()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM ck_invoices");
-            ResultSet resSet = statement.executeQuery("SELECT ");
+            String GetCategoryByID = "SELECT Name FROM ck_categories WHERE Category_ID = ?";
+            PreparedStatement getCategoryIDStatement = connection.prepareStatement(GetCategoryByID);
 
             while (resultSet.next()) {
-                InvoiceList.add(resultSet.getString("Category_ID") + " - " +
+                int CategoryID = resultSet.getInt("Category_ID");
+                getCategoryIDStatement.setInt(1, CategoryID);
+                ResultSet categoryResult = getCategoryIDStatement.executeQuery();
+                categoryResult.next();
+                InvoiceList.add(categoryResult.getString("Name") + " - " +
                         resultSet.getString("Name") + " - " +
                         resultSet.getString("Description") + " - " +
                         resultSet.getString("Amount") + " - " +
                         resultSet.getString("Date") + " - " +
                         resultSet.getString("Timestamp"));
+                System.out.println(InvoiceList);
             }
 
             return InvoiceList;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+    // DELETE FUNCTIONS
+
+
+    // Delte active Invocie
+    protected void DeleteInvoice(String CategoryName, String InvoiceName, double Amount) {
+        String deleteQuery = "DELETE FROM ck_invoices WHERE Category_ID = ? AND Name = ? AND Amount = ?";
+        String getCategoryID = "SELECT Category_ID FROM ck_categories WHERE Name = ?";
+
+        try (Connection connection = ConnectToDatabase()) {
+            PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+            PreparedStatement getCategoryIDStatement = connection.prepareStatement(getCategoryID);
+
+            getCategoryIDStatement.setString(1, CategoryName);
+            ResultSet categoryIDResult = getCategoryIDStatement.executeQuery();
+            categoryIDResult.next();
+            int CategoryID = categoryIDResult.getInt("Category_ID");
+
+            deleteStatement.setInt(1, CategoryID);
+            deleteStatement.setString(2, InvoiceName);
+            deleteStatement.setDouble(3, Amount);
+            deleteStatement.executeUpdate();
+            System.out.println("Invoice Successfully deleted");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // DELETE ACTIVE CATEGORY
+    protected boolean DeleteCategory(String CategoryName) {
+        String deleteQuery = "DELETE FROM ck_categories WHERE Name = ?";
+        String GetCategoryID = "SELECT Category_ID FROM ck_categories WHERE Name = ?";
+        String SelectInvoicesWithCategory = "SELECT * FROM ck_invoices WHERE Category_ID = ?";
+
+        try (Connection connection = ConnectToDatabase()) {
+            PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+            PreparedStatement getCategoryIDStatement = connection.prepareStatement(GetCategoryID);
+            PreparedStatement selectInvoicesWithCategoryStatement = connection.prepareStatement(SelectInvoicesWithCategory);
+
+            getCategoryIDStatement.setString(1, CategoryName);
+            ResultSet categoryIDResult = getCategoryIDStatement.executeQuery();
+            categoryIDResult.next();
+            int CategoryID = categoryIDResult.getInt("Category_ID");
+
+            selectInvoicesWithCategoryStatement.setInt(1, CategoryID);
+            ResultSet invoicesWithCategoryResult = selectInvoicesWithCategoryStatement.executeQuery();
+            // If There are invoices with this category, do not delete
+            if (invoicesWithCategoryResult.next()) {
+                System.out.println("There are invoices with this category, cannot delete");
+                return false;
+            }
+
+            deleteStatement.setString(1, CategoryName);
+            deleteStatement.executeUpdate();
+            System.out.println("Category Successfully deleted");
+            return true;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
