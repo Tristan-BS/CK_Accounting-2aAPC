@@ -369,7 +369,6 @@ public class Database {
                         resultSet.getString("Amount") + " - " +
                         resultSet.getString("Date") + " - " +
                         resultSet.getString("Timestamp"));
-                System.out.println(InvoiceList);
             }
 
             return InvoiceList;
@@ -377,6 +376,30 @@ public class Database {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    protected ArrayList<String> GetAllInvoicesWithCategory() {
+        ArrayList<String> invoicesWithCategory = new ArrayList<>();
+        String query = "SELECT * FROM ck_invoices_with_category";
+
+        try (Connection connection = ConnectToDatabase()) {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                String invoiceName = rs.getString("InvoiceName");
+                double amount = rs.getDouble("Amount");
+                Date date = rs.getDate("Date");
+                String categoryType = rs.getString("CategoryType");
+
+                String invoice = String.format("%s - %.2f - %s - %s", invoiceName, amount, date.toString(), categoryType);
+                invoicesWithCategory.add(invoice);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return invoicesWithCategory;
     }
 
 

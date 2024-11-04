@@ -1,9 +1,14 @@
 package accounting.accounting;
 
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,8 +21,13 @@ import javafx.util.Duration;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.Date;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.TextStyle;
+import java.util.*;
 
 public class Controller {
     // AnchorPane
@@ -181,6 +191,10 @@ public class Controller {
     @FXML
     private TableColumn<String, String> TC_CategoryOther;
 
+    // BarChar - Home
+    @FXML
+    private BarChart<String, Number> BC_HomeChart;
+
     // Other
 
     private boolean isMenuOpen = false;
@@ -204,7 +218,8 @@ public class Controller {
         InsertTV_ShowInvoices();
         InsertTV_Categories();
 
-        // Comboboxes
+        // Insert into BarChart
+        initializeBarChart();
 
         // Insert all genderTypes into Combobox "CB_Gender" and "CB_Gender2"
         CB_Gender.getItems().add("Choose");
@@ -332,7 +347,7 @@ public class Controller {
         String invoiceDate = parts[4];
 
         // Check if the invoice is from today
-        if (!invoiceDate.equals(String.valueOf(java.time.LocalDate.now()))) {
+        if (!invoiceDate.equals(String.valueOf(LocalDate.now()))) {
             Functions.ShowPopup("E", "Delete Invoice", "You can't delete an invoice that is not from today");
             return;
         }
@@ -442,7 +457,6 @@ public class Controller {
         // Get Selected Category
         String selectedCategory = TV_ShowCategories.getSelectionModel().getSelectedItem();
         String[] parts = selectedCategory.split(" - ");
-        System.out.println(parts);
         String Name = parts[1];
 
         // Call Popup Window to check
@@ -512,7 +526,6 @@ public class Controller {
 
         // Fetch customer data from the database
         ArrayList<String> customers = DB.GetAllCustomers();
-        System.out.println(customers);
 
         // Add data to the TableView
         TV_ShowCustomer.setItems(FXCollections.observableArrayList(customers));
@@ -576,5 +589,72 @@ public class Controller {
         TV_ShowCategories.setItems(FXCollections.observableArrayList(categories));
     }
 
+    private void initializeBarChart() {
+        // Format für die Monatsachse
+        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
+        DateTimeFormatter monthDisplayFormatter = DateTimeFormatter.ofPattern("MMMM yyyy");
 
+        // Listen für Einnahmen und Ausgaben pro Monat
+        XYChart.Series<String, Number> incomeSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> expenseSeries = new XYChart.Series<>();
+        incomeSeries.setName("Einnahmen");
+        expenseSeries.setName("Ausgaben");
+
+        // Summen für Einnahmen, Ausgaben und Differenz
+        double totalIncome = 0;
+        double totalExpenses = 0;
+
+        // Daten aus der Datenbank abrufen
+        ArrayList<String> records = DB.GetAllInvoicesWithCategory();
+
+        // HashMap für die monatliche Speicherung von Einnahmen und Ausgaben
+        Map<String, Double> monthlyIncome = new HashMap<>();
+        Map<String, Double> monthlyExpenses = new HashMap<>();
+
+        // Daten verarbeiten
+        for (String record : records) {
+            String[] parts = record.split(" - ");
+            if (parts.length == 4) {
+                double amount = Double.parseDouble(parts[1].replace(",", "."));
+                LocalDate date = LocalDate.parse(parts[2]);
+                String category = parts[3];
+
+                // Monat im Format MM extrahieren
+                String monthKey = date.format(monthFormatter);
+
+                // Daten je nach Kategorie zu Einnahmen oder Ausgaben hinzufügen
+                if (category.equals("Income")) {
+                    monthlyIncome.put(monthKey, monthlyIncome.getOrDefault(monthKey, 0.0) + amount);
+                    totalIncome += amount;
+                } else if (category.equals("Expenses")) {
+                    monthlyExpenses.put(monthKey, monthlyExpenses.getOrDefault(monthKey, 0.0) + amount);
+                    totalExpenses += amount;
+                }
+            }
+        }
+
+        // Alle Monate im Jahr generieren (Januar bis Dezember)
+        for (int month = 1; month <= 12; month++) {
+            String monthKey = String.format("%02d", month); // MM-Format
+            String monthDisplay = LocalDate.of(2024, month, 1).format(monthDisplayFormatter); // Monat in gewünschtem Format
+
+            // Füge Einnahmen hinzu (oder 0, wenn keine vorhanden)
+            double income = monthlyIncome.getOrDefault(monthKey, 0.0);
+            incomeSeries.getData().add(new XYChart.Data<>(monthDisplay, income));
+
+            // Füge Ausgaben hinzu (oder 0, wenn keine vorhanden)
+            double expenses = monthlyExpenses.getOrDefault(monthKey, 0.0);
+            expenseSeries.getData().add(new XYChart.Data<>(monthDisplay, expenses));
+        }
+
+        // Werte dem BarChart hinzufügen
+        BC_HomeChart.getData().clear();
+        BC_HomeChart.getData().addAll(incomeSeries, expenseSeries);
+
+        // Gesamteinnahmen, Gesamtausgaben und Differenz anzeigen
+        //double difference = totalIncome - totalExpenses;
+        //lblTotalIncome.setText(String.format("Einnahmen: %.2f €", totalIncome));
+        //lblTotalExpenses.setText(String.format("Ausgaben: %.2f €", totalExpenses));
+        //lblDifference.setText(String.format("Differenz: %.2f €", difference));
+    }
 }
