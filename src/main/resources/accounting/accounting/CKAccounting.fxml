@@ -310,11 +310,11 @@
                                                       <Font name="System Bold" size="28.0" />
                                                    </font>
                                                 </Label>
-                                                <TableView fx:id="TV_ShowInvoices1" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                                <TableView fx:id="TV_ShowCategories" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
                                                    <columns>
-                                                      <TableColumn fx:id="TC_Category1" prefWidth="190.400026679039" text="Type" />
-                                                      <TableColumn fx:id="TC_Name1" prefWidth="293.60003662109375" text="Name" />
-                                                      <TableColumn fx:id="TC_Description1" minWidth="4.800048828125" prefWidth="238.4000244140625" text="Other" />
+                                                      <TableColumn fx:id="TC_CategoryType" prefWidth="190.400026679039" text="Type" />
+                                                      <TableColumn fx:id="TC_CategoryName" prefWidth="293.60003662109375" text="Name" />
+                                                      <TableColumn fx:id="TC_CategoryOther" minWidth="4.800048828125" prefWidth="238.4000244140625" text="Other" />
                                                    </columns>
                                                    <columnResizePolicy>
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

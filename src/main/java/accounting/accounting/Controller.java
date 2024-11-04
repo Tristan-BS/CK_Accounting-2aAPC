@@ -171,6 +171,16 @@ public class Controller {
     @FXML
     private TableColumn<String, String> TC_Timestamp;
 
+    // Categories
+    @FXML
+    private TableView<String> TV_ShowCategories;
+    @FXML
+    private TableColumn<String, String> TC_CategoryType;
+    @FXML
+    private TableColumn<String, String> TC_CategoryName;
+    @FXML
+    private TableColumn<String, String> TC_CategoryOther;
+
     // Other
 
     private boolean isMenuOpen = false;
@@ -192,6 +202,7 @@ public class Controller {
         // Insert into TableViews
         InsertTV_ShowCustomer();
         InsertTV_ShowInvoices();
+        InsertTV_Categories();
 
         // Comboboxes
 
@@ -232,7 +243,7 @@ public class Controller {
         // Get All Categories from ck_categories and fill CB_NewInvoiceType with them
         CB_NewInvoiceType.getItems().add("Choose");
         CB_NewInvoiceType.getSelectionModel().selectFirst();
-        CB_NewInvoiceType.getItems().addAll(DB.GetAllCategories());
+        CB_NewInvoiceType.getItems().addAll(DB.GetNameFromCategories());
     }
 
     // Methods for Button Pressed
@@ -367,7 +378,7 @@ public class Controller {
     }
     @FXML
     private void On_B_CancelNewCategory_Pressed() {
-        TP_Pages.getSelectionModel().select(TPP_Invoices);
+        TP_Pages.getSelectionModel().select(TPP_Categories);
     }
 
     // CUSTOMER CODE
@@ -428,7 +439,28 @@ public class Controller {
     }
     @FXML
     private void On_B_DeleteCategory_Pressed() {
-        System.out.println("Delete Category Pressed");
+        // Get Selected Category
+        String selectedCategory = TV_ShowCategories.getSelectionModel().getSelectedItem();
+        String[] parts = selectedCategory.split(" - ");
+        System.out.println(parts);
+        String Name = parts[1];
+
+        // Call Popup Window to check
+        boolean PopupResponse = Functions.ShowPopup("W", "Delete Category", "Are you sure you want to delete this category?");
+        if (!PopupResponse) {
+            return;
+        }
+
+        String ReturnValue = DB.DeleteCategory(Name);
+
+        // If "cannot" is in ReturnValue
+        if (ReturnValue.contains("cannot")) {
+            Functions.ShowPopup("E", "Delete Category", ReturnValue);
+        } else {
+            Functions.ShowPopup("I", "Delete Category", ReturnValue);
+        }
+
+        InsertTV_Categories();
     }
 
     @FXML
@@ -522,6 +554,26 @@ public class Controller {
 
         ArrayList<String> invoices = DB.GetAllInvoices();
         TV_ShowInvoices.setItems(FXCollections.observableArrayList(invoices));
+    }
+
+    private void InsertTV_Categories() {
+        TC_CategoryType.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 0 ? parts[0] : "");
+        });
+
+        TC_CategoryName.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 1 ? parts[1] : "");
+        });
+
+        TC_CategoryOther.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 2 ? parts[2] : "");
+        });
+
+        ArrayList<String> categories = DB.GetAllCategories();
+        TV_ShowCategories.setItems(FXCollections.observableArrayList(categories));
     }
 
 
