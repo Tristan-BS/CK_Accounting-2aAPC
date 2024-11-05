@@ -1,7 +1,10 @@
 package accounting.accounting;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Database {
     private final String DatabaseName;
@@ -213,6 +216,29 @@ public class Database {
         }
 
 
+    }
+
+    //                                                                                                            EDITOR
+
+    // Change isPaid from 0 to 1 in ck_invoices
+    protected boolean SetInvoicePaid(String Invoice) {
+        String updateQuery = "UPDATE ck_invoices SET isPaid = 1 WHERE Name = ? AND Amount = ?";
+        // Split String to get Name and Date using -
+        String[] InvoiceParts = Invoice.split(" - ");
+        System.out.println(Arrays.toString(InvoiceParts));
+        String InvoiceName = InvoiceParts[0];
+        Double InvoiceAmount = Double.parseDouble(InvoiceParts[1].replace(",", "."));
+
+        try (Connection connection = ConnectToDatabase()) {
+            PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+            updateStatement.setString(1, InvoiceName);
+            updateStatement.setDouble(2, InvoiceAmount);
+            updateStatement.executeUpdate();
+            System.out.println("Invoice is now paid");
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -437,6 +463,37 @@ public class Database {
         }
 
         return invoicesWithCategory;
+    }
+
+    protected ArrayList<String> GetOpenInvoices() {
+        ArrayList<String> OpenInvoices = new ArrayList<>();
+        String CompanyName = "None";
+
+        String query = "SELECT Name, Amount, Company_ID FROM ck_invoices WHERE isPaid = 0";
+        String GetCompanyByID = "SELECT C_Name FROM ck_companydetails WHERE Company_ID = ?";
+        try (Connection connection = ConnectToDatabase()) {
+            // First, get Company Name from ck_companydetails with Company_ID
+            PreparedStatement getCompanyIDStatement = connection.prepareStatement(GetCompanyByID);
+            ResultSet resultSet = connection.createStatement().executeQuery(query);
+
+            while (resultSet.next()) {
+                int CompanyID = resultSet.getInt("Company_ID");
+                if (CompanyID != -1) {
+                    getCompanyIDStatement.setInt(1, CompanyID);
+                    ResultSet companyResult = getCompanyIDStatement.executeQuery();
+                    if (companyResult.next()) {
+                        CompanyName = companyResult.getString("C_Name");
+                    }
+                }
+
+                String invoice = String.format("%s - %.2f - %s", resultSet.getString("Name"), resultSet.getDouble("Amount"), CompanyName);
+                OpenInvoices.add(invoice);
+            }
+            return OpenInvoices;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

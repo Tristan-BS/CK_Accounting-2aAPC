@@ -1,13 +1,11 @@
 package accounting.accounting;
 
 import javafx.animation.*;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
@@ -18,20 +16,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Array;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.TextStyle;
 import java.util.*;
-import java.util.function.Function;
+
+import javafx.scene.control.Button;
 
 public class Controller {
     // AnchorPane
@@ -209,6 +202,10 @@ public class Controller {
     @FXML
     private TableColumn<String, String> TC_CategoryOther;
 
+    // Invoices - Vbox
+    @FXML
+    private VBox VB_ShowOpenInvoices;
+
     // BarChar - Home
     @FXML
     private BarChart<String, Number> BC_HomeChart;
@@ -241,6 +238,9 @@ public class Controller {
 
         // Insert into BarChart
         initializeBarChart();
+
+        initliazileOpenInvoices();
+
 
         // Insert all genderTypes into Combobox "CB_Gender" and "CB_Gender2"
         CB_Gender.getItems().add("Choose");
@@ -396,6 +396,7 @@ public class Controller {
         DB.DeleteInvoice(invoiceID, invoiceName, amount);
 
         InsertTV_ShowInvoices();
+        initliazileOpenInvoices();
     }
 
     // NEW INVOICE CODE
@@ -436,6 +437,7 @@ public class Controller {
             CB_InvoicePaid.setSelected(false);
 
             initializeBarChart();
+            initliazileOpenInvoices();
         } else {
             Functions.ShowPopup("E", "Error Creating New Invoice", "The new invoice could not be saved");
         }
@@ -800,4 +802,87 @@ public class Controller {
         L_ExpensesHome.setText(String.format("Total Expenses: %s €", FormattedTotalExpenses));
         L_DifferenceHome.setText(String.format("Difference: %s €", FormattedDifference));
     }
+
+    private void initliazileOpenInvoices() {
+        // Fill into open Invoices VBox
+        VB_ShowOpenInvoices.getChildren().clear();
+        ArrayList<String> openInvoices = DB.GetOpenInvoices();
+        // If there are no open invoices, show a message
+        if (openInvoices.isEmpty()) {
+            Label label = new Label("There are no open invoices");
+            label.setPrefWidth(300);
+            label.setPrefHeight(25);
+            label.setStyle("-fx-padding: 0 0 0 15px;");
+            VB_ShowOpenInvoices.getChildren().add(label);
+            return;
+        }
+
+        // I want to show all Invoices untereinander mit jeweils einem Button rechts daneben dass wenn ich drauf drücke die richtige invoice auf der linken seite ausgeben wird
+
+        for (String invoice : openInvoices) {
+            String[] parts = invoice.split(" - ");
+            String invoiceName = parts[0];
+            String invoiceAmount = parts[1];
+            String invoiceCompany = parts[2];
+
+            // Create a new HBox
+            HBox hbox = new HBox();
+            hbox.setSpacing(5);
+            hbox.setPrefWidth(150);
+
+            // Create a new Button
+            Button button = new Button("Pay");
+            button.setOnAction(event -> {
+                boolean ReturnValue = DB.SetInvoicePaid(invoice);
+                if (ReturnValue) {
+                    Functions.ShowPopup("I", "Pay Invoice", "The Invoice has been paid successfully");
+
+                    // Remove this button and label from VBox
+                    VB_ShowOpenInvoices.getChildren().remove(hbox);
+
+                    InsertTV_ShowInvoices();
+                    initializeBarChart();
+                    initliazileOpenInvoices();
+                } else {
+                    Functions.ShowPopup("E", "Pay Invoice", "The Invoice could not be paid");
+                }
+            });
+            button.setPrefWidth(50);
+            button.setPrefHeight(25);
+
+            GridPane.setHgrow(button, Priority.ALWAYS);
+
+            // Create a new Label
+            Label label = new Label(invoiceName + " - " + invoiceAmount + "€ - " + invoiceCompany);
+            label.setPrefWidth(300);
+            label.setPrefHeight(25);
+            // 15px Margin on left side
+            label.setStyle("-fx-padding: 0 0 0 15px;");
+
+            // Add the label and button to the HBox
+            hbox.getChildren().addAll(label, button);
+
+            // Add the HBox to the VBox
+            VB_ShowOpenInvoices.getChildren().add(hbox);
+            VB_ShowOpenInvoices.setSpacing(15);
+        }
+    }
 }
+
+/// TODO NEXT TIME:
+// -> Search through Invoices
+// -> "Select the period for the statistics" ( Datepicker? )
+// -> Add relevant Categories from Labory Report
+// -> Error handlin ( Wrong Inputs - Check if all fields are filled out etc... )
+
+
+
+/// Optional TODO:
+// -> New Category: Statistics
+// -> Top Customers
+// -> Top Categories
+// -> Best Month
+// -> Worst Month
+// -> Best Year
+// -> Worst Year
+// -> Export to Excel or PDF or CSV
