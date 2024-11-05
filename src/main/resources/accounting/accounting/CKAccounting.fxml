@@ -310,7 +310,7 @@
                                                       <Insets left="50.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <ComboBox fx:id="CB_NewInvoiceType" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                                                <ComboBox fx:id="CB_NewInvoiceType" maxWidth="150.0" minWidth="150.0" onAction="#On_CB_NewInvoiceType_Actioned" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                                                    <GridPane.margin>
                                                       <Insets left="50.0" top="50.0" />
                                                    </GridPane.margin>

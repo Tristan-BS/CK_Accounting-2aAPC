@@ -411,6 +411,33 @@ public class Database {
     }
 
 
+    protected String GetCategoryType(String CategoryName) {
+        String CategoryType;
+        String GetCategoryType = "SELECT Type FROM ck_categorytypes WHERE CGType_ID = ?";
+        String GetCategoryID = "SELECT Type FROM ck_categories WHERE Name = ?";
+
+        try(Connection connection = ConnectToDatabase()) {
+            PreparedStatement getCategoryIDStatement = connection.prepareStatement(GetCategoryID);
+            PreparedStatement getCategoryTypeStatement = connection.prepareStatement(GetCategoryType);
+
+            getCategoryIDStatement.setString(1, CategoryName);
+            ResultSet categoryIDResult = getCategoryIDStatement.executeQuery();
+            categoryIDResult.next();
+            int Category_Type = categoryIDResult.getInt("Type");
+
+            getCategoryTypeStatement.setInt(1, Category_Type);
+            ResultSet categoryTypeResult = getCategoryTypeStatement.executeQuery();
+            categoryTypeResult.next();
+            CategoryType = categoryTypeResult.getString("Type");
+
+            return CategoryType;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     // DELETE FUNCTIONS
 

@@ -394,6 +394,20 @@ public class Controller {
         InsertTV_ShowInvoices();
     }
 
+    // NEW INVOICE CODE
+    @FXML
+    private void On_CB_NewInvoiceType_Actioned() {
+        String Category = CB_NewInvoiceType.getValue();
+        System.out.println(Category);
+        System.out.println(DB.GetCategoryType(Category));
+
+        if (DB.GetCategoryType(Category).equalsIgnoreCase("Expenses")) {
+            CB_NewInvoiceCustomer.setDisable(true);
+        } else {
+            CB_NewInvoiceCustomer.setDisable(false);
+        }
+    }
+
     // SAVE NEW INVOICE
     @FXML
     private void On_B_SaveNewInvoice_Pressed() {
