@@ -1,0 +1,7 @@
+.chart-bar.series0 {
+    -fx-bar-fill: green;
+}
+
+.chart-bar.series1 {
+    -fx-bar-fill: red;
+}

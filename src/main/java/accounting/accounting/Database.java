@@ -159,10 +159,10 @@ public class Database {
     // Date = Date
     // Timestamp = Timestamp for when the invoice was created exactly
 
-    protected void InsertNewInvoice(String Category, String Name, String Description, String Amount, Date Date) {
+    protected void InsertNewInvoice(String Category, String Name, String Description, String Amount, Date Date, boolean isPaid) {
         String selectQuery = "SELECT * FROM ck_invoices WHERE Name = ? AND Date = ?";
         String GetCategoryID = "SELECT Category_ID FROM ck_categories WHERE Name = ?";
-        String insertQuery = "INSERT INTO ck_invoices (Category_ID, Name, Description, Amount, Date, Timestamp) VALUES (?, ?, ?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO ck_invoices (Category_ID, Name, Description, Amount, Date, Timestamp, isPaid) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         // Convert Amount to Double
         String AmoundWithDot = Amount.replace(",", ".");
@@ -191,6 +191,7 @@ public class Database {
                 insertStatement.setDouble(4, AmountDouble);
                 insertStatement.setDate(5, Date);
                 insertStatement.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
+                insertStatement.setInt(7, isPaid ? 1 : 0);
                 insertStatement.executeUpdate();
                 System.out.println("Invoice added");
             }
@@ -368,7 +369,8 @@ public class Database {
                         resultSet.getString("Description") + " - " +
                         resultSet.getString("Amount") + " - " +
                         resultSet.getString("Date") + " - " +
-                        resultSet.getString("Timestamp"));
+                        resultSet.getString("Timestamp") + " - " +
+                        resultSet.getString("isPaid"));
             }
 
             return InvoiceList;
@@ -378,9 +380,15 @@ public class Database {
         }
     }
 
-    protected ArrayList<String> GetAllInvoicesWithCategory() {
+    protected ArrayList<String> GetAllInvoicesWithCategory(boolean PaidMode) {
         ArrayList<String> invoicesWithCategory = new ArrayList<>();
-        String query = "SELECT * FROM ck_invoices_with_category";
+        String query;
+
+        if (!PaidMode) {
+            query = "SELECT * FROM ck_invoices_with_category WHERE isPaid = 1";
+        } else {
+            query = "SELECT * FROM ck_invoices_with_category";
+        }
 
         try (Connection connection = ConnectToDatabase()) {
             Statement statement = connection.createStatement();

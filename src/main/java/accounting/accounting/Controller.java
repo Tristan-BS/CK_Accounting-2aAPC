@@ -18,6 +18,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -86,9 +89,19 @@ public class Controller {
     @FXML
     private Label L_AcceptDSGVO;
 
-    // Checkbox
+    // Home Labels
     @FXML
-    private CheckBox CB_DSGVO;
+    private Label L_ExpensesHome;
+    @FXML
+    private Label L_IncomeHome;
+    @FXML
+    private Label L_DifferenceHome;
+
+    // Invoice Combobox
+    @FXML
+    private CheckBox CB_InvoicePaid;
+    @FXML
+    private CheckBox CB_ShowPaidInvoices;
 
     // TextFields
     @FXML
@@ -180,6 +193,8 @@ public class Controller {
     private TableColumn<String, String> TC_Date;
     @FXML
     private TableColumn<String, String> TC_Timestamp;
+    @FXML
+    private TableColumn<String, String> TC_AlreadyPaid;
 
     // Categories
     @FXML
@@ -330,7 +345,10 @@ public class Controller {
 
 
     // HOMEPAGE CODE
-
+    @FXML
+    private void On_CB_ShowPaidInvoices_Pressed() {
+        initializeBarChart();
+    }
 
 
     // INVOICES CODE
@@ -338,6 +356,8 @@ public class Controller {
     private void On_B_NewInvoice_Pressed() {
         TP_Pages.getSelectionModel().select(TPP_NewInvoice);
     }
+
+    // DELETE AN INVOICE
     @FXML
     private void On_B_DeleteInvoice_Pressed() {
 
@@ -377,7 +397,7 @@ public class Controller {
     // SAVE NEW INVOICE
     @FXML
     private void On_B_SaveNewInvoice_Pressed() {
-        DB.InsertNewInvoice(CB_NewInvoiceType.getValue(), TF_NewInvoiceName.getText(), TF_NewInvoiceDescription.getText(), TF_NewInvoiceAmount.getText(), Date.valueOf(DP_NewInvoiceDate.getValue()));
+        DB.InsertNewInvoice(CB_NewInvoiceType.getValue(), TF_NewInvoiceName.getText(), TF_NewInvoiceDescription.getText(), TF_NewInvoiceAmount.getText(), Date.valueOf(DP_NewInvoiceDate.getValue()),CB_InvoicePaid.isSelected());
         InsertTV_ShowInvoices();
     }
 
@@ -565,6 +585,11 @@ public class Controller {
             return new SimpleStringProperty(parts.length > 5 ? parts[5] : "");
         });
 
+        TC_AlreadyPaid.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            return new SimpleStringProperty(parts.length > 6 && parts[6].equals("1") ? "Yes" : "No");
+        });
+
         ArrayList<String> invoices = DB.GetAllInvoices();
         TV_ShowInvoices.setItems(FXCollections.observableArrayList(invoices));
     }
@@ -590,28 +615,26 @@ public class Controller {
     }
 
     private void initializeBarChart() {
-        // Format für die Monatsachse
+        // Format for months
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
         DateTimeFormatter monthDisplayFormatter = DateTimeFormatter.ofPattern("MMMM yyyy");
 
-        // Listen für Einnahmen und Ausgaben pro Monat
+        // List of all months
         XYChart.Series<String, Number> incomeSeries = new XYChart.Series<>();
         XYChart.Series<String, Number> expenseSeries = new XYChart.Series<>();
-        incomeSeries.setName("Einnahmen");
-        expenseSeries.setName("Ausgaben");
+        incomeSeries.setName("Income");
+        expenseSeries.setName("Expenses");
 
-        // Summen für Einnahmen, Ausgaben und Differenz
         double totalIncome = 0;
         double totalExpenses = 0;
 
-        // Daten aus der Datenbank abrufen
-        ArrayList<String> records = DB.GetAllInvoicesWithCategory();
+        ArrayList<String> records = DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected());
 
-        // HashMap für die monatliche Speicherung von Einnahmen und Ausgaben
+        // Hashmaps for monthly income and expenses
         Map<String, Double> monthlyIncome = new HashMap<>();
         Map<String, Double> monthlyExpenses = new HashMap<>();
 
-        // Daten verarbeiten
+        // process data
         for (String record : records) {
             String[] parts = record.split(" - ");
             if (parts.length == 4) {
@@ -619,10 +642,10 @@ public class Controller {
                 LocalDate date = LocalDate.parse(parts[2]);
                 String category = parts[3];
 
-                // Monat im Format MM extrahieren
+                // Month in MM-Format
                 String monthKey = date.format(monthFormatter);
 
-                // Daten je nach Kategorie zu Einnahmen oder Ausgaben hinzufügen
+                // Data in the correct HashMap
                 if (category.equals("Income")) {
                     monthlyIncome.put(monthKey, monthlyIncome.getOrDefault(monthKey, 0.0) + amount);
                     totalIncome += amount;
@@ -633,28 +656,35 @@ public class Controller {
             }
         }
 
-        // Alle Monate im Jahr generieren (Januar bis Dezember)
+        // Add all months to the chart
         for (int month = 1; month <= 12; month++) {
             String monthKey = String.format("%02d", month); // MM-Format
             String monthDisplay = LocalDate.of(2024, month, 1).format(monthDisplayFormatter); // Monat in gewünschtem Format
 
-            // Füge Einnahmen hinzu (oder 0, wenn keine vorhanden)
+            // Add income (or 0 if none present)
             double income = monthlyIncome.getOrDefault(monthKey, 0.0);
             incomeSeries.getData().add(new XYChart.Data<>(monthDisplay, income));
 
-            // Füge Ausgaben hinzu (oder 0, wenn keine vorhanden)
+            // Add expenses (or 0 if none present)
             double expenses = monthlyExpenses.getOrDefault(monthKey, 0.0);
             expenseSeries.getData().add(new XYChart.Data<>(monthDisplay, expenses));
         }
 
-        // Werte dem BarChart hinzufügen
+        // Add data to the chart
         BC_HomeChart.getData().clear();
         BC_HomeChart.getData().addAll(incomeSeries, expenseSeries);
 
-        // Gesamteinnahmen, Gesamtausgaben und Differenz anzeigen
-        //double difference = totalIncome - totalExpenses;
-        //lblTotalIncome.setText(String.format("Einnahmen: %.2f €", totalIncome));
-        //lblTotalExpenses.setText(String.format("Ausgaben: %.2f €", totalExpenses));
-        //lblDifference.setText(String.format("Differenz: %.2f €", difference));
+        // Calculate Total and difference
+        double difference = totalIncome - totalExpenses;
+
+        // Format values into german currency with dots between every 3 digits
+
+        String FormattedTotalIncome = Functions.formatNumber(totalIncome);
+        String FormattedTotalExpenses = Functions.formatNumber(totalExpenses);
+        String FormattedDifference = Functions.formatNumber(difference);
+
+        L_IncomeHome.setText(String.format("Total Income: %s €", FormattedTotalIncome));
+        L_ExpensesHome.setText(String.format("Total Expenses: %s €", FormattedTotalExpenses));
+        L_DifferenceHome.setText(String.format("Difference: %s €", FormattedDifference));
     }
 }

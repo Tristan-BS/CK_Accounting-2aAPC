@@ -10,6 +10,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Functions {
@@ -72,5 +74,10 @@ public class Functions {
 
         // Check if the user clicked the continue button or the exit button
         return alert.getResult() == ButtonType.OK;
+    }
+
+    public static String formatNumber(double number) {
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.GERMANY);
+        return numberFormat.format(number);
     }
 }
