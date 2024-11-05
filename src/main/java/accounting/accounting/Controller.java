@@ -196,6 +196,8 @@ public class Controller {
     private TableColumn<String, String> TC_Timestamp;
     @FXML
     private TableColumn<String, String> TC_AlreadyPaid;
+    @FXML
+    private TableColumn<String, String> TC_CompanyNameInvoice;
 
     // Categories
     @FXML
@@ -413,7 +415,13 @@ public class Controller {
     // SAVE NEW INVOICE
     @FXML
     private void On_B_SaveNewInvoice_Pressed() {
-        boolean ReturnValue = DB.InsertNewInvoice(CB_NewInvoiceType.getValue(), TF_NewInvoiceName.getText(), TF_NewInvoiceDescription.getText(), TF_NewInvoiceAmount.getText(), Date.valueOf(DP_NewInvoiceDate.getValue()),CB_InvoicePaid.isSelected());
+        String CompanyNameToPass;
+        if(CB_NewInvoiceCustomer.getValue().equalsIgnoreCase("Choose") || CB_NewInvoiceCustomer.getValue().isEmpty()) {
+            CompanyNameToPass = "None";
+        } else {
+            CompanyNameToPass = CB_NewInvoiceCustomer.getValue();
+        }
+        boolean ReturnValue = DB.InsertNewInvoice(CB_NewInvoiceType.getValue(), TF_NewInvoiceName.getText(), TF_NewInvoiceDescription.getText(), TF_NewInvoiceAmount.getText(), Date.valueOf(DP_NewInvoiceDate.getValue()),CB_InvoicePaid.isSelected(), CompanyNameToPass);
 
         if(ReturnValue) {
             InsertTV_ShowInvoices();
@@ -426,6 +434,8 @@ public class Controller {
             TF_NewInvoiceAmount.clear();
             DP_NewInvoiceDate.setValue(LocalDate.now());
             CB_InvoicePaid.setSelected(false);
+
+            initializeBarChart();
         } else {
             Functions.ShowPopup("E", "Error Creating New Invoice", "The new invoice could not be saved");
         }
@@ -667,6 +677,15 @@ public class Controller {
         TC_Amount.setCellValueFactory(data -> {
             String[] parts = data.getValue().split(" - ");
             return new SimpleStringProperty(parts.length > 3 ? parts[3] : "");
+        });
+
+        TC_CompanyNameInvoice.setCellValueFactory(data -> {
+            String[] parts = data.getValue().split(" - ");
+            String companyName = parts.length > 7 ? parts[7] : "";
+            if ("-1".equals(companyName)) {
+                companyName = " ";
+            }
+            return new SimpleStringProperty(companyName);
         });
 
         TC_Date.setCellValueFactory(data -> {

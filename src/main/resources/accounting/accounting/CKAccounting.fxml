@@ -258,9 +258,10 @@
                                                    <columns>
                                                       <TableColumn fx:id="TC_Category" prefWidth="190.400026679039" text="Category" />
                                                       <TableColumn fx:id="TC_Name" prefWidth="293.60003662109375" text="Name" />
-                                                      <TableColumn fx:id="TC_Description" minWidth="4.800048828125" prefWidth="238.4000244140625" text="Description" />
-                                                      <TableColumn fx:id="TC_Amount" prefWidth="180.00006103515625" text="Amount" />
-                                                      <TableColumn fx:id="TC_Date" prefWidth="188.80010986328125" text="Date" />
+                                                      <TableColumn fx:id="TC_Description" minWidth="4.800048828125" prefWidth="168.79995727539062" text="Description" />
+                                                      <TableColumn fx:id="TC_Amount" prefWidth="157.5999755859375" text="Amount" />
+                                                      <TableColumn fx:id="TC_CompanyNameInvoice" prefWidth="132.800048828125" text="Company" />
+                                                      <TableColumn fx:id="TC_Date" prefWidth="172.79998779296875" text="Date" />
                                                       <TableColumn fx:id="TC_Timestamp" prefWidth="200.800048828125" text="Timestamp" />
                                                       <TableColumn fx:id="TC_AlreadyPaid" prefWidth="99.199951171875" text="Already Paid" />
                                                    </columns>

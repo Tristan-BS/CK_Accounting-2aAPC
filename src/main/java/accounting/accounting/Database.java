@@ -157,27 +157,31 @@ public class Database {
         }
     }
 
-    // Table name : ck_invoices
-    // Rows: Category_ID = Foreign Key from ck_categories Category_ID
-    // Name = Varchar
-    // Description = Varchar
-    // Amount = Double
-    // Date = Date
-    // Timestamp = Timestamp for when the invoice was created exactly
-
-    protected boolean InsertNewInvoice(String Category, String Name, String Description, String Amount, Date Date, boolean isPaid) {
+    protected boolean InsertNewInvoice(String Category, String Name, String Description, String Amount, Date Date, boolean isPaid, String CompanyName) {
         String selectQuery = "SELECT * FROM ck_invoices WHERE Name = ? AND Date = ?";
         String GetCategoryID = "SELECT Category_ID FROM ck_categories WHERE Name = ?";
-        String insertQuery = "INSERT INTO ck_invoices (Category_ID, Name, Description, Amount, Date, Timestamp, isPaid) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String GetCompanyID = "SELECT Company_ID FROM ck_companydetails WHERE C_Name = ?";
+        String insertQuery = "INSERT INTO ck_invoices (Category_ID, Name, Description, Amount, Date, Timestamp, isPaid, Company_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         // Convert Amount to Double
         String AmoundWithDot = Amount.replace(",", ".");
         double AmountDouble = Double.parseDouble(AmoundWithDot);
 
-        try (Connection connection = ConnectToDatabase();
+        try (Connection connection = ConnectToDatabase()) {
+            int CompanyName_ID;
              PreparedStatement selectStatement = connection.prepareStatement(selectQuery);
              PreparedStatement getCategoryIDStatement = connection.prepareStatement(GetCategoryID);
-             PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+             PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
+             PreparedStatement getCompanyIDStatement = connection.prepareStatement(GetCompanyID);
+
+             if(!CompanyName.equalsIgnoreCase("None")) {
+                 getCompanyIDStatement.setString(1, CompanyName);
+                 ResultSet companyIDResult = getCompanyIDStatement.executeQuery();
+                 companyIDResult.next();
+                 CompanyName_ID = companyIDResult.getInt("Company_ID");
+             } else {
+                 CompanyName_ID = -1;
+             }
 
             selectStatement.setString(1, Name);
             selectStatement.setDate(2, Date);
@@ -199,6 +203,7 @@ public class Database {
                 insertStatement.setDate(5, Date);
                 insertStatement.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
                 insertStatement.setInt(7, isPaid ? 1 : 0);
+                insertStatement.setInt(8, CompanyName_ID);
                 insertStatement.executeUpdate();
                 System.out.println("Invoice added");
                 return true;
@@ -361,24 +366,40 @@ public class Database {
 
     protected ArrayList<String> GetAllInvoices() {
         ArrayList<String> InvoiceList = new ArrayList<>();
-        try(Connection connection = ConnectToDatabase()) {
+        try (Connection connection = ConnectToDatabase()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM ck_invoices");
             String GetCategoryByID = "SELECT Name FROM ck_categories WHERE Category_ID = ?";
+            String GetCompanyByID = "SELECT C_Name FROM ck_companydetails WHERE Company_ID = ?";
+
             PreparedStatement getCategoryIDStatement = connection.prepareStatement(GetCategoryByID);
+            PreparedStatement getCompanyIDStatement = connection.prepareStatement(GetCompanyByID);
 
             while (resultSet.next()) {
                 int CategoryID = resultSet.getInt("Category_ID");
                 getCategoryIDStatement.setInt(1, CategoryID);
                 ResultSet categoryResult = getCategoryIDStatement.executeQuery();
-                categoryResult.next();
-                InvoiceList.add(categoryResult.getString("Name") + " - " +
-                        resultSet.getString("Name") + " - " +
-                        resultSet.getString("Description") + " - " +
-                        resultSet.getString("Amount") + " - " +
-                        resultSet.getString("Date") + " - " +
-                        resultSet.getString("Timestamp") + " - " +
-                        resultSet.getString("isPaid"));
+                if (categoryResult.next()) {
+                    String companyName = " "; // Standardwert, falls keine Firma verknüpft ist
+                    int CompanyID = resultSet.getInt("Company_ID");
+
+                    if (CompanyID != -1) { // Nur abfragen, wenn Company_ID nicht -1 ist
+                        getCompanyIDStatement.setInt(1, CompanyID);
+                        ResultSet companyResult = getCompanyIDStatement.executeQuery();
+                        if (companyResult.next()) {
+                            companyName = companyResult.getString("C_Name");
+                        }
+                    }
+
+                    InvoiceList.add(categoryResult.getString("Name") + " - " +
+                            resultSet.getString("Name") + " - " +
+                            resultSet.getString("Description") + " - " +
+                            resultSet.getString("Amount") + " - " +
+                            resultSet.getString("Date") + " - " +
+                            resultSet.getString("Timestamp") + " - " +
+                            resultSet.getString("isPaid") + " - " +
+                            companyName);
+                }
             }
 
             return InvoiceList;
@@ -424,30 +445,31 @@ public class Database {
         String GetCategoryType = "SELECT Type FROM ck_categorytypes WHERE CGType_ID = ?";
         String GetCategoryID = "SELECT Type FROM ck_categories WHERE Name = ?";
 
-        try(Connection connection = ConnectToDatabase()) {
+        try (Connection connection = ConnectToDatabase()) {
             PreparedStatement getCategoryIDStatement = connection.prepareStatement(GetCategoryID);
             PreparedStatement getCategoryTypeStatement = connection.prepareStatement(GetCategoryType);
 
             getCategoryIDStatement.setString(1, CategoryName);
             ResultSet categoryIDResult = getCategoryIDStatement.executeQuery();
-            categoryIDResult.next();
-            int Category_Type = categoryIDResult.getInt("Type");
 
-            getCategoryTypeStatement.setInt(1, Category_Type);
-            ResultSet categoryTypeResult = getCategoryTypeStatement.executeQuery();
-            categoryTypeResult.next();
-            CategoryType = categoryTypeResult.getString("Type");
+            if (categoryIDResult.next()) {
+                int Category_Type = categoryIDResult.getInt("Type");
 
-            if(CategoryType == null) {
-                System.out.println("Category Type not found");
+                getCategoryTypeStatement.setInt(1, Category_Type);
+                ResultSet categoryTypeResult = getCategoryTypeStatement.executeQuery();
+
+                if (categoryTypeResult.next()) {
+                    CategoryType = categoryTypeResult.getString("Type");
+                    return CategoryType;
+                } else {
+                    return "Category Type not found";
+                }
             } else {
-                return CategoryType;
+                return "Category ID not found";
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
 
