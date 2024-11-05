@@ -4,7 +4,6 @@ import javafx.animation.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -239,7 +238,7 @@ public class Controller {
         // Insert into BarChart
         initializeBarChart();
 
-        initliazileOpenInvoices();
+        initializeOpenInvoices();
 
 
         // Insert all genderTypes into Combobox "CB_Gender" and "CB_Gender2"
@@ -396,7 +395,7 @@ public class Controller {
         DB.DeleteInvoice(invoiceID, invoiceName, amount);
 
         InsertTV_ShowInvoices();
-        initliazileOpenInvoices();
+        initializeOpenInvoices();
     }
 
     // NEW INVOICE CODE
@@ -406,11 +405,7 @@ public class Controller {
         System.out.println(Category);
         System.out.println(DB.GetCategoryType(Category));
 
-        if (DB.GetCategoryType(Category).equalsIgnoreCase("Expenses")) {
-            CB_NewInvoiceCustomer.setDisable(true);
-        } else {
-            CB_NewInvoiceCustomer.setDisable(false);
-        }
+        CB_NewInvoiceCustomer.setDisable(DB.GetCategoryType(Category).equalsIgnoreCase("Expenses"));
     }
 
     // SAVE NEW INVOICE
@@ -437,7 +432,7 @@ public class Controller {
             CB_InvoicePaid.setSelected(false);
 
             initializeBarChart();
-            initliazileOpenInvoices();
+            initializeOpenInvoices();
         } else {
             Functions.ShowPopup("E", "Error Creating New Invoice", "The new invoice could not be saved");
         }
@@ -803,7 +798,7 @@ public class Controller {
         L_DifferenceHome.setText(String.format("Difference: %s €", FormattedDifference));
     }
 
-    private void initliazileOpenInvoices() {
+    private void initializeOpenInvoices() {
         // Fill into open Invoices VBox
         VB_ShowOpenInvoices.getChildren().clear();
         ArrayList<String> openInvoices = DB.GetOpenInvoices();
@@ -817,7 +812,7 @@ public class Controller {
             return;
         }
 
-        // I want to show all Invoices untereinander mit jeweils einem Button rechts daneben dass wenn ich drauf drücke die richtige invoice auf der linken seite ausgeben wird
+        // I want to show all Invoices untereinander mit jeweils einem Button rechts daneben, dass wenn ich darauf drücke die richtige invoice auf der linken seite ausgeben wird
 
         for (String invoice : openInvoices) {
             String[] parts = invoice.split(" - ");
@@ -832,7 +827,7 @@ public class Controller {
 
             // Create a new Button
             Button button = new Button("Pay");
-            button.setOnAction(event -> {
+            button.setOnAction(_ -> {
                 boolean ReturnValue = DB.SetInvoicePaid(invoice);
                 if (ReturnValue) {
                     Functions.ShowPopup("I", "Pay Invoice", "The Invoice has been paid successfully");
@@ -842,7 +837,7 @@ public class Controller {
 
                     InsertTV_ShowInvoices();
                     initializeBarChart();
-                    initliazileOpenInvoices();
+                    initializeOpenInvoices();
                 } else {
                     Functions.ShowPopup("E", "Pay Invoice", "The Invoice could not be paid");
                 }
@@ -871,9 +866,9 @@ public class Controller {
 
 /// TODO NEXT TIME:
 // -> Search through Invoices
-// -> "Select the period for the statistics" ( Datepicker? )
-// -> Add relevant Categories from Labory Report
-// -> Error handlin ( Wrong Inputs - Check if all fields are filled out etc... )
+// -> "Select the period for the statistics" (Date picker?)
+// -> Add relevant Categories from Labor Report
+// -> Error handling ( Wrong Inputs - Check if all fields are filled out etc... )
 
 
 
