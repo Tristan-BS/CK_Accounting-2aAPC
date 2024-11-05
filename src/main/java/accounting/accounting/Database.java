@@ -35,7 +35,7 @@ public class Database {
     //                                                                                                            SETTER
 
     // Insert New Customer into ck_customers
-    protected void InsertNewCompany(String Name, String Street, int HouseNumber, String Location, int PostalCode, String Country, String Other) {
+    protected boolean InsertNewCompany(String Name, String Street, int HouseNumber, String Location, int PostalCode, String Country, String Other) {
         String selectQuery = "SELECT * FROM ck_companydetails WHERE C_Name = ? AND C_Street = ?";
         String insertQuery = "INSERT INTO ck_companydetails (C_Name, C_Street, C_HouseNumber, C_Location, C_PostalCode, C_Country, C_Other) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -49,6 +49,7 @@ public class Database {
 
             if (selectResult.next()) {
                 System.out.println("Customer already exists");
+                return false;
             } else {
                 insertStatement.setString(1, Name);
                 insertStatement.setString(2, Street);
@@ -59,6 +60,7 @@ public class Database {
                 insertStatement.setString(7, Other);
                 insertStatement.executeUpdate();
                 System.out.println("Customer added");
+                return true;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -66,7 +68,7 @@ public class Database {
     }
 
     // Insert a new Contact Person into ck_contactpersons
-    protected void InsertNewContactPerson(int Rank, String Title, String Gender, String FirstName, String LastName, String EMail, String TelNr, String CompanyName) {
+    protected boolean InsertNewContactPerson(int Rank, String Title, String Gender, String FirstName, String LastName, String EMail, String TelNr, String CompanyName) {
         String selectQuery = "SELECT * FROM ck_contactperson WHERE Firstname = ? AND Lastname = ? AND EMail = ?";
         String getCompanyID = "SELECT Company_ID FROM ck_companydetails WHERE C_Name = ?";
         String getGenderID = "SELECT Gender_ID FROM ck_gender WHERE Type = ?";
@@ -85,6 +87,7 @@ public class Database {
 
             if (selectResult.next()) {
                 System.out.println("Contact Person already exists");
+                return false;
             } else {
                 getCompanyIDStatement.setString(1, CompanyName);
                 ResultSet companyIDResult = getCompanyIDStatement.executeQuery();
@@ -111,13 +114,14 @@ public class Database {
 
                 insertStatement.executeUpdate();
                 System.out.println("Contact Person added");
+                return true;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    protected void InsertNewCategory(String Name, String Type, String Other) {
+    protected boolean InsertNewCategory(String Name, String Type, String Other) {
         String selectQuery = "SELECT * FROM ck_categories WHERE Name = ?";
         String selectCategoryType = "SELECT CGType_ID FROM ck_categorytypes WHERE Type = ?";
         String insertQuery = "INSERT INTO ck_categories (Name, Type, Others) VALUES (?, ?, ?)";
@@ -133,6 +137,7 @@ public class Database {
 
             if (selectResult.next()) {
                 System.out.println("Category already exists");
+                return false;
             } else {
                 selectCategoryTypeStatement.setString(1, Type);
                 ResultSet categoryTypeResult = selectCategoryTypeStatement.executeQuery();
@@ -145,6 +150,7 @@ public class Database {
                 insertStatement.setString(3, Other);
                 insertStatement.executeUpdate();
                 System.out.println("Category added");
+                return true;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -159,7 +165,7 @@ public class Database {
     // Date = Date
     // Timestamp = Timestamp for when the invoice was created exactly
 
-    protected void InsertNewInvoice(String Category, String Name, String Description, String Amount, Date Date, boolean isPaid) {
+    protected boolean InsertNewInvoice(String Category, String Name, String Description, String Amount, Date Date, boolean isPaid) {
         String selectQuery = "SELECT * FROM ck_invoices WHERE Name = ? AND Date = ?";
         String GetCategoryID = "SELECT Category_ID FROM ck_categories WHERE Name = ?";
         String insertQuery = "INSERT INTO ck_invoices (Category_ID, Name, Description, Amount, Date, Timestamp, isPaid) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -184,6 +190,7 @@ public class Database {
 
             if (selectResult.next()) {
                 System.out.println("Invoice already exists");
+                return false;
             } else {
                 insertStatement.setInt(1, CategoryID);
                 insertStatement.setString(2, Name);
@@ -194,6 +201,7 @@ public class Database {
                 insertStatement.setInt(7, isPaid ? 1 : 0);
                 insertStatement.executeUpdate();
                 System.out.println("Invoice added");
+                return true;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -430,11 +438,16 @@ public class Database {
             categoryTypeResult.next();
             CategoryType = categoryTypeResult.getString("Type");
 
-            return CategoryType;
+            if(CategoryType == null) {
+                System.out.println("Category Type not found");
+            } else {
+                return CategoryType;
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 
 
@@ -499,5 +512,44 @@ public class Database {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    protected String DeleteCustomer(String CompanyName) {
+        String deleteCompany = "DELETE FROM ck_companydetails WHERE C_Name = ?";
+        String deleteCustomer = "DELETE FROM ck_contactperson WHERE Company_ID = ?";
+        String GetCompanyID = "SELECT Company_ID FROM ck_companydetails WHERE C_Name = ?";
+        String SelectContactPersons = "SELECT * FROM ck_contactperson WHERE Company_ID = ?";
+
+        try (Connection connection = ConnectToDatabase()) {
+            PreparedStatement deleteCompanyStatement = connection.prepareStatement(deleteCompany);
+            PreparedStatement deleteCustomerStatement = connection.prepareStatement(deleteCustomer);
+            PreparedStatement getCompanyIDStatement = connection.prepareStatement(GetCompanyID);
+            PreparedStatement selectContactPersonsStatement = connection.prepareStatement(SelectContactPersons);
+
+            getCompanyIDStatement.setString(1, CompanyName);
+            ResultSet companyIDResult = getCompanyIDStatement.executeQuery();
+            companyIDResult.next();
+            int CompanyID = companyIDResult.getInt("Company_ID");
+
+            selectContactPersonsStatement.setInt(1, CompanyID);
+            ResultSet contactPersonsResult = selectContactPersonsStatement.executeQuery();
+            // If There are contact persons with this company, delete this contact persons as well
+            while (contactPersonsResult.next()) {
+                deleteCustomerStatement.setInt(1, CompanyID);
+                deleteCustomerStatement.executeUpdate();
+            }
+
+            deleteCustomerStatement.setInt(1, CompanyID);
+            deleteCustomerStatement.executeUpdate();
+
+            deleteCompanyStatement.setString(1, CompanyName);
+            deleteCompanyStatement.executeUpdate();
+            System.out.println("Customer Successfully deleted");
+            return "Customer Successfully deleted";
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

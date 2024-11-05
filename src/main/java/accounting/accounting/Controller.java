@@ -31,6 +31,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.TextStyle;
 import java.util.*;
+import java.util.function.Function;
 
 public class Controller {
     // AnchorPane
@@ -210,6 +211,9 @@ public class Controller {
     @FXML
     private BarChart<String, Number> BC_HomeChart;
 
+    @FXML
+    private CheckBox CB_DSGVO;
+
     // Other
 
     private boolean isMenuOpen = false;
@@ -374,8 +378,6 @@ public class Controller {
 
         // Show a Popup to confirm the deletion
         boolean PopupResponse = Functions.ShowPopup("W","Delete Invoice", "Are you sure you want to delete this invoice?");
-
-
         if (!PopupResponse) {
             return;
         }
@@ -411,8 +413,23 @@ public class Controller {
     // SAVE NEW INVOICE
     @FXML
     private void On_B_SaveNewInvoice_Pressed() {
-        DB.InsertNewInvoice(CB_NewInvoiceType.getValue(), TF_NewInvoiceName.getText(), TF_NewInvoiceDescription.getText(), TF_NewInvoiceAmount.getText(), Date.valueOf(DP_NewInvoiceDate.getValue()),CB_InvoicePaid.isSelected());
-        InsertTV_ShowInvoices();
+        boolean ReturnValue = DB.InsertNewInvoice(CB_NewInvoiceType.getValue(), TF_NewInvoiceName.getText(), TF_NewInvoiceDescription.getText(), TF_NewInvoiceAmount.getText(), Date.valueOf(DP_NewInvoiceDate.getValue()),CB_InvoicePaid.isSelected());
+
+        if(ReturnValue) {
+            InsertTV_ShowInvoices();
+            Functions.ShowPopup("I", "Create New Invoice", "The new invoice has been saved successfully");
+            // Reset Values
+            CB_NewInvoiceType.getSelectionModel().selectFirst();
+            CB_NewInvoiceCustomer.getSelectionModel().selectFirst();
+            TF_NewInvoiceName.clear();
+            TF_NewInvoiceDescription.clear();
+            TF_NewInvoiceAmount.clear();
+            DP_NewInvoiceDate.setValue(LocalDate.now());
+            CB_InvoicePaid.setSelected(false);
+        } else {
+            Functions.ShowPopup("E", "Error Creating New Invoice", "The new invoice could not be saved");
+        }
+
     }
 
     @FXML
@@ -423,7 +440,16 @@ public class Controller {
     // NEW CATEGORY CODE
     @FXML
     private void On_B_SaveCategory_Pressed() {
-        DB.InsertNewCategory(TF_CategoryName.getText(), CB_CategoryType.getValue(), TA_NewCG_Other.getText());
+        boolean ReturnValue = DB.InsertNewCategory(TF_CategoryName.getText(), CB_CategoryType.getValue(), TA_NewCG_Other.getText());
+        if (!ReturnValue) {
+            Functions.ShowPopup("E", "Error Creating New Category", "The Category could not be saved");
+        } else {
+            Functions.ShowPopup("I", "Create New Category", "The Category was saved successfully");
+            InsertTV_Categories();
+            TF_CategoryName.clear();
+            CB_CategoryType.getSelectionModel().selectFirst();
+            TA_NewCG_Other.clear();
+        }
     }
     @FXML
     private void On_B_CancelNewCategory_Pressed() {
@@ -458,17 +484,73 @@ public class Controller {
     // Delete a existing Customer
     @FXML
     private void On_B_DeleteCustomer_Pressed() {
-        System.out.println("Delete Customer Pressed");
+        // Get Company Name from Selected Customer
+        String Selected = TV_ShowCustomer.getSelectionModel().getSelectedItem();
+        String[] parts = Selected.split(" - ");
+        String CompanyName = parts[7];
+
+        String ReturnValue = DB.DeleteCustomer(CompanyName);
+        if (ReturnValue.contains("There are contact")) {
+            Functions.ShowPopup("E", "Delete Customer", ReturnValue);
+        } else {
+            Functions.ShowPopup("I", "Delete Customer", ReturnValue);
+        }
+        InsertTV_ShowCustomer();
     }
 
     // NEW CUSTOMER CODE
     @FXML
     private void On_B_SaveNewCustomer_Pressed() {
-        DB.InsertNewCompany(TF_Company.getText(), TF_Street.getText(), Integer.parseInt(TF_HouseNumber.getText()), TF_Location.getText(), Integer.parseInt(TF_PostalCode.getText()), CB_Country.getValue(), TA_Others.getText());
-        DB.InsertNewContactPerson(1, CB_Title.getValue(), CB_Gender.getValue(), TF_Firstname.getText(), TF_Lastname.getText(), TF_Email.getText(), TF_TelNr.getText(), TF_Company.getText());
-        if (!TF_Firstname2.getText().isEmpty() && !TF_Lastname2.getText().isEmpty()) {
-            DB.InsertNewContactPerson(2, CB_Title2.getValue(), CB_Gender2.getValue(), TF_Firstname2.getText(), TF_Lastname2.getText(), TF_Email2.getText(), TF_TelNr2.getText(), TF_Company.getText());
+        if (!CB_DSGVO.isSelected()) {
+            Functions.ShowPopup("E", "Error Creating New Customer", "You have to accept the GDPR Compliance Statement");
+            return;
         }
+
+        boolean ReturnValue = DB.InsertNewCompany(TF_Company.getText(), TF_Street.getText(), Integer.parseInt(TF_HouseNumber.getText()), TF_Location.getText(), Integer.parseInt(TF_PostalCode.getText()), CB_Country.getValue(), TA_Others.getText());
+        if (!ReturnValue) {
+            Functions.ShowPopup("E", "Error Creating New Customer", "The Company could not be saved");
+            return;
+        }
+        ReturnValue = DB.InsertNewContactPerson(1, CB_Title.getValue(), CB_Gender.getValue(), TF_Firstname.getText(), TF_Lastname.getText(), TF_Email.getText(), TF_TelNr.getText(), TF_Company.getText());
+
+        if (!ReturnValue) {
+            Functions.ShowPopup("E", "Error Creating New Customer", "The Contact Person could not be saved");
+            return;
+        }
+
+        if (!TF_Firstname2.getText().isEmpty() && !TF_Lastname2.getText().isEmpty()) {
+            ReturnValue = DB.InsertNewContactPerson(2, CB_Title2.getValue(), CB_Gender2.getValue(), TF_Firstname2.getText(), TF_Lastname2.getText(), TF_Email2.getText(), TF_TelNr2.getText(), TF_Company.getText());
+            if (!ReturnValue) {
+                Functions.ShowPopup("E", "Error Creating New Customer", "The Deputy Contact Person could not be saved");
+                return;
+            }
+        }
+
+        // Show Popup
+        Functions.ShowPopup("I", "Create New Customer", "The Customer was saved successfully");
+        // Clear all
+
+        TF_Company.clear();
+        TF_Street.clear();
+        TF_HouseNumber.clear();
+        TF_Location.clear();
+        TF_PostalCode.clear();
+        CB_Country.getSelectionModel().selectFirst();
+        CB_DSGVO.setSelected(false);
+        CB_Gender.getSelectionModel().selectFirst();
+        CB_Title.getSelectionModel().selectFirst();
+        CB_Gender2.getSelectionModel().selectFirst();
+        CB_Title2.getSelectionModel().selectFirst();
+        TF_Firstname.clear();
+        TF_Lastname.clear();
+        TF_Email.clear();
+        TF_TelNr.clear();
+        TF_Firstname2.clear();
+        TF_Lastname2.clear();
+        TF_Email2.clear();
+        TF_TelNr2.clear();
+        TA_Others.clear();
+
         // Refresh TableView TV_ShowCustomer
         InsertTV_ShowCustomer();
     }
@@ -515,8 +597,6 @@ public class Controller {
     private void On_B_EditCategory_Pressed() {
         System.out.println("Edit Category Pressed");
     }
-
-
 
     // INITIALIZATION CODE
     private void InsertTV_ShowCustomer() {
