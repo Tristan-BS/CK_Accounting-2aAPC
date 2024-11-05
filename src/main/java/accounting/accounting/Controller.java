@@ -209,6 +209,18 @@ public class Controller {
     @FXML
     private BarChart<String, Number> BC_HomeChart;
 
+    // DatePicker - Home
+    @FXML
+    private DatePicker DP_StartDate;
+    @FXML
+    private DatePicker DP_EndDate;
+
+    // TextFields - Home
+    @FXML
+    private TextField TF_StartAmount;
+    @FXML
+    private TextField TF_EndAmount;
+
     @FXML
     private CheckBox CB_DSGVO;
 
@@ -232,11 +244,11 @@ public class Controller {
 
         // Insert into TableViews
         InsertTV_ShowCustomer();
-        InsertTV_ShowInvoices();
+        InsertTV_ShowInvoices(DB.GetAllInvoices());
         InsertTV_Categories();
 
         // Insert into BarChart
-        initializeBarChart();
+        initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
 
         initializeOpenInvoices();
 
@@ -352,7 +364,36 @@ public class Controller {
     // HOMEPAGE CODE
     @FXML
     private void On_CB_ShowPaidInvoices_Pressed() {
-        initializeBarChart();
+        initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
+    }
+
+    @FXML
+    private void On_B_FilterForDateRange_Pressed() {
+        initializeBarChart(DB.GetInvoicesByDateRange(Date.valueOf(DP_StartDate.getValue()), Date.valueOf(DP_EndDate.getValue())));
+
+        // Filter the TV_ShowInvoices as well with the same date range
+        TV_ShowInvoices.getItems().clear();
+        ArrayList<String> invoices = DB.GetInvoicesByDateRange_TABLE(Date.valueOf(DP_StartDate.getValue()), Date.valueOf(DP_EndDate.getValue()));
+        TV_ShowInvoices.setItems(FXCollections.observableArrayList(invoices));
+    }
+
+    @FXML
+    private void On_B_FilterForAmountRange_Pressed() {
+        initializeBarChart(DB.GetInvoicesByAmountRange(Double.parseDouble(TF_StartAmount.getText()), Double.parseDouble(TF_EndAmount.getText())));
+
+        // Filter the TV_ShowInvoices as well with the same amount range
+        TV_ShowInvoices.getItems().clear();
+        ArrayList<String> invoices = DB.GetInvoicesByAmountRange_TABLE(Double.parseDouble(TF_StartAmount.getText()), Double.parseDouble(TF_EndAmount.getText()));
+        InsertTV_ShowInvoices(invoices);
+        System.out.println(invoices);
+        TV_ShowInvoices.setItems(FXCollections.observableArrayList(invoices));
+    }
+
+    @FXML
+    private void On_B_ResetAllFilter_Pressed() {
+        initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
+        TV_ShowInvoices.getItems().clear();
+        InsertTV_ShowInvoices(DB.GetAllInvoices());
     }
 
 
@@ -360,6 +401,13 @@ public class Controller {
     @FXML
     private void On_B_NewInvoice_Pressed() {
         TP_Pages.getSelectionModel().select(TPP_NewInvoice);
+    }
+
+    @FXML
+    private void On_B_ResetFilter_Pressed() {
+        initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
+        TV_ShowInvoices.getItems().clear();
+        InsertTV_ShowInvoices(DB.GetAllInvoices());
     }
 
     // DELETE AN INVOICE
@@ -394,7 +442,7 @@ public class Controller {
         // Delete the invoice from the database
         DB.DeleteInvoice(invoiceID, invoiceName, amount);
 
-        InsertTV_ShowInvoices();
+        InsertTV_ShowInvoices(DB.GetAllInvoices());
         initializeOpenInvoices();
     }
 
@@ -420,7 +468,7 @@ public class Controller {
         boolean ReturnValue = DB.InsertNewInvoice(CB_NewInvoiceType.getValue(), TF_NewInvoiceName.getText(), TF_NewInvoiceDescription.getText(), TF_NewInvoiceAmount.getText(), Date.valueOf(DP_NewInvoiceDate.getValue()),CB_InvoicePaid.isSelected(), CompanyNameToPass);
 
         if(ReturnValue) {
-            InsertTV_ShowInvoices();
+            InsertTV_ShowInvoices(DB.GetAllInvoices());
             Functions.ShowPopup("I", "Create New Invoice", "The new invoice has been saved successfully");
             // Reset Values
             CB_NewInvoiceType.getSelectionModel().selectFirst();
@@ -431,7 +479,7 @@ public class Controller {
             DP_NewInvoiceDate.setValue(LocalDate.now());
             CB_InvoicePaid.setSelected(false);
 
-            initializeBarChart();
+            initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
             initializeOpenInvoices();
         } else {
             Functions.ShowPopup("E", "Error Creating New Invoice", "The new invoice could not be saved");
@@ -653,7 +701,7 @@ public class Controller {
     }
 
     // Controller.java
-    private void InsertTV_ShowInvoices() {
+    private void InsertTV_ShowInvoices(ArrayList<String> invoices) {
         TV_ShowInvoices.getItems().clear();
 
         TC_Category.setCellValueFactory(data -> {
@@ -678,8 +726,8 @@ public class Controller {
 
         TC_CompanyNameInvoice.setCellValueFactory(data -> {
             String[] parts = data.getValue().split(" - ");
-            String companyName = parts.length > 7 ? parts[7] : "";
-            if ("-1".equals(companyName)) {
+            String companyName = parts.length > 4 ? parts[4] : "";
+            if ("-1".equals(companyName) || "null".equals(companyName)) {
                 companyName = " ";
             }
             return new SimpleStringProperty(companyName);
@@ -687,20 +735,19 @@ public class Controller {
 
         TC_Date.setCellValueFactory(data -> {
             String[] parts = data.getValue().split(" - ");
-            return new SimpleStringProperty(parts.length > 4 ? parts[4] : "");
+            return new SimpleStringProperty(parts.length > 5 ? parts[5] : "");
         });
 
         TC_Timestamp.setCellValueFactory(data -> {
             String[] parts = data.getValue().split(" - ");
-            return new SimpleStringProperty(parts.length > 5 ? parts[5] : "");
+            return new SimpleStringProperty(parts.length > 6 ? parts[6] : "");
         });
 
         TC_AlreadyPaid.setCellValueFactory(data -> {
             String[] parts = data.getValue().split(" - ");
-            return new SimpleStringProperty(parts.length > 6 && parts[6].equals("1") ? "Yes" : "No");
+            return new SimpleStringProperty(parts.length > 7 && parts[7].equals("1") ? "Yes" : "No");
         });
 
-        ArrayList<String> invoices = DB.GetAllInvoices();
         TV_ShowInvoices.setItems(FXCollections.observableArrayList(invoices));
     }
 
@@ -724,7 +771,7 @@ public class Controller {
         TV_ShowCategories.setItems(FXCollections.observableArrayList(categories));
     }
 
-    private void initializeBarChart() {
+    private void initializeBarChart(ArrayList<String> records) {
         // Format for months
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
         DateTimeFormatter monthDisplayFormatter = DateTimeFormatter.ofPattern("MMMM yyyy");
@@ -737,8 +784,6 @@ public class Controller {
 
         double totalIncome = 0;
         double totalExpenses = 0;
-
-        ArrayList<String> records = DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected());
 
         // Hashmaps for monthly income and expenses
         Map<String, Double> monthlyIncome = new HashMap<>();
@@ -835,8 +880,8 @@ public class Controller {
                     // Remove this button and label from VBox
                     VB_ShowOpenInvoices.getChildren().remove(hbox);
 
-                    InsertTV_ShowInvoices();
-                    initializeBarChart();
+                    InsertTV_ShowInvoices(DB.GetAllInvoices());
+                    initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
                     initializeOpenInvoices();
                 } else {
                     Functions.ShowPopup("E", "Pay Invoice", "The Invoice could not be paid");

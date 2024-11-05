@@ -421,10 +421,10 @@ public class Database {
                             resultSet.getString("Name") + " - " +
                             resultSet.getString("Description") + " - " +
                             resultSet.getString("Amount") + " - " +
+                            companyName + " - " +
                             resultSet.getString("Date") + " - " +
                             resultSet.getString("Timestamp") + " - " +
-                            resultSet.getString("isPaid") + " - " +
-                            companyName);
+                            resultSet.getString("isPaid"));
                 }
             }
 
@@ -463,6 +463,101 @@ public class Database {
         }
 
         return invoicesWithCategory;
+    }
+
+    protected ArrayList<String> GetInvoicesByDateRange(Date StartDate, Date EndDate) {
+        ArrayList<String> Invoices = new ArrayList<>();
+        String CallProcedure = "CALL GetInvoicesByDateRange(?, ?)";
+        try (Connection connection = ConnectToDatabase()) {
+            CallableStatement callableStatement = connection.prepareCall(CallProcedure);
+            callableStatement.setDate(1, StartDate);
+            callableStatement.setDate(2, EndDate);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                String invoice = String.format("%s - %.2f - %s - %s",
+                        resultSet.getString("Name"),
+                        resultSet.getDouble("Amount"),
+                        resultSet.getString("Date"),
+                        resultSet.getString("Type"));
+                Invoices.add(invoice);
+            }
+            return Invoices;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    protected ArrayList<String> GetInvoicesByDateRange_TABLE(Date StartDate, Date EndDate) {
+        ArrayList<String> Invoices = new ArrayList<>();
+        String CallProcedure = "CALL GetInvoicesByDateRange_TABLE(?, ?)";
+        try (Connection connection = ConnectToDatabase()) {
+            CallableStatement callableStatement = connection.prepareCall(CallProcedure);
+            callableStatement.setDate(1, StartDate);
+            callableStatement.setDate(2, EndDate);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                String invoice = String.format("%s - %s - %s - %.2f - %s - %s - %s - %d",
+                        resultSet.getString("CategoryType"),
+                        resultSet.getString("Name"),
+                        resultSet.getString("Description"),
+                        resultSet.getDouble("Amount"),
+                        resultSet.getString("CompanyName"),
+                        resultSet.getString("Date"),
+                        resultSet.getString("Timestamp"),
+                        resultSet.getInt("isPaid"));
+                Invoices.add(invoice);
+            }
+            return Invoices;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected ArrayList<String> GetInvoicesByAmountRange(double StartAmount, double EndAmount) {
+        ArrayList<String> Invoices = new ArrayList<>();
+        String CallProcedure = "CALL GetInvoicesByAmountRange(?, ?)";
+        try (Connection connection = ConnectToDatabase()) {
+            CallableStatement callableStatement = connection.prepareCall(CallProcedure);
+            callableStatement.setDouble(1, StartAmount);
+            callableStatement.setDouble(2, EndAmount);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                String invoice = String.format("%s - %.2f - %s - %s",
+                        resultSet.getString("Name"),
+                        resultSet.getDouble("Amount"),
+                        resultSet.getString("Date"),
+                        resultSet.getString("Type"));
+                Invoices.add(invoice);
+            }
+            return Invoices;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected ArrayList<String> GetInvoicesByAmountRange_TABLE(double StartAmount, double EndAmount) {
+        ArrayList<String> Invoices = new ArrayList<>();
+        String CallProcedure = "CALL GetInvoicesByAmountRange_TABLE(?, ?)";
+        try (Connection connection = ConnectToDatabase()) {
+            CallableStatement callableStatement = connection.prepareCall(CallProcedure);
+            callableStatement.setDouble(1, StartAmount);
+            callableStatement.setDouble(2, EndAmount);
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                String invoice = String.format("%s - %s - %s - %.2f - %s - %s - %s - %d",
+                        resultSet.getString("CategoryType"),
+                        resultSet.getString("Name"),
+                        resultSet.getString("Description"),
+                        resultSet.getDouble("Amount"),
+                        resultSet.getString("CompanyName"),
+                        resultSet.getString("Date"),
+                        resultSet.getString("Timestamp"),
+                        resultSet.getInt("isPaid"));
+                Invoices.add(invoice);
+            }
+            return Invoices;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected ArrayList<String> GetOpenInvoices() {

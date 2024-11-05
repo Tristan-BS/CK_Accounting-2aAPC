@@ -239,6 +239,86 @@
                                                       <Insets bottom="15.0" left="65.0" />
                                                    </GridPane.margin>
                                                 </CheckBox>
+                                                <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: BLACK;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                                   </GridPane.margin>
+                                                   <center>
+                                                      <GridPane BorderPane.alignment="CENTER">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints maxHeight="108.00003662109376" minHeight="10.0" prefHeight="47.1999755859375" vgrow="SOMETIMES" />
+                                                          <RowConstraints maxHeight="145.59998779296876" minHeight="10.0" prefHeight="117.60002441406252" vgrow="SOMETIMES" />
+                                                          <RowConstraints maxHeight="106.59995117187498" minHeight="10.0" prefHeight="106.59995117187498" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label text="Filter Statistics" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                                               <font>
+                                                                  <Font name="System Bold" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <DatePicker fx:id="DP_StartDate" maxWidth="175.0" minWidth="175.0" GridPane.rowIndex="1">
+                                                               <GridPane.margin>
+                                                                  <Insets bottom="55.0" left="5.0" />
+                                                               </GridPane.margin>
+                                                            </DatePicker>
+                                                            <DatePicker fx:id="DP_EndDate" maxWidth="175.0" minWidth="175.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                                                               <GridPane.margin>
+                                                                  <Insets bottom="55.0" right="5.0" />
+                                                               </GridPane.margin>
+                                                            </DatePicker>
+                                                            <Label text="Start Date" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                               <GridPane.margin>
+                                                                  <Insets bottom="100.0" right="40.0" />
+                                                               </GridPane.margin>
+                                                            </Label>
+                                                            <Label text="End Date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                               <GridPane.margin>
+                                                                  <Insets bottom="100.0" left="30.0" />
+                                                               </GridPane.margin>
+                                                            </Label>
+                                                            <Button fx:id="B_FilterForDateRange" mnemonicParsing="false" onAction="#On_B_FilterForDateRange_Pressed" text="Filter for Date Range" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                               <GridPane.margin>
+                                                                  <Insets top="15.0" />
+                                                               </GridPane.margin>
+                                                            </Button>
+                                                            <Label text="Start Amount" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                                               <GridPane.margin>
+                                                                  <Insets right="40.0" />
+                                                               </GridPane.margin>
+                                                            </Label>
+                                                            <Label text="End Amount" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                                                               <GridPane.margin>
+                                                                  <Insets left="30.0" />
+                                                               </GridPane.margin>
+                                                            </Label>
+                                                            <TextField fx:id="TF_StartAmount" maxWidth="175.0" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                                               <GridPane.margin>
+                                                                  <Insets left="5.0" />
+                                                               </GridPane.margin>
+                                                            </TextField>
+                                                            <TextField fx:id="TF_EndAmount" maxWidth="175.0" minWidth="175.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                                               <GridPane.margin>
+                                                                  <Insets right="5.0" />
+                                                               </GridPane.margin>
+                                                            </TextField>
+                                                            <Button fx:id="B_FilterForAmountRange" mnemonicParsing="false" onAction="#On_B_FilterForAmountRange_Pressed" text="Filter for Amount Range" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                                               <GridPane.margin>
+                                                                  <Insets bottom="15.0" />
+                                                               </GridPane.margin>
+                                                            </Button>
+                                                            <Button fx:id="B_ResetAllFilter" mnemonicParsing="false" onAction="#On_B_ResetAllFilter_Pressed" text="Reset All Filter" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                                               <GridPane.margin>
+                                                                  <Insets top="70.0" />
+                                                               </GridPane.margin>
+                                                            </Button>
+                                                         </children>
+                                                      </GridPane>
+                                                   </center>
+                                                </BorderPane>
                                              </children>
                                           </GridPane>
                                        </children>
@@ -289,6 +369,11 @@
                                                 <Button fx:id="B_DeleteInvoice" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_DeleteInvoice_Pressed" text="Delete Invoice" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                                    <GridPane.margin>
                                                       <Insets bottom="15.0" left="250.0" right="15.0" />
+                                                   </GridPane.margin>
+                                                </Button>
+                                                <Button fx:id="B_ResetFilter" mnemonicParsing="false" onAction="#On_B_ResetFilter_Pressed" text="Reset Filter" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+                                                   <GridPane.margin>
+                                                      <Insets bottom="15.0" left="65.0" />
                                                    </GridPane.margin>
                                                 </Button>
                                              </children>
