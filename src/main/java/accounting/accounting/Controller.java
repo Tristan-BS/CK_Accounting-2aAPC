@@ -239,17 +239,15 @@ public class Controller {
     @FXML
     private Label L_WorstMonthAmount;
     @FXML
-    private Label L_BestCustomerCategory;
-    @FXML
     private Label L_BestCustomerEntry;
-    @FXML
-    private Label L_MostUsedCategory;
     @FXML
     private Label L_MostUsedCategoryEntry;
     @FXML
-    private Label L_LeastUsedCategory;
-    @FXML
     private Label L_LeastUsedCategoryEntry;
+
+    // Combobox - Home
+    @FXML
+    private ComboBox<String> CB_WhatToShow_Settings;
 
     @FXML
     private CheckBox CB_DSGVO;
@@ -276,6 +274,9 @@ public class Controller {
         InsertTV_ShowCustomer();
         InsertTV_ShowInvoices(DB.GetAllInvoices());
         InsertTV_Categories();
+
+        // Load CB_WhatToShow_Settings
+        Initialize_CB_WhatToShow_Settings();
 
         // Insert into BarChart
         initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
@@ -427,6 +428,12 @@ public class Controller {
         initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
         TV_ShowInvoices.getItems().clear();
         InsertTV_ShowInvoices(DB.GetAllInvoices());
+    }
+
+    @FXML
+    private void On_CB_WhatToShow_Settings_TextChanged() {
+        initializeBarChart(DB.GetInvoicesByYear(CB_WhatToShow_Settings.getValue()));
+        System.out.println(CB_WhatToShow_Settings.getValue());
     }
 
 
@@ -787,6 +794,14 @@ public class Controller {
         L_LeastUsedCategoryEntry.setText(LeastUsedCategory);
     }
 
+    private void Initialize_CB_WhatToShow_Settings() {
+        // Get All Years from Database
+        ArrayList<String> years = DB.GetAllYearsFromInvoices();
+
+        CB_WhatToShow_Settings.getItems().addAll(years);
+        CB_WhatToShow_Settings.getSelectionModel().selectFirst();
+    }
+
 
     // INSERT INTO TABLEVIEW
     private void InsertTV_ShowInvoices(ArrayList<String> invoices) {
@@ -860,11 +875,8 @@ public class Controller {
     }
 
     private void initializeBarChart(ArrayList<String> records) {
-        // Format for months
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MM");
         DateTimeFormatter monthDisplayFormatter = DateTimeFormatter.ofPattern("MMMM yyyy");
-
-        // List of all months
         XYChart.Series<String, Number> incomeSeries = new XYChart.Series<>();
         XYChart.Series<String, Number> expenseSeries = new XYChart.Series<>();
         incomeSeries.setName("Income");
@@ -873,11 +885,14 @@ public class Controller {
         double totalIncome = 0;
         double totalExpenses = 0;
 
-        // Hashmaps for monthly income and expenses
-        Map<String, Double> monthlyIncome = new HashMap<>();
-        Map<String, Double> monthlyExpenses = new HashMap<>();
+        boolean showByYear = "All".equals(CB_WhatToShow_Settings.getValue());
+        int selectedYear = showByYear ? 0 : Integer.parseInt(CB_WhatToShow_Settings.getValue());
 
-        // process data
+        // Hashmaps zur Speicherung von Daten pro Monat oder Jahr
+        Map<String, Double> incomeData = new HashMap<>();
+        Map<String, Double> expenseData = new HashMap<>();
+
+        // Schritt 1: Daten verarbeiten und in HashMaps speichern
         for (String record : records) {
             String[] parts = record.split(" - ");
             if (parts.length == 4) {
@@ -885,43 +900,50 @@ public class Controller {
                 LocalDate date = LocalDate.parse(parts[2]);
                 String category = parts[3];
 
-                // Month in MM-Format
-                String monthKey = date.format(monthFormatter);
+                String key = showByYear ? String.valueOf(date.getYear()) : date.format(monthFormatter);
 
-                // Data in the correct HashMap
-                if (category.equals("Income")) {
-                    monthlyIncome.put(monthKey, monthlyIncome.getOrDefault(monthKey, 0.0) + amount);
-                    totalIncome += amount;
-                } else if (category.equals("Expenses")) {
-                    monthlyExpenses.put(monthKey, monthlyExpenses.getOrDefault(monthKey, 0.0) + amount);
-                    totalExpenses += amount;
+                if (showByYear || date.getYear() == selectedYear) {
+                    if (category.equals("Income")) {
+                        incomeData.put(key, incomeData.getOrDefault(key, 0.0) + amount);
+                        totalIncome += amount;
+                    } else if (category.equals("Expenses")) {
+                        expenseData.put(key, expenseData.getOrDefault(key, 0.0) + amount);
+                        totalExpenses += amount;
+                    }
                 }
             }
         }
 
-        // Add all months to the chart
-        for (int month = 1; month <= 12; month++) {
-            String monthKey = String.format("%02d", month); // MM-Format
-            String monthDisplay = LocalDate.of(2024, month, 1).format(monthDisplayFormatter); // Monat in gewünschtem Format
+        // Schritt 2: Sicherstellen, dass alle Monate oder Jahre enthalten sind
+        if (showByYear) {
+            // Jahre darstellen
+            for (String year : incomeData.keySet()) {
+                double income = incomeData.getOrDefault(year, 0.0);
+                double expenses = expenseData.getOrDefault(year, 0.0);
 
-            // Add income (or 0 if none present)
-            double income = monthlyIncome.getOrDefault(monthKey, 0.0);
-            incomeSeries.getData().add(new XYChart.Data<>(monthDisplay, income));
+                incomeSeries.getData().add(new XYChart.Data<>(year, income));
+                expenseSeries.getData().add(new XYChart.Data<>(year, expenses));
+            }
+        } else {
+            // Monate für das gewählte Jahr darstellen
+            for (int month = 1; month <= 12; month++) {
+                String monthKey = String.format("%02d", month);
+                String monthDisplay = LocalDate.of(selectedYear, month, 1).format(monthDisplayFormatter);
 
-            // Add expenses (or 0 if none present)
-            double expenses = monthlyExpenses.getOrDefault(monthKey, 0.0);
-            expenseSeries.getData().add(new XYChart.Data<>(monthDisplay, expenses));
+                double income = incomeData.getOrDefault(monthKey, 0.0);
+                double expenses = expenseData.getOrDefault(monthKey, 0.0);
+
+                incomeSeries.getData().add(new XYChart.Data<>(monthDisplay, income));
+                expenseSeries.getData().add(new XYChart.Data<>(monthDisplay, expenses));
+            }
         }
 
-        // Add data to the chart
+        // Schritt 3: BarChart aktualisieren
         BC_HomeChart.getData().clear();
         BC_HomeChart.getData().addAll(incomeSeries, expenseSeries);
 
-        // Calculate Total and difference
+        // Schritt 4: Summen und Differenz berechnen und anzeigen
         double difference = totalIncome - totalExpenses;
-
-        // Format values into german currency with dots between every 3 digits
-
         String FormattedTotalIncome = Functions.formatNumber(totalIncome);
         String FormattedTotalExpenses = Functions.formatNumber(totalExpenses);
         String FormattedDifference = Functions.formatNumber(difference);
@@ -1004,13 +1026,6 @@ public class Controller {
 
 
 /// Optional TODO:
-// -> In Home Page right side:
-//  -> Top Customers
-//  -> Top Categories
-//  -> Best Month
-//  -> Worst Month
-//  -> Best Year
-//  -> Worst Year
 // -> Maybe new Page "Support" or "Settings"
 // -> Export to Excel or PDF or CSV
 // -> Dark / Lightmode?

@@ -448,6 +448,11 @@
                                                       <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                                    </GridPane.margin>
                                                 </BorderPane>
+                                                <ComboBox fx:id="CB_WhatToShow_Settings" onAction="#On_CB_WhatToShow_Settings_TextChanged" prefWidth="150.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                                   <GridPane.margin>
+                                                      <Insets top="35.0" />
+                                                   </GridPane.margin>
+                                                </ComboBox>
                                              </children>
                                           </GridPane>
                                        </children>

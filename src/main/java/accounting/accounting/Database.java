@@ -560,6 +560,31 @@ public class Database {
         }
     }
 
+    protected ArrayList<String> GetInvoicesByYear(String Year) {
+        ArrayList<String> Invoices = new ArrayList<>();
+        String GetInvoicesByYear = "CALL GetInvoicesByYear(?)";
+
+        try(Connection connection = ConnectToDatabase()) {
+            CallableStatement callableStatement = connection.prepareCall(GetInvoicesByYear);
+            callableStatement.setString(1, Year);
+            ResultSet resultSet = callableStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String invoice = String.format("%s - %.2f - %s - %s",
+                        resultSet.getString("Name"),
+                        resultSet.getDouble("Amount"),
+                        resultSet.getString("Date"),
+                        resultSet.getString("Type"));
+                Invoices.add(invoice);
+            }
+
+            return Invoices;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     protected ArrayList<String> GetOpenInvoices() {
         ArrayList<String> OpenInvoices = new ArrayList<>();
         String CompanyName = "None";
@@ -764,6 +789,24 @@ public class Database {
             LeastUsedCategory = resultSet.getString("CategoryName");
 
             return LeastUsedCategory;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected ArrayList<String> GetAllYearsFromInvoices() {
+        ArrayList<String> Years = new ArrayList<>();
+        String GetYears = "SELECT DISTINCT YEAR(Date) AS Year FROM ck_invoices";
+        try (Connection connection = ConnectToDatabase()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(GetYears);
+
+            while (resultSet.next()) {
+                Years.add(resultSet.getString("Year"));
+            }
+
+            return Years;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
