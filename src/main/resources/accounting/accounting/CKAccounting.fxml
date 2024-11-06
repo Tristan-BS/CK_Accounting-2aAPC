@@ -65,7 +65,7 @@
                         <Region prefHeight="18.0" prefWidth="50.0" />
                         <Button fx:id="B_Evaluations" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Evaluation_Pressed" style="-fx-background-color: transparent;" text="Evaluations" />
                         <Region prefHeight="13.0" prefWidth="50.0" />
-                        <Region minHeight="465.0" prefHeight="235.0" />
+                        <Region minHeight="490.0" prefHeight="235.0" />
                         <Button fx:id="B_Exit" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#On_B_Exit_Pressed" style="-fx-background-color: transparent;" text="Exit" />
                      </children>
                   </VBox>
@@ -115,7 +115,7 @@
                               <Insets />
                            </VBox.margin>
                         </ImageView>
-                        <Region minHeight="440.0" prefHeight="235.0" prefWidth="235.0" />
+                        <Region minHeight="480.0" prefHeight="235.0" prefWidth="235.0" />
                         <ImageView fx:id="IV_Exit" fitHeight="32.0" fitWidth="32.0" onMouseClicked="#On_B_Exit_Pressed" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../Images/Icons/logout-box-r-line.png" />
@@ -224,7 +224,27 @@
                                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                         </rowConstraints>
                                                          <children>
-                                                            <VBox fx:id="VB_ShowOpenInvoices" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+                                                            <VBox fx:id="VB_ShowOpenInvoices" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                                               <children>
+                                                                  <VBox prefHeight="200.0" prefWidth="100.0">
+                                                                     <children>
+                                                                        <Label maxWidth="1.7976931348623157E308" text="Best Year: 2023 - 83.823,23 €">
+                                                                           <VBox.margin>
+                                                                              <Insets />
+                                                                           </VBox.margin>
+                                                                        </Label>
+                                                                        <Label maxWidth="1.7976931348623157E308" text="Worst Year: 2021" />
+                                                                        <Region maxHeight="10.0" prefHeight="200.0" prefWidth="200.0" />
+                                                                        <Label maxWidth="1.7976931348623157E308" text="Best Month: August 2024" />
+                                                                        <Label contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Worst Month: December 2021" />
+                                                                        <Region layoutX="10.0" layoutY="45.0" maxHeight="10.0" prefHeight="200.0" prefWidth="200.0" />
+                                                                        <Label maxWidth="1.7976931348623157E308" text="Best Customer: Kugel Studios" />
+                                                                        <Region layoutX="10.0" layoutY="91.0" maxHeight="10.0" prefHeight="200.0" prefWidth="200.0" />
+                                                                        <Label maxWidth="1.7976931348623157E308" text="Most used Category: INCOME" />
+                                                                        <Label maxWidth="1.7976931348623157E308" text="Least used Category: EXPENSES" />
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children></VBox>
                                                             <Label text="Invoices to pay" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                                                                <font>
                                                                   <Font name="System Bold" size="14.0" />
@@ -318,6 +338,115 @@
                                                          </children>
                                                       </GridPane>
                                                    </center>
+                                                </BorderPane>
+                                                <BorderPane layoutX="514.0" layoutY="516.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: BLACK;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                   <center>
+                                                      <GridPane BorderPane.alignment="CENTER">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints maxHeight="108.00003662109376" minHeight="10.0" prefHeight="47.1999755859375" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="145.59998779296876" minHeight="10.0" prefHeight="117.60002441406252" vgrow="SOMETIMES" />
+                                                            <RowConstraints maxHeight="106.59995117187498" minHeight="10.0" prefHeight="106.59995117187498" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <Label text="Overview Statistics" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                                               <font>
+                                                                  <Font name="System Bold" size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <GridPane GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                                              <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                              </columnConstraints>
+                                                              <rowConstraints>
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                              </rowConstraints>
+                                                               <children>
+                                                                  <Label text="Category:" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label text="Amount:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label fx:id="L_BestYearCategory" text="Best Year: 2024" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                                                     <GridPane.margin>
+                                                                        <Insets top="15.0" />
+                                                                     </GridPane.margin>
+                                                                  </Label>
+                                                                  <Label fx:id="L_BestYearAmount" text="83.483,65 €" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                                                                     <GridPane.margin>
+                                                                        <Insets top="15.0" />
+                                                                     </GridPane.margin>
+                                                                  </Label>
+                                                                  <Label fx:id="L_WorstYearCategory" layoutX="67.0" layoutY="25.0" text="Worst Year: 2021" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                                                  <Label fx:id="L_WorstYearAmount" layoutX="271.0" layoutY="25.0" text="-24.372,23 €" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                                                  <Label fx:id="L_BestMonthCategory" layoutX="62.0" layoutY="39.0" text="Best Month: August 2024" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                                     <GridPane.margin>
+                                                                        <Insets />
+                                                                     </GridPane.margin>
+                                                                  </Label>
+                                                                  <Label fx:id="L_BestMonthAmount" layoutX="268.0" layoutY="39.0" text="19.521,37 €" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+                                                                  <Label fx:id="L_WorstMonthCategory" layoutX="40.0" layoutY="67.0" text="Worst Month: December 2021" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                                                  <Label fx:id="L_WorstMonthAmount" layoutX="271.0" layoutY="67.0" text="-8.169,92€" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                                                                  <Label fx:id="L_BestCustomerCategory" layoutX="27.0" layoutY="84.0" text="Best Customer:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                                                                  <Label fx:id="L_BestCustomerEntry" layoutX="273.0" layoutY="84.0" text="Kugel Studio" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                                                                  <Label layoutX="67.0" layoutY="113.0" text="Category:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                     <GridPane.margin>
+                                                                        <Insets top="30.0" />
+                                                                     </GridPane.margin>
+                                                                  </Label>
+                                                                  <Label layoutX="267.0" layoutY="113.0" text="Entry:" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="12.0" />
+                                                                     </font>
+                                                                     <GridPane.margin>
+                                                                        <Insets top="30.0" />
+                                                                     </GridPane.margin>
+                                                                  </Label>
+                                                                  <Label fx:id="L_MostUsedCategory" layoutX="67.0" layoutY="159.0" text="Most used Category" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                                                     <GridPane.margin>
+                                                                        <Insets top="15.0" />
+                                                                     </GridPane.margin>
+                                                                  </Label>
+                                                                  <Label fx:id="L_LeastUsedCategory" layoutX="53.0" layoutY="188.0" text="Least used Category:" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                                                     <GridPane.margin>
+                                                                        <Insets />
+                                                                     </GridPane.margin>
+                                                                  </Label>
+                                                                  <Label fx:id="L_MostUsedCategoryEntry" layoutX="267.0" layoutY="159.0" text="INCOME" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                                                     <GridPane.margin>
+                                                                        <Insets top="15.0" />
+                                                                     </GridPane.margin>
+                                                                  </Label>
+                                                                  <Label fx:id="L_LeastUsedCategoryEntry" layoutX="278.0" layoutY="188.0" text="EXPENSES" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                                                     <GridPane.margin>
+                                                                        <Insets />
+                                                                     </GridPane.margin>
+                                                                  </Label>
+                                                               </children>
+                                                               <GridPane.margin>
+                                                                  <Insets left="15.0" />
+                                                               </GridPane.margin>
+                                                            </GridPane>
+                                                         </children>
+                                                      </GridPane>
+                                                   </center>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                                   </GridPane.margin>
                                                 </BorderPane>
                                              </children>
                                           </GridPane>

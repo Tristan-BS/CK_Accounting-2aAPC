@@ -221,6 +221,36 @@ public class Controller {
     @FXML
     private TextField TF_EndAmount;
 
+    // Label - Home
+    @FXML
+    private Label L_BestYearCategory;
+    @FXML
+    private Label L_BestYearAmount;
+    @FXML
+    private Label L_WorstYearCategory;
+    @FXML
+    private Label L_WorstYearAmount;
+    @FXML
+    private Label L_BestMonthCategory;
+    @FXML
+    private Label L_BestMonthAmount;
+    @FXML
+    private Label L_WorstMonthCategory;
+    @FXML
+    private Label L_WorstMonthAmount;
+    @FXML
+    private Label L_BestCustomerCategory;
+    @FXML
+    private Label L_BestCustomerEntry;
+    @FXML
+    private Label L_MostUsedCategory;
+    @FXML
+    private Label L_MostUsedCategoryEntry;
+    @FXML
+    private Label L_LeastUsedCategory;
+    @FXML
+    private Label L_LeastUsedCategoryEntry;
+
     @FXML
     private CheckBox CB_DSGVO;
 
@@ -251,6 +281,9 @@ public class Controller {
         initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
 
         initializeOpenInvoices();
+
+        // Overview Statistics
+        InitializeOverViewStatistics();
 
 
         // Insert all genderTypes into Combobox "CB_Gender" and "CB_Gender2"
@@ -314,7 +347,7 @@ public class Controller {
                     new KeyValue(AP_Page.prefWidthProperty(), AP_Page.getPrefWidth() - menuWidth), // Set width to original width
                     new KeyValue(AP_Page.layoutXProperty(), AP_Page.getLayoutX() + menuWidth) // Set x position the original x position
             );
-            transition.setByX(125);
+            transition.setByX(122);
             isMenuOpen = false;
         } else {
             keyFrame = new KeyFrame(
@@ -322,7 +355,7 @@ public class Controller {
                     new KeyValue(AP_Page.prefWidthProperty(), AP_Page.getPrefWidth() + menuWidth), // Set width to original width + MenuWidth
                     new KeyValue(AP_Page.layoutXProperty(), AP_Page.getLayoutX() - menuWidth) // Set x position to original x position - MenuWidth
             );
-            transition.setByX(-125);
+            transition.setByX(-122);
             isMenuOpen = true;
         }
 
@@ -700,7 +733,62 @@ public class Controller {
         TV_ShowCustomer.setItems(FXCollections.observableArrayList(customers));
     }
 
-    // Controller.java
+    // HOME - OVERVIEW STATISTICS
+    private void InitializeOverViewStatistics() {
+        // Get GetBestYear as ArrayList<String>
+        ArrayList<String> BestYear = DB.GetBestYear();
+        ArrayList<String> WorstYear = DB.GetWorstYear();
+        ArrayList<String> BestMonth = DB.GetBestMonth();
+        ArrayList<String> WorstMonth = DB.GetWorstMonth();
+        String BestCutomer = DB.GetBestCustomer();
+        String MostUsedCategory = DB.Get_MostUsed_Category();
+        String LeastUsedCategory = DB.Get_LeastUsed_Category();
+
+        // Extract the year from the ArrayList
+        String BestYearString = BestYear.getFirst();
+        String WorstYearString = WorstYear.getFirst();
+
+        String BestMonthString = BestMonth.getFirst();
+        String WorstMonthString = WorstMonth.getFirst();
+
+        // Extract the Amount from ArrayList
+        String BestYearAmount = BestYear.get(1);
+        String WorstYearAmount = WorstYear.get(1);
+
+        String BestMonthAmount = BestMonth.get(1);
+        String WorstMonthAmount = WorstMonth.get(1);
+
+        // Dont show month: 2 or month 1: but the whole month NAME like august, december or somethin - Format month into month name
+        BestMonthString = Functions.FormatMonth(Integer.parseInt(BestMonthString));
+        WorstMonthString = Functions.FormatMonth(Integer.parseInt(WorstMonthString));
+
+        // Format the Amounts
+        String Formatted_BestYearAmount = Functions.formatNumber(Double.parseDouble(BestYearAmount));
+        String Formatted_WorstYearAmount = Functions.formatNumber(Double.parseDouble(WorstYearAmount));
+
+        String Formatted_BestMonthAmount = Functions.formatNumber(Double.parseDouble(BestMonthAmount));
+        String Formatted_WorstMonthAmount = Functions.formatNumber(Double.parseDouble(WorstMonthAmount));
+
+        // Set Labels
+        L_BestYearCategory.setText("Best Year: " + BestYearString);
+        L_BestYearAmount.setText(Formatted_BestYearAmount + " €");
+
+        L_WorstYearCategory.setText("Worst Year: " + WorstYearString);
+        L_WorstYearAmount.setText(Formatted_WorstYearAmount + " €");
+
+        L_BestMonthCategory.setText("Best Month: " + BestMonthString);
+        L_BestMonthAmount.setText(Formatted_BestMonthAmount + " €");
+
+        L_WorstMonthCategory.setText("Worst Month: " + WorstMonthString);
+        L_WorstMonthAmount.setText(Formatted_WorstMonthAmount + " €");
+
+        L_BestCustomerEntry.setText(BestCutomer);
+        L_MostUsedCategoryEntry.setText(MostUsedCategory);
+        L_LeastUsedCategoryEntry.setText(LeastUsedCategory);
+    }
+
+
+    // INSERT INTO TABLEVIEW
     private void InsertTV_ShowInvoices(ArrayList<String> invoices) {
         TV_ShowInvoices.getItems().clear();
 
@@ -872,7 +960,7 @@ public class Controller {
 
             // Create a new Button
             Button button = new Button("Pay");
-            button.setOnAction(_ -> {
+            button.setOnAction(event -> {
                 boolean ReturnValue = DB.SetInvoicePaid(invoice);
                 if (ReturnValue) {
                     Functions.ShowPopup("I", "Pay Invoice", "The Invoice has been paid successfully");
@@ -911,18 +999,19 @@ public class Controller {
 
 /// TODO NEXT TIME:
 // -> Search through Invoices
-// -> "Select the period for the statistics" (Date picker?)
-// -> Add relevant Categories from Labor Report
 // -> Error handling ( Wrong Inputs - Check if all fields are filled out etc... )
-
+// -> Logo as Icon!!!!
 
 
 /// Optional TODO:
-// -> New Category: Statistics
-// -> Top Customers
-// -> Top Categories
-// -> Best Month
-// -> Worst Month
-// -> Best Year
-// -> Worst Year
+// -> In Home Page right side:
+//  -> Top Customers
+//  -> Top Categories
+//  -> Best Month
+//  -> Worst Month
+//  -> Best Year
+//  -> Worst Year
+// -> Maybe new Page "Support" or "Settings"
 // -> Export to Excel or PDF or CSV
+// -> Dark / Lightmode?
+// -> Support via Email?

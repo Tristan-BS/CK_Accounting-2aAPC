@@ -624,6 +624,151 @@ public class Database {
         }
     }
 
+    // OVERVIEW STATISTIC FUNCTIONS
+    protected ArrayList<String> GetBestYear() {
+        String BestYear;
+        double TotalAmount;
+        ArrayList<String> BestYearList = new ArrayList<>();
+
+        // Select the Date of the best year using amount ( SUM(Amount) ) and group by year or something
+        String GetBestYear = "SELECT YEAR(Date) AS Year, SUM(Amount) AS TotalAmount FROM ck_invoices GROUP BY YEAR(Date) ORDER BY TotalAmount DESC LIMIT 1";
+
+        // Get the Date of the best year and return it
+        try (Connection connection = ConnectToDatabase()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(GetBestYear);
+            resultSet.next();
+            BestYear = resultSet.getString("Year");
+            TotalAmount = resultSet.getDouble("TotalAmount");
+
+            BestYearList.add(BestYear);
+            BestYearList.add(String.valueOf(TotalAmount));
+            return BestYearList;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected ArrayList<String> GetWorstYear() {
+        String WorstYear;
+        double TotalAmount;
+        ArrayList<String> WorstYearList = new ArrayList<>();
+
+        // Select the Date of the worst year using amount ( SUM(Amount) ) and group by year or something
+        String GetWorstYear = "SELECT YEAR(Date) AS Year, SUM(Amount) AS TotalAmount FROM ck_invoices GROUP BY YEAR(Date) ORDER BY TotalAmount ASC LIMIT 1";
+
+        // Get the Date of the worst year and return it
+        try (Connection connection = ConnectToDatabase()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(GetWorstYear);
+            resultSet.next();
+            WorstYear = resultSet.getString("Year");
+            TotalAmount = resultSet.getDouble("TotalAmount");
+
+            WorstYearList.add(WorstYear);
+            WorstYearList.add(String.valueOf(TotalAmount));
+            return WorstYearList;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected ArrayList<String> GetBestMonth() {
+        String BestMonth;
+        double TotalAmount;
+        ArrayList<String> BestMontList = new ArrayList<>();
+        String GetBestMonth = "SELECT YEAR(Date) AS Year, MONTH(Date) AS Month, SUM(Amount) AS TotalAmount FROM ck_invoices GROUP BY YEAR(Date), MONTH(Date) ORDER BY TotalAmount DESC LIMIT 1";
+        try (Connection connection = ConnectToDatabase()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(GetBestMonth);
+            resultSet.next();
+            BestMonth = resultSet.getString("Month");
+            TotalAmount = resultSet.getDouble("TotalAmount");
+
+            BestMontList.add(BestMonth);
+            BestMontList.add(String.valueOf(TotalAmount));
+            return BestMontList;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected ArrayList<String> GetWorstMonth() {
+        String BestMonth;
+        double TotalAmount;
+        ArrayList<String> BestMontList = new ArrayList<>();
+        String GetWorstMonth = "SELECT YEAR(Date) AS Year, MONTH(Date) AS Month, SUM(Amount) AS TotalAmount FROM ck_invoices GROUP BY YEAR(Date), MONTH(Date) ORDER BY TotalAmount ASC LIMIT 1";
+        try (Connection connection = ConnectToDatabase()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(GetWorstMonth);
+            resultSet.next();
+            BestMonth = resultSet.getString("Month");
+            TotalAmount = resultSet.getDouble("TotalAmount");
+
+            BestMontList.add(BestMonth);
+            BestMontList.add(String.valueOf(TotalAmount));
+            return BestMontList;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected String GetBestCustomer() {
+        String BestCustomer;
+
+        ArrayList<String> BestCustomerList = new ArrayList<>();
+        String GetBestCustomer = "SELECT CompanyName FROM ck_getbestcustomer";
+
+        try (Connection connection = ConnectToDatabase()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(GetBestCustomer);
+            resultSet.next();
+            BestCustomer = resultSet.getString("CompanyName");
+
+            return BestCustomer;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    protected String Get_MostUsed_Category() {
+        // SELECT * FROM ck_get_most_used_category;
+        String MostUsedCategory;
+        String GetMostUsedCategory = "SELECT CategoryName FROM ck_get_most_used_category";
+        try (Connection connection = ConnectToDatabase()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(GetMostUsedCategory);
+            resultSet.next();
+            MostUsedCategory = resultSet.getString("CategoryName");
+
+            return MostUsedCategory;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected String Get_LeastUsed_Category() {
+        String LeastUsedCategory;
+        String GetLeastUsedCategory = "SELECT * FROM ck_get_least_used_category;";
+        try (Connection connection = ConnectToDatabase()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(GetLeastUsedCategory);
+            resultSet.next();
+            LeastUsedCategory = resultSet.getString("CategoryName");
+
+            return LeastUsedCategory;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     // DELETE FUNCTIONS
