@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import java.awt.*;
+import java.awt.event.InputMethodEvent;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
@@ -204,6 +205,10 @@ public class Controller {
     // Invoices - Vbox
     @FXML
     private VBox VB_ShowOpenInvoices;
+
+    // TextField - Invoices
+    @FXML
+    private TextField TF_SearchTable;
 
     // BarChar - Home
     @FXML
@@ -448,6 +453,11 @@ public class Controller {
         initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
         TV_ShowInvoices.getItems().clear();
         InsertTV_ShowInvoices(DB.GetAllInvoices());
+    }
+
+    @FXML
+    private void On_TF_SearchTable_TextChanged() {
+        System.out.println("Hallo");
     }
 
     // DELETE AN INVOICE

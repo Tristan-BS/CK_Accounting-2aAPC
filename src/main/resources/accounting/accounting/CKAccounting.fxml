@@ -495,21 +495,29 @@
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                    </columnResizePolicy>
                                                 </TableView>
-                                                <Button fx:id="B_NewInvoice" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_NewInvoice_Pressed" text="New Invoice" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                   <children>
+                                                      <Button fx:id="B_NewInvoice" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_NewInvoice_Pressed" text="New Invoice" />
+                                                      <Button fx:id="B_DeleteInvoice" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_DeleteInvoice_Pressed" text="Delete Invoice" />
+                                                      <Button fx:id="B_ResetFilter" mnemonicParsing="false" onAction="#On_B_ResetFilter_Pressed" text="Reset Filter" />
+                                                   </children>
                                                    <GridPane.margin>
-                                                      <Insets bottom="15.0" right="15.0" />
+                                                      <Insets left="185.0" top="185.0" />
                                                    </GridPane.margin>
-                                                </Button>
-                                                <Button fx:id="B_DeleteInvoice" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#On_B_DeleteInvoice_Pressed" text="Delete Invoice" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                </HBox>
+                                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                                   <children>
+                                                      <Label text="Search:">
+                                                         <HBox.margin>
+                                                            <Insets top="2.5" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <TextField fx:id="TF_SearchTable" onInputMethodTextChanged="#On_TF_SearchTable_TextChanged" />
+                                                   </children>
                                                    <GridPane.margin>
-                                                      <Insets bottom="15.0" left="250.0" right="15.0" />
+                                                      <Insets left="15.0" right="245.0" top="185.0" />
                                                    </GridPane.margin>
-                                                </Button>
-                                                <Button fx:id="B_ResetFilter" mnemonicParsing="false" onAction="#On_B_ResetFilter_Pressed" text="Reset Filter" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
-                                                   <GridPane.margin>
-                                                      <Insets bottom="15.0" left="65.0" />
-                                                   </GridPane.margin>
-                                                </Button>
+                                                </HBox>
                                              </children>
                                           </GridPane>
                                        </children>
