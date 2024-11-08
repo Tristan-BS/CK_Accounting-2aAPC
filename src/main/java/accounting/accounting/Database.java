@@ -679,22 +679,22 @@ public class Database {
     // OVERVIEW STATISTIC FUNCTIONS
     protected ArrayList<String> GetBestYear() {
         String BestYear;
-        double TotalAmount;
+        double TotalDifference;
         ArrayList<String> BestYearList = new ArrayList<>();
 
-        // Select the Date of the best year using amount ( SUM(Amount) ) and group by year or something
-        String GetBestYear = "SELECT YEAR(Date) AS Year, SUM(Amount) AS TotalAmount FROM ck_invoices GROUP BY YEAR(Date) ORDER BY TotalAmount DESC LIMIT 1";
+        // Select the year with the highest positive difference between income and expenses
+        String GetBestYear = "SELECT * FROM ck_getbestyear";
 
-        // Get the Date of the best year and return it
+        // Get the year with the highest positive difference and return it
         try (Connection connection = ConnectToDatabase()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(GetBestYear);
             resultSet.next();
             BestYear = resultSet.getString("Year");
-            TotalAmount = resultSet.getDouble("TotalAmount");
+            TotalDifference = resultSet.getDouble("NetIncome");
 
             BestYearList.add(BestYear);
-            BestYearList.add(String.valueOf(TotalAmount));
+            BestYearList.add(String.valueOf(TotalDifference));
             return BestYearList;
 
         } catch (SQLException e) {
@@ -706,9 +706,7 @@ public class Database {
         String WorstYear;
         double TotalAmount;
         ArrayList<String> WorstYearList = new ArrayList<>();
-
-        // Select the Date of the worst year using amount ( SUM(Amount) ) and group by year or something
-        String GetWorstYear = "SELECT YEAR(Date) AS Year, SUM(Amount) AS TotalAmount FROM ck_invoices GROUP BY YEAR(Date) ORDER BY TotalAmount ASC LIMIT 1";
+        String GetWorstYear = "SELECT * FROM ck_getworstyear";
 
         // Get the Date of the worst year and return it
         try (Connection connection = ConnectToDatabase()) {
@@ -716,7 +714,7 @@ public class Database {
             ResultSet resultSet = statement.executeQuery(GetWorstYear);
             resultSet.next();
             WorstYear = resultSet.getString("Year");
-            TotalAmount = resultSet.getDouble("TotalAmount");
+            TotalAmount = resultSet.getDouble("NetIncome");
 
             WorstYearList.add(WorstYear);
             WorstYearList.add(String.valueOf(TotalAmount));
@@ -731,14 +729,14 @@ public class Database {
         String BestMonth, YearToMonth;
         double TotalAmount;
         ArrayList<String> BestMonthList = new ArrayList<>();
-        String GetBestMonth = "SELECT YEAR(Date) AS Year, MONTH(Date) AS Month, SUM(Amount) AS TotalAmount FROM ck_invoices GROUP BY YEAR(Date), MONTH(Date) ORDER BY TotalAmount DESC LIMIT 1";
+        String GetBestMonth = "SELECT * FROM ck_getbestmonth";
         try (Connection connection = ConnectToDatabase()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(GetBestMonth);
             resultSet.next();
             BestMonth = resultSet.getString("Month");
             YearToMonth = resultSet.getString("Year");
-            TotalAmount = resultSet.getDouble("TotalAmount");
+            TotalAmount = resultSet.getDouble("NetIncome");
 
             String monthYear = YearToMonth + "-" + BestMonth;
             BestMonthList.add(monthYear);
@@ -754,14 +752,14 @@ public class Database {
         String BestMonth, YearToMonth;
         double TotalAmount;
         ArrayList<String> BestMontList = new ArrayList<>();
-        String GetWorstMonth = "SELECT YEAR(Date) AS Year, MONTH(Date) AS Month, SUM(Amount) AS TotalAmount FROM ck_invoices GROUP BY YEAR(Date), MONTH(Date) ORDER BY TotalAmount ASC LIMIT 1";
+        String GetWorstMonth = "SELECT * FROM ck_getworstmonth";
         try (Connection connection = ConnectToDatabase()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(GetWorstMonth);
             resultSet.next();
             BestMonth = resultSet.getString("Month");
             YearToMonth = resultSet.getString("Year");
-            TotalAmount = resultSet.getDouble("TotalAmount");
+            TotalAmount = resultSet.getDouble("NetIncome");
 
             String monthYear = YearToMonth + "-" + BestMonth;
             BestMontList.add(monthYear);

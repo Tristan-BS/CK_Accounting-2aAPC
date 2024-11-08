@@ -469,7 +469,6 @@ public class Controller {
     private void On_TF_SearchTable_TextChanged(String newValue) {
         System.out.println(newValue);
         InsertTV_ShowInvoices(DB.GetAllInvoicesBySearchPattern(newValue));
-
     }
 
     // DELETE AN INVOICE
