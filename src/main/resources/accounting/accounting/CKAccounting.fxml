@@ -512,7 +512,7 @@
                                                             <Insets top="2.5" />
                                                          </HBox.margin>
                                                       </Label>
-                                                      <TextField fx:id="TF_SearchTable" onInputMethodTextChanged="#On_TF_SearchTable_TextChanged" />
+                                                      <TextField fx:id="TF_SearchTable" onAction="#On_TF_SearchTable_Pressed" />
                                                    </children>
                                                    <GridPane.margin>
                                                       <Insets left="15.0" right="245.0" top="160.0" />

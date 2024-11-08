@@ -2,6 +2,8 @@ package accounting.accounting;
 
 import javafx.animation.*;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -16,7 +18,6 @@ import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 import java.awt.*;
-import java.awt.event.InputMethodEvent;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
@@ -32,8 +33,6 @@ public class Controller {
     private AnchorPane AP_SBText;
     @FXML
     private AnchorPane AP_Page;
-
-    // Tab from TabPane Pages
     @FXML
     private TabPane TP_Pages;
     @FXML
@@ -46,8 +45,6 @@ public class Controller {
     private Tab TPP_Categories;
     @FXML
     private Tab TPP_Evaluations;
-    @FXML
-    private Tab TPP_Account;
     @FXML
     private Tab TPP_NewInvoice;
     @FXML
@@ -140,10 +137,8 @@ public class Controller {
     private TextField TF_NewInvoiceName;
 
     // Date Picker
-    // New Invoice
     @FXML
     private DatePicker DP_NewInvoiceDate;
-
     // New Category Text Area
     @FXML
     private TextArea TA_NewCG_Other;
@@ -268,10 +263,10 @@ public class Controller {
 
     @FXML
     public void initialize() {
-        // Tooltips
+        // Set Tooltips
         L_AcceptDSGVO.setTooltip(new Tooltip("Open as PDF"));
 
-        // Labels
+        // Set DSGVO Label
         L_DSGVO.setText("GDPR Compliance Statement \n" +
                 "By accepting this GDPR compliance statement, you agree to the following terms regarding the handling of your data");
 
@@ -292,6 +287,7 @@ public class Controller {
         InitializeOverViewStatistics();
 
 
+        // INSERT COMBOBOXES
         // Insert all genderTypes into Combobox "CB_Gender" and "CB_Gender2"
         CB_Gender.getItems().add("Choose");
         CB_Gender.getSelectionModel().selectFirst();
@@ -330,9 +326,17 @@ public class Controller {
         CB_NewInvoiceType.getItems().add("Choose");
         CB_NewInvoiceType.getSelectionModel().selectFirst();
         CB_NewInvoiceType.getItems().addAll(DB.GetNameFromCategories());
+
+        // LISTENER
+        TF_SearchTable.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                On_TF_SearchTable_TextChanged(newValue);
+            }
+        });
     }
 
-    // Methods for Button Pressed
+    // MENU PRESSED
 
     // Menu Button Pressed with animation
     @FXML
@@ -370,6 +374,7 @@ public class Controller {
         transition.play();
     }
 
+    // MENU ICONS PRESSED
     @FXML
     private void On_B_Home_Pressed() {
         TP_Pages.getSelectionModel().select(TPP_Home);
@@ -391,10 +396,6 @@ public class Controller {
         TP_Pages.getSelectionModel().select(TPP_Evaluations);
     }
     @FXML
-    private void On_B_Account_Pressed() {
-        TP_Pages.getSelectionModel().select(TPP_Account);
-    }
-    @FXML
     private void On_B_Exit_Pressed() {
         System.exit(0);
     }
@@ -406,6 +407,7 @@ public class Controller {
         initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
     }
 
+    // Filter Stats for Date Range
     @FXML
     private void On_B_FilterForDateRange_Pressed() {
         initializeBarChart(DB.GetInvoicesByDateRange(Date.valueOf(DP_StartDate.getValue()), Date.valueOf(DP_EndDate.getValue())));
@@ -416,6 +418,7 @@ public class Controller {
         TV_ShowInvoices.setItems(FXCollections.observableArrayList(invoices));
     }
 
+    // Filter Stats for Amount Range
     @FXML
     private void On_B_FilterForAmountRange_Pressed() {
         initializeBarChart(DB.GetInvoicesByAmountRange(Double.parseDouble(TF_StartAmount.getText()), Double.parseDouble(TF_EndAmount.getText())));
@@ -428,6 +431,7 @@ public class Controller {
         TV_ShowInvoices.setItems(FXCollections.observableArrayList(invoices));
     }
 
+    // Rest Filter
     @FXML
     private void On_B_ResetAllFilter_Pressed() {
         initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
@@ -435,6 +439,7 @@ public class Controller {
         InsertTV_ShowInvoices(DB.GetAllInvoices());
     }
 
+    // Combobox for the Year
     @FXML
     private void On_CB_WhatToShow_Settings_TextChanged() {
         initializeBarChart(DB.GetInvoicesByYear(CB_WhatToShow_Settings.getValue()));
@@ -456,8 +461,15 @@ public class Controller {
     }
 
     @FXML
-    private void On_TF_SearchTable_TextChanged() {
-        System.out.println("Hallo");
+    private void On_TF_SearchTable_Pressed() {
+        On_TF_SearchTable_TextChanged(TF_SearchTable.getText());
+    }
+
+    @FXML
+    private void On_TF_SearchTable_TextChanged(String newValue) {
+        System.out.println(newValue);
+        InsertTV_ShowInvoices(DB.GetAllInvoicesBySearchPattern(newValue));
+
     }
 
     // DELETE AN INVOICE

@@ -465,6 +465,33 @@ public class Database {
         return invoicesWithCategory;
     }
 
+    protected ArrayList<String> GetAllInvoicesBySearchPattern(String searchPattern) {
+        ArrayList<String> InvoiceList = new ArrayList<>();
+        try (Connection connection = ConnectToDatabase()) {
+            String storedProc = "{CALL GetInvoicesBySearchPattern(?)}";
+            CallableStatement callableStatement = connection.prepareCall(storedProc);
+            callableStatement.setString(1, searchPattern);
+            ResultSet resultSet = callableStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String companyName = resultSet.getString("CompanyName") != null ? resultSet.getString("CompanyName") : " ";
+                InvoiceList.add(resultSet.getString("CategoryName") + " - " +
+                        resultSet.getString("Name") + " - " +
+                        resultSet.getString("Description") + " - " +
+                        resultSet.getString("Amount") + " - " +
+                        companyName + " - " +
+                        resultSet.getString("Date") + " - " +
+                        resultSet.getString("Timestamp") + " - " +
+                        resultSet.getString("isPaid"));
+            }
+
+            return InvoiceList;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     protected ArrayList<String> GetInvoicesByDateRange(Date StartDate, Date EndDate) {
         ArrayList<String> Invoices = new ArrayList<>();
         String CallProcedure = "CALL GetInvoicesByDateRange(?, ?)";
