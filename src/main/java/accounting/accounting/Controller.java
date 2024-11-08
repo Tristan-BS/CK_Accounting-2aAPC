@@ -478,8 +478,9 @@ public class Controller {
         // Check if the invoice is the same date as today
         String selectedInvoice = TV_ShowInvoices.getSelectionModel().getSelectedItem();
         String[] parts = selectedInvoice.split(" - ");
-        String invoiceDate = parts[4];
+        String invoiceDate = parts[5];
 
+        System.out.println(LocalDate.now() + " - " + invoiceDate);
         // Check if the invoice is from today
         if (!invoiceDate.equals(String.valueOf(LocalDate.now()))) {
             Functions.ShowPopup("E", "Delete Invoice", "You can't delete an invoice that is not from today");
