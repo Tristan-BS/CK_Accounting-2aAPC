@@ -81,21 +81,50 @@ public class Functions {
         return numberFormat.format(number);
     }
 
-    public static String FormatMonth(int Month) {
-        return switch (Month) {
-            case 1 -> "January";
-            case 2 -> "February";
-            case 3 -> "March";
-            case 4 -> "April";
-            case 5 -> "May";
-            case 6 -> "June";
-            case 7 -> "July";
-            case 8 -> "August";
-            case 9 -> "September";
-            case 10 -> "October";
-            case 11 -> "November";
-            case 12 -> "December";
-            default -> "Invalid Month";
-        };
+    public static String FormatMonth(String Year_Month) {
+        // Year_Month is in the format of YYYY-MM
+        String[] YearMonth = String.valueOf(Year_Month).split("-");
+
+        // Switch the month to the name of the month
+        switch (YearMonth[1]) {
+            case "1":
+                YearMonth[1] = "January";
+                break;
+            case "2":
+                YearMonth[1] = "February";
+                break;
+            case "3":
+                YearMonth[1] = "March";
+                break;
+            case "4":
+                YearMonth[1] = "April";
+                break;
+            case "5":
+                YearMonth[1] = "May";
+                break;
+            case "6":
+                YearMonth[1] = "June";
+                break;
+            case "7":
+                YearMonth[1] = "July";
+                break;
+            case "8":
+                YearMonth[1] = "August";
+                break;
+            case "9":
+                YearMonth[1] = "September";
+                break;
+            case "10":
+                YearMonth[1] = "October";
+                break;
+            case "11":
+                YearMonth[1] = "November";
+                break;
+            case "12":
+                YearMonth[1] = "December";
+                break;
+        }
+
+        return YearMonth[1] + " " + YearMonth[0];
     }
 }

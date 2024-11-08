@@ -510,29 +510,38 @@ public class Controller {
     @FXML
     private void On_B_SaveNewInvoice_Pressed() {
         String CompanyNameToPass;
-        if(CB_NewInvoiceCustomer.getValue().equalsIgnoreCase("Choose") || CB_NewInvoiceCustomer.getValue().isEmpty()) {
+        if (CB_NewInvoiceCustomer.getValue().equalsIgnoreCase("Choose") || CB_NewInvoiceCustomer.getValue().isEmpty()) {
             CompanyNameToPass = "None";
         } else {
             CompanyNameToPass = CB_NewInvoiceCustomer.getValue();
         }
-        boolean ReturnValue = DB.InsertNewInvoice(CB_NewInvoiceType.getValue(), TF_NewInvoiceName.getText(), TF_NewInvoiceDescription.getText(), TF_NewInvoiceAmount.getText(), Date.valueOf(DP_NewInvoiceDate.getValue()),CB_InvoicePaid.isSelected(), CompanyNameToPass);
 
-        if(ReturnValue) {
-            InsertTV_ShowInvoices(DB.GetAllInvoices());
-            Functions.ShowPopup("I", "Create New Invoice", "The new invoice has been saved successfully");
-            // Reset Values
-            CB_NewInvoiceType.getSelectionModel().selectFirst();
-            CB_NewInvoiceCustomer.getSelectionModel().selectFirst();
-            TF_NewInvoiceName.clear();
-            TF_NewInvoiceDescription.clear();
-            TF_NewInvoiceAmount.clear();
-            DP_NewInvoiceDate.setValue(LocalDate.now());
-            CB_InvoicePaid.setSelected(false);
-
-            initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
-            initializeOpenInvoices();
+        if(TF_NewInvoiceAmount.getText().equals("0") || TF_NewInvoiceAmount.getText().contains("-")) {
+            Functions.ShowPopup("E", "Error Creating New Invoice", "The Amount must be greater than 0");
+        } else if(TF_NewInvoiceAmount.getText().matches("[0-9]+")) {
+            Functions.ShowPopup("E", "Error Creating New Invoice", "The Amount must be a number");
+        } else if(TF_NewInvoiceName.getText().isEmpty() || TF_NewInvoiceDescription.getText().isEmpty() || TF_NewInvoiceAmount.getText().isEmpty() || DP_NewInvoiceDate.getValue() == null || CB_NewInvoiceType.getValue().equalsIgnoreCase("Choose")) {
+            Functions.ShowPopup("E", "Error Creating New Invoice", "Please fill in all necessary fields");
         } else {
-            Functions.ShowPopup("E", "Error Creating New Invoice", "The new invoice could not be saved");
+            boolean ReturnValue = DB.InsertNewInvoice(CB_NewInvoiceType.getValue(), TF_NewInvoiceName.getText(), TF_NewInvoiceDescription.getText(), TF_NewInvoiceAmount.getText(), Date.valueOf(DP_NewInvoiceDate.getValue()), CB_InvoicePaid.isSelected(), CompanyNameToPass);
+
+            if (ReturnValue) {
+                InsertTV_ShowInvoices(DB.GetAllInvoices());
+                Functions.ShowPopup("I", "Create New Invoice", "The new invoice has been saved successfully");
+                // Reset Values
+                CB_NewInvoiceType.getSelectionModel().selectFirst();
+                CB_NewInvoiceCustomer.getSelectionModel().selectFirst();
+                TF_NewInvoiceName.clear();
+                TF_NewInvoiceDescription.clear();
+                TF_NewInvoiceAmount.clear();
+                DP_NewInvoiceDate.setValue(LocalDate.now());
+                CB_InvoicePaid.setSelected(false);
+
+                initializeBarChart(DB.GetAllInvoicesWithCategory(CB_ShowPaidInvoices.isSelected()));
+                initializeOpenInvoices();
+            } else {
+                Functions.ShowPopup("E", "Error Creating New Invoice", "The new invoice could not be saved");
+            }
         }
 
     }
@@ -545,15 +554,19 @@ public class Controller {
     // NEW CATEGORY CODE
     @FXML
     private void On_B_SaveCategory_Pressed() {
-        boolean ReturnValue = DB.InsertNewCategory(TF_CategoryName.getText(), CB_CategoryType.getValue(), TA_NewCG_Other.getText());
-        if (!ReturnValue) {
-            Functions.ShowPopup("E", "Error Creating New Category", "The Category could not be saved");
+        if(TF_CategoryName.getText().isEmpty() || CB_CategoryType.getValue().equalsIgnoreCase("Choose")) {
+            Functions.ShowPopup("E", "Error Creating New Category", "Please fill in all necessary fields");
         } else {
-            Functions.ShowPopup("I", "Create New Category", "The Category was saved successfully");
-            InsertTV_Categories();
-            TF_CategoryName.clear();
-            CB_CategoryType.getSelectionModel().selectFirst();
-            TA_NewCG_Other.clear();
+            boolean ReturnValue = DB.InsertNewCategory(TF_CategoryName.getText(), CB_CategoryType.getValue(), TA_NewCG_Other.getText());
+            if (!ReturnValue) {
+                Functions.ShowPopup("E", "Error Creating New Category", "The Category could not be saved");
+            } else {
+                Functions.ShowPopup("I", "Create New Category", "The Category was saved successfully");
+                InsertTV_Categories();
+                TF_CategoryName.clear();
+                CB_CategoryType.getSelectionModel().selectFirst();
+                TA_NewCG_Other.clear();
+            }
         }
     }
     @FXML
@@ -608,6 +621,13 @@ public class Controller {
     private void On_B_SaveNewCustomer_Pressed() {
         if (!CB_DSGVO.isSelected()) {
             Functions.ShowPopup("E", "Error Creating New Customer", "You have to accept the GDPR Compliance Statement");
+            return;
+            // Check if all necessary fields are filled (fields with *)
+        } else if(TF_Company.getText().isEmpty() || TF_Street.getText().isEmpty() || TF_HouseNumber.getText().isEmpty() || TF_Location.getText().isEmpty() || TF_PostalCode.getText().isEmpty() || CB_Country.getValue().equalsIgnoreCase("Choose")){
+            Functions.ShowPopup("E", "Error Creating New Customer", "Please fill in all necessary fields marked with *");
+            return;
+        } else if(TF_HouseNumber.getText().matches("[0-9]+") && TF_PostalCode.getText().matches("[0-9]+")) {
+            Functions.ShowPopup("E", "Error Creating New Customer", "House Number and Postal Code must be a number");
             return;
         }
 
@@ -665,7 +685,30 @@ public class Controller {
     }
     @FXML
     private void On_B_ClearAllNewCustomer_Pressed() {
-        System.out.println("Save New Customer Pressed");
+        // Clear ALL fields and reset Comboboxes to "Choose"
+        TF_Company.clear();
+        TF_Street.clear();
+        TF_HouseNumber.clear();
+        TF_Location.clear();
+        TF_PostalCode.clear();
+        CB_Country.getSelectionModel().selectFirst();
+        CB_DSGVO.setSelected(false);
+
+        CB_Gender.getSelectionModel().selectFirst();
+        CB_Title.getSelectionModel().selectFirst();
+        CB_Gender2.getSelectionModel().selectFirst();
+        CB_Title2.getSelectionModel().selectFirst();
+
+        TF_Firstname.clear();
+        TF_Lastname.clear();
+        TF_Email.clear();
+        TF_TelNr.clear();
+        TF_Firstname2.clear();
+        TF_Lastname2.clear();
+        TF_Email2.clear();
+        TF_TelNr2.clear();
+        TA_Others.clear();
+
     }
 
     // CATEGORY CODE
@@ -776,8 +819,8 @@ public class Controller {
         String WorstMonthAmount = WorstMonth.get(1);
 
         // Dont show month: 2 or month 1: but the whole month NAME like august, december or somethin - Format month into month name
-        BestMonthString = Functions.FormatMonth(Integer.parseInt(BestMonthString));
-        WorstMonthString = Functions.FormatMonth(Integer.parseInt(WorstMonthString));
+        BestMonthString = Functions.FormatMonth(BestMonthString);
+        WorstMonthString = Functions.FormatMonth(WorstMonthString);
 
         // Format the Amounts
         String Formatted_BestYearAmount = Functions.formatNumber(Double.parseDouble(BestYearAmount));

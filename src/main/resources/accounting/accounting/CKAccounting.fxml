@@ -502,7 +502,7 @@
                                                       <Button fx:id="B_ResetFilter" mnemonicParsing="false" onAction="#On_B_ResetFilter_Pressed" text="Reset Filter" />
                                                    </children>
                                                    <GridPane.margin>
-                                                      <Insets left="185.0" top="185.0" />
+                                                      <Insets left="185.0" top="160.0" />
                                                    </GridPane.margin>
                                                 </HBox>
                                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -515,7 +515,7 @@
                                                       <TextField fx:id="TF_SearchTable" onInputMethodTextChanged="#On_TF_SearchTable_TextChanged" />
                                                    </children>
                                                    <GridPane.margin>
-                                                      <Insets left="15.0" right="245.0" top="185.0" />
+                                                      <Insets left="15.0" right="245.0" top="160.0" />
                                                    </GridPane.margin>
                                                 </HBox>
                                              </children>
@@ -545,7 +545,7 @@
                                                       <Font name="System Bold" size="28.0" />
                                                    </font>
                                                 </Label>
-                                                <Label fx:id="L_VORLAGE9" minWidth="100.0" text="Category" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                                                <Label fx:id="L_VORLAGE9" minWidth="100.0" text="* Category" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                                                    <GridPane.margin>
                                                       <Insets left="50.0" />
                                                    </GridPane.margin>
@@ -555,7 +555,7 @@
                                                       <Insets left="50.0" top="50.0" />
                                                    </GridPane.margin>
                                                 </ComboBox>
-                                                <Label fx:id="L_VORLAGE91" minWidth="100.0" text="Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                <Label fx:id="L_VORLAGE91" minWidth="100.0" text="* Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                                    <GridPane.margin>
                                                       <Insets bottom="50.0" right="150.0" />
                                                    </GridPane.margin>
@@ -570,12 +570,12 @@
                                                       <Insets top="100.0" />
                                                    </GridPane.margin>
                                                 </TextField>
-                                                <Label fx:id="L_VORLAGE92" minWidth="100.0" text="Amount" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                <Label fx:id="L_VORLAGE92" minWidth="100.0" text="* Amount" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                    <GridPane.margin>
                                                       <Insets right="150.0" top="80.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label fx:id="L_VORLAGE93" minWidth="100.0" text="Date" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                                <Label fx:id="L_VORLAGE93" minWidth="100.0" text="* Date" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                                    <GridPane.margin>
                                                       <Insets bottom="100.0" left="50.0" right="150.0" top="150.0" />
                                                    </GridPane.margin>
@@ -595,7 +595,7 @@
                                                       <Insets left="100.0" top="75.0" />
                                                    </GridPane.margin>
                                                 </Button>
-                                                <Label fx:id="L_VORLAGE911" layoutX="577.0" layoutY="206.0" minWidth="100.0" text="Description" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                <Label fx:id="L_VORLAGE911" layoutX="577.0" layoutY="206.0" minWidth="100.0" text="* Description" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                    <GridPane.margin>
                                                       <Insets right="150.0" />
                                                    </GridPane.margin>
@@ -787,43 +787,43 @@
                                              </font>
                                           </Label>
                                           <Separator layoutX="418.0" layoutY="62.0" orientation="VERTICAL" prefHeight="547.0" prefWidth="32.0" />
-                                          <Label layoutX="58.0" layoutY="151.0" prefWidth="100.0" text="Company Name" />
+                                          <Label layoutX="58.0" layoutY="151.0" prefWidth="100.0" text="* Company Name" />
                                           <TextField fx:id="TF_Company" layoutX="58.0" layoutY="169.0" prefWidth="150.0" />
-                                          <Label fx:id="L_VORLAGE" layoutX="58.0" layoutY="256.0" prefWidth="100.0" text="Street" />
+                                          <Label fx:id="L_VORLAGE" layoutX="58.0" layoutY="256.0" prefWidth="100.0" text="* Street" />
                                           <TextField fx:id="TF_Street" layoutX="58.0" layoutY="273.0" prefWidth="150.0" />
-                                          <Label fx:id="L_VORLAGE3" layoutX="58.0" layoutY="356.0" prefWidth="100.0" text="Location" />
+                                          <Label fx:id="L_VORLAGE3" layoutX="56.0" layoutY="356.0" prefWidth="100.0" text="* Location" />
                                           <TextField fx:id="TF_Location" layoutX="58.0" layoutY="374.0" prefWidth="150.0" />
-                                          <Label fx:id="L_VORLAGE4" layoutX="58.0" layoutY="465.0" prefHeight="18.0" prefWidth="100.0" text="Country" />
+                                          <Label fx:id="L_VORLAGE4" layoutX="58.0" layoutY="465.0" prefHeight="18.0" prefWidth="100.0" text="* Country" />
                                           <ComboBox fx:id="CB_Country" layoutX="58.0" layoutY="485.0" prefHeight="26.0" prefWidth="150.0" />
-                                          <Label fx:id="L_VORLAGE1" layoutX="244.0" layoutY="256.0" prefWidth="100.0" text="House number" />
+                                          <Label fx:id="L_VORLAGE1" layoutX="243.0" layoutY="256.0" prefWidth="100.0" text="* House number" />
                                           <TextField fx:id="TF_HouseNumber" layoutX="244.0" layoutY="272.0" prefWidth="150.0" />
-                                          <Label fx:id="L_VORLAGE2" layoutX="244.0" layoutY="356.0" prefWidth="100.0" text="Postal Code" />
+                                          <Label fx:id="L_VORLAGE2" layoutX="244.0" layoutY="356.0" prefWidth="100.0" text="* Postal Code" />
                                           <TextField fx:id="TF_PostalCode" layoutX="244.0" layoutY="374.0" prefWidth="150.0" />
-                                          <Label fx:id="L_Gender" layoutX="493.0" layoutY="151.0" prefWidth="100.0" text="Geschlecht" />
+                                          <Label fx:id="L_Gender" layoutX="493.0" layoutY="151.0" prefWidth="100.0" text="* Gender" />
                                           <ComboBox fx:id="CB_Gender" layoutX="491.0" layoutY="169.0" prefWidth="150.0" />
-                                          <Label fx:id="L_Gender2" layoutX="953.0" layoutY="151.0" prefWidth="100.0" text="Geschlecht" />
+                                          <Label fx:id="L_Gender2" layoutX="953.0" layoutY="151.0" prefWidth="100.0" text="Gender" />
                                           <ComboBox fx:id="CB_Gender2" layoutX="950.0" layoutY="169.0" prefWidth="150.0" />
-                                          <Label fx:id="L_Others" layoutX="488.0" layoutY="434.0" text="Sonstiges" />
+                                          <Label fx:id="L_Others" layoutX="493.0" layoutY="434.0" text="Other Information" />
                                           <TextArea fx:id="TA_Others" layoutX="488.0" layoutY="455.0" maxHeight="198.0" prefHeight="99.0" prefWidth="833.0" text="&#10;" />
-                                          <Label fx:id="L_Title" layoutX="732.0" layoutY="151.0" prefWidth="100.0" text="Titel" />
+                                          <Label fx:id="L_Title" layoutX="732.0" layoutY="151.0" prefWidth="100.0" text="* Title" />
                                           <ComboBox fx:id="CB_Title" layoutX="732.0" layoutY="169.0" prefWidth="150.0" />
                                           <ComboBox fx:id="CB_Title2" layoutX="1173.0" layoutY="169.0" prefWidth="150.0" />
-                                          <Label fx:id="L_Title2" layoutX="1173.0" layoutY="151.0" prefWidth="100.0" text="Titel" />
-                                          <Label fx:id="L_Firstname" layoutX="490.0" layoutY="243.0" prefWidth="100.0" text="Vorname" />
+                                          <Label fx:id="L_Title2" layoutX="1173.0" layoutY="151.0" prefWidth="100.0" text="Title" />
+                                          <Label fx:id="L_Firstname" layoutX="490.0" layoutY="243.0" prefWidth="100.0" text="* Firstname" />
                                           <TextField fx:id="TF_Firstname" layoutX="488.0" layoutY="261.0" />
-                                          <Label fx:id="L_Firstname2" layoutX="953.0" layoutY="243.0" prefWidth="100.0" text="Vorname" />
+                                          <Label fx:id="L_Firstname2" layoutX="953.0" layoutY="243.0" prefWidth="100.0" text="Firstname" />
                                           <TextField fx:id="TF_Firstname2" layoutX="950.0" layoutY="259.0" />
-                                          <Label fx:id="L_Lastname" layoutX="729.0" layoutY="243.0" prefWidth="100.0" text="Nachname" />
+                                          <Label fx:id="L_Lastname" layoutX="729.0" layoutY="243.0" prefWidth="100.0" text="* Lastname" />
                                           <TextField fx:id="TF_Lastname" layoutX="729.0" layoutY="261.0" />
-                                          <Label fx:id="L_Lastname2" layoutX="1173.0" layoutY="243.0" prefWidth="100.0" text="Nachname" />
+                                          <Label fx:id="L_Lastname2" layoutX="1173.0" layoutY="243.0" prefWidth="100.0" text="Lastname" />
                                           <TextField fx:id="TF_Lastname2" layoutX="1173.0" layoutY="259.0" />
-                                          <Label fx:id="L_TelNr" layoutX="490.0" layoutY="344.0" prefWidth="100.0" text="Tel Nr" />
+                                          <Label fx:id="L_TelNr" layoutX="490.0" layoutY="344.0" prefWidth="100.0" text="* Phone Number" />
                                           <TextField fx:id="TF_TelNr" layoutX="488.0" layoutY="360.0" />
-                                          <Label fx:id="L_TelNr2" layoutX="953.0" layoutY="344.0" prefWidth="100.0" text="Tel Nr" />
+                                          <Label fx:id="L_TelNr2" layoutX="953.0" layoutY="344.0" prefWidth="100.0" text="Phone Number" />
                                           <TextField fx:id="TF_TelNr2" layoutX="950.0" layoutY="360.0" />
-                                          <Label fx:id="L_Email" layoutX="729.0" layoutY="344.0" prefWidth="100.0" text="EMail" />
+                                          <Label fx:id="L_Email" layoutX="729.0" layoutY="344.0" prefWidth="100.0" text="* E-Mail" />
                                           <TextField fx:id="TF_Email" layoutX="729.0" layoutY="360.0" />
-                                          <Label fx:id="L_Email2" layoutX="1173.0" layoutY="344.0" prefWidth="100.0" text="Email" />
+                                          <Label fx:id="L_Email2" layoutX="1173.0" layoutY="344.0" prefWidth="100.0" text="E-Mail" />
                                           <TextField fx:id="TF_Email2" layoutX="1173.0" layoutY="361.0" />
                                           <Label fx:id="L_VORLAGE511" layoutX="950.0" layoutY="62.0" text="Deputy Contact Person">
                                              <font>
@@ -832,7 +832,7 @@
                                           </Label>
                                           <Label fx:id="L_DSGVO" layoutX="58.0" layoutY="643.0" minHeight="80.0" minWidth="364.0" prefHeight="80.0" prefWidth="364.0" text="DSGVO" wrapText="true" />
                                           <CheckBox fx:id="CB_DSGVO" layoutX="55.0" layoutY="609.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="25.0" />
-                                          <Label fx:id="L_AcceptDSGVO" layoutX="81.0" layoutY="618.0" onMouseClicked="#On_L_AcceptDSGVO_Pressed" text="Accept DSGVO" />
+                                          <Label fx:id="L_AcceptDSGVO" layoutX="81.0" layoutY="618.0" onMouseClicked="#On_L_AcceptDSGVO_Pressed" text="* Accept DSGVO" />
                                           <Separator layoutX="903.0" layoutY="60.0" orientation="VERTICAL" prefHeight="383.0" prefWidth="32.0" />
                                           <Button fx:id="B_SaveNewCustomer" layoutX="1075.0" layoutY="630.0" mnemonicParsing="false" onAction="#On_B_SaveNewCustomer_Pressed" text="Save Customer" />
                                           <Button fx:id="B_ClearAllNewCustomer" layoutX="1190.0" layoutY="630.0" mnemonicParsing="false" onAction="#On_B_ClearAllNewCustomer_Pressed" text="Clear All" />
@@ -863,12 +863,12 @@
                                                    </font>
                                                 </Label>
                                                 <TextField fx:id="TF_CategoryName" maxWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                                                <Label fx:id="L_VORLAGE6" text="Category Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                <Label fx:id="L_VORLAGE6" text="* Category Name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                                    <GridPane.margin>
                                                       <Insets right="165.0" />
                                                    </GridPane.margin>
                                                 </Label>
-                                                <Label fx:id="L_VORLAGE7" text="Category Type" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                <Label fx:id="L_VORLAGE7" text="* Category Type" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                    <GridPane.margin>
                                                       <Insets right="170.0" top="50.0" />
                                                    </GridPane.margin>

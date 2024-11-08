@@ -701,20 +701,22 @@ public class Database {
     }
 
     protected ArrayList<String> GetBestMonth() {
-        String BestMonth;
+        String BestMonth, YearToMonth;
         double TotalAmount;
-        ArrayList<String> BestMontList = new ArrayList<>();
+        ArrayList<String> BestMonthList = new ArrayList<>();
         String GetBestMonth = "SELECT YEAR(Date) AS Year, MONTH(Date) AS Month, SUM(Amount) AS TotalAmount FROM ck_invoices GROUP BY YEAR(Date), MONTH(Date) ORDER BY TotalAmount DESC LIMIT 1";
         try (Connection connection = ConnectToDatabase()) {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(GetBestMonth);
             resultSet.next();
             BestMonth = resultSet.getString("Month");
+            YearToMonth = resultSet.getString("Year");
             TotalAmount = resultSet.getDouble("TotalAmount");
 
-            BestMontList.add(BestMonth);
-            BestMontList.add(String.valueOf(TotalAmount));
-            return BestMontList;
+            String monthYear = YearToMonth + "-" + BestMonth;
+            BestMonthList.add(monthYear);
+            BestMonthList.add(String.valueOf(TotalAmount));
+            return BestMonthList;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -722,7 +724,7 @@ public class Database {
     }
 
     protected ArrayList<String> GetWorstMonth() {
-        String BestMonth;
+        String BestMonth, YearToMonth;
         double TotalAmount;
         ArrayList<String> BestMontList = new ArrayList<>();
         String GetWorstMonth = "SELECT YEAR(Date) AS Year, MONTH(Date) AS Month, SUM(Amount) AS TotalAmount FROM ck_invoices GROUP BY YEAR(Date), MONTH(Date) ORDER BY TotalAmount ASC LIMIT 1";
@@ -731,9 +733,11 @@ public class Database {
             ResultSet resultSet = statement.executeQuery(GetWorstMonth);
             resultSet.next();
             BestMonth = resultSet.getString("Month");
+            YearToMonth = resultSet.getString("Year");
             TotalAmount = resultSet.getDouble("TotalAmount");
 
-            BestMontList.add(BestMonth);
+            String monthYear = YearToMonth + "-" + BestMonth;
+            BestMontList.add(monthYear);
             BestMontList.add(String.valueOf(TotalAmount));
             return BestMontList;
 
