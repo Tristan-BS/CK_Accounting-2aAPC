@@ -1,4 +1,4 @@
-## DOKUENTATION
+## DOKUMENTATION
 
 ## Homepage
 ![Home](documentation/ProgramDescription/CK_Home_01.png)
