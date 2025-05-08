@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server-Version:               11.5.2-MariaDB - mariadb.org binary distribution
+-- Server-Version:               11.6.2-MariaDB - mariadb.org binary distribution
 -- Server-Betriebssystem:        Win64
--- HeidiSQL Version:             12.6.0.6765
+-- HeidiSQL Version:             12.10.0.7000
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -13,8 +13,7 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-SHOW WARNINGS;
-/* Warnung: (1287) '@@sql_notes' is deprecated and will be removed in a future release. Please use '@@note_verbosity' instead */
+
 
 -- Exportiere Datenbank-Struktur für ckaccounting
 CREATE DATABASE IF NOT EXISTS `ckaccounting` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
@@ -33,10 +32,9 @@ CREATE TABLE IF NOT EXISTS `ck_categories` (
 
 -- Exportiere Daten aus Tabelle ckaccounting.ck_categories: ~3 rows (ungefähr)
 INSERT INTO `ck_categories` (`Category_ID`, `Name`, `Type`, `Others`) VALUES
-	(1ckaccountingckaccounting, 'Salary', 2, 'Monthly salary for employees'),
+	(1, 'Salary', 2, 'Monthly salary for employees'),
 	(2, 'Sale of goods', 1, 'Stock of goods were sold.'),
 	(3, 'TestCategory', 1, 'This is for testing. WE ARE GETTING RICH HAHAHAHA');
-/* Info: Records: 3  Duplicates: 0  Warnings: 0 */
 
 -- Exportiere Struktur von Tabelle ckaccounting.ck_categorytypes
 CREATE TABLE IF NOT EXISTS `ck_categorytypes` (
@@ -49,7 +47,6 @@ CREATE TABLE IF NOT EXISTS `ck_categorytypes` (
 INSERT INTO `ck_categorytypes` (`CGType_ID`, `Type`) VALUES
 	(1, 'Income'),
 	(2, 'Expenses');
-/* Info: Records: 2  Duplicates: 0  Warnings: 0 */
 
 -- Exportiere Struktur von Tabelle ckaccounting.ck_companydetails
 CREATE TABLE IF NOT EXISTS `ck_companydetails` (
@@ -69,7 +66,6 @@ INSERT INTO `ck_companydetails` (`Company_ID`, `C_Name`, `C_Street`, `C_HouseNum
 	(1, 'Knapp AG', 'Dortdahalt', 47, 'Harti', 724, 'Austria', ''),
 	(4, 'Kugel Studio', 'Entschendorf', 47, 'St. Margarethen an der Raab', 8321, 'Austria', '\nDie Firma is cool!'),
 	(6, 'Peter Griffin GmbH', 'asdopkasd', 234, 'asdasd', 2134, 'Germany', '\nasdasdqwdasd');
-/* Info: Records: 3  Duplicates: 0  Warnings: 0 */
 
 -- Exportiere Struktur von Tabelle ckaccounting.ck_contactperson
 CREATE TABLE IF NOT EXISTS `ck_contactperson` (
@@ -95,7 +91,6 @@ INSERT INTO `ck_contactperson` (`ContactPers_ID`, `Rank`, `Title`, `Gender_ID`, 
 	(2, 1, 'AR', 1, 'Quantn', 'Tyrone', 'yoyoyoyoyo@sdmf', '124345', 1),
 	(3, 1, 'Bakk. techn.*', 1, 'asdqwd', 'dasdas', 'asdw3q', '1243234', 6),
 	(4, 2, 'Bakk. techn.*', 1, 'asdgfhjgfdsa', 'asfdthzfhsd', 'asdasd', '32423', 6);
-/* Info: Records: 4  Duplicates: 0  Warnings: 0 */
 
 -- Exportiere Struktur von Tabelle ckaccounting.ck_countries
 CREATE TABLE IF NOT EXISTS `ck_countries` (
@@ -112,7 +107,6 @@ INSERT INTO `ck_countries` (`ID`, `Country`) VALUES
 	(4, 'Spain'),
 	(5, 'France'),
 	(6, 'Italy');
-/* Info: Records: 6  Duplicates: 0  Warnings: 0 */
 
 -- Exportiere Struktur von Tabelle ckaccounting.ck_gender
 CREATE TABLE IF NOT EXISTS `ck_gender` (
@@ -126,19 +120,18 @@ INSERT INTO `ck_gender` (`Gender_ID`, `Type`) VALUES
 	(1, 'Male'),
 	(2, 'Female'),
 	(3, 'Diverse');
-/* Info: Records: 3  Duplicates: 0  Warnings: 0 */
 
 -- Exportiere Struktur von View ckaccounting.ck_getcp_with_cpn
 -- Erstelle temporäre Tabelle, um View-Abhängigkeiten zuvorzukommen
 CREATE TABLE `ck_getcp_with_cpn` (
 	`ContactPers_ID` INT(11) NOT NULL,
-	`Title` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`Firstname` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`Lastname` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`EMail` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`PhoneNr` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`Gender` VARCHAR(10) NULL COLLATE 'utf8mb4_general_ci',
-	`CompanyName` VARCHAR(50) NULL COLLATE 'utf8mb4_general_ci',
+	`Title` VARCHAR(1) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`Firstname` VARCHAR(1) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`Lastname` VARCHAR(1) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`EMail` VARCHAR(1) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`PhoneNr` VARCHAR(1) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`Gender` VARCHAR(1) NULL COLLATE 'utf8mb4_general_ci',
+	`CompanyName` VARCHAR(1) NULL COLLATE 'utf8mb4_general_ci',
 	`CompanyOther` TEXT NULL COLLATE 'utf8mb4_general_ci'
 ) ENGINE=MyISAM;
 
@@ -160,7 +153,6 @@ CREATE TABLE IF NOT EXISTS `ck_invoices` (
 INSERT INTO `ck_invoices` (`Invoice_ID`, `Category_ID`, `Name`, `Description`, `Amount`, `Date`, `Timestamp`) VALUES
 	(2, 2, 'Thats a good question!', 'Something i guess?', 374.39, '2024-11-04', '2024-11-04 07:23:21'),
 	(5, 3, 'YesterDayDateTimeSalaryINVOICE', 'Thats from yesterday', 3852.85, '2024-11-03', '2024-11-04 07:43:28');
-/* Info: Records: 2  Duplicates: 0  Warnings: 0 */
 
 -- Exportiere Struktur von Tabelle ckaccounting.ck_titles
 CREATE TABLE IF NOT EXISTS `ck_titles` (
@@ -169,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `ck_titles` (
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
--- Exportiere Daten aus Tabelle ckaccounting.ck_titles: ~70 rows (ungefähr)
+-- Exportiere Daten aus Tabelle ckaccounting.ck_titles: ~69 rows (ungefähr)
 INSERT INTO `ck_titles` (`ID`, `Title`) VALUES
 	(4, 'Abg.z.NR'),
 	(5, 'ADir.'),
@@ -240,7 +232,6 @@ INSERT INTO `ck_titles` (`ID`, `Title`) VALUES
 	(71, 'Univ.-Doz., Univ.Doz.'),
 	(72, 'Univ.-Lekt., Univ.Lekt.'),
 	(73, 'Univ.-Prof., Univ.Prof.');
-/* Info: Records: 69  Duplicates: 0  Warnings: 0 */
 
 -- Entferne temporäre Tabelle und erstelle die eigentliche View
 DROP TABLE IF EXISTS `ck_getcp_with_cpn`;
@@ -259,13 +250,11 @@ FROM
 LEFT JOIN 
     ck_gender g ON cp.Gender_ID = g.Gender_ID
 LEFT JOIN 
-    ck_companydetails cd ON cp.Company_ID = cd.Company_ID ;
+    ck_companydetails cd ON cp.Company_ID = cd.Company_ID 
+;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
-SHOW WARNINGS;
-/* Warnung: (1287) '@@sql_notes' is deprecated and will be removed in a future release. Please use '@@note_verbosity' instead */
-/* Betroffene Zeilen: 93  Gefundene Zeilen: 0  Warnungen: 2  Dauer von 34 Abfragen: 0,141 Sek. */
